@@ -198,6 +198,35 @@
     .app-lbl { position: relative; z-index: 1; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 4px; }
     .app-title { position: relative; z-index: 1; font-size: 18px; font-weight: 900; text-transform: uppercase; color: rgba(0,0,0,0.8); line-height: 1.1; }
 
+    /* PULLQUOTE */
+    .pullquote {
+      border-left: 3px solid var(--turquesa);
+      padding: 20px 28px; margin: 40px 0 0;
+      font-size: clamp(17px, 2vw, 24px); font-weight: 300;
+      font-style: italic; color: var(--white-dim);
+      line-height: 1.65; max-width: 680px;
+    }
+    .pullquote cite {
+      display: block; margin-top: 12px;
+      font-size: 10px; font-style: normal; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+    }
+
+    /* TÉCNICAS */
+    .tecnicas { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); margin-top: 48px; }
+    .tecnica { background: var(--bg); padding: 24px 28px; }
+    .tecnica-ref { font-size: 9px; font-weight: 700; letter-spacing: 0.2em; color: var(--turquesa); text-transform: uppercase; margin-bottom: 8px; }
+    .tecnica-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; text-transform: uppercase; }
+    .tecnica-author { font-size: 12px; font-weight: 300; color: var(--white-dim); }
+
+    /* ENC SUBTITLE */
+    .enc-subtitle { font-size: 11px; font-weight: 400; color: rgba(0,0,0,0.4); margin-top: 5px; letter-spacing: 0.02em; }
+
+    /* REDES */
+    .redes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
+    .rede-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); text-transform: uppercase; padding: 7px 14px; border: 1px solid var(--border); }
+
     /* REVEAL */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: none; }
@@ -260,6 +289,7 @@
   <p class="section-label">02 — Conceito</p>
   <p class="intro-text reveal">Uma vivência artística <strong>imersiva e totalmente gratuita</strong> que integra o corpo, a mente e a dança contemporânea.</p>
   <p class="intro-text reveal" style="font-size:clamp(15px,1.6vw,18px); margin-top:8px;">Projeto viabilizado pela Política Nacional Aldir Blanc (PNAB), em parceria com o Espaço Com.Vida Casa das Artes e a Quik Cia de Dança — 26 anos de pesquisa, criação e ensino em dança contemporânea.</p>
+  <blockquote class="pullquote reveal">"São 26 anos pesquisando, criando, formando e provocando artisticamente outros bailarinos, público e a nós mesmos."<cite>Letícia Carneiro · Rodrigo Quik — Quik Cia de Dança</cite></blockquote>
   <div class="pilares reveal">
     <div class="pilar"><p class="pilar-num">01</p><h3 class="pilar-title">Percepção</h3><p class="pilar-desc">Consciência e escuta do próprio corpo.</p></div>
     <div class="pilar"><p class="pilar-num">02</p><h3 class="pilar-title">Criatividade</h3><p class="pilar-desc">Jogos, expressão e criação em movimento.</p></div>
@@ -359,10 +389,12 @@
   <div class="keywords reveal">
     <span class="keyword">MOVIMENTO</span>
     <span class="keyword">CONSCIÊNCIA</span>
-    <span class="keyword">LIBERDADE</span>
-    <span class="keyword">GRATUIDADE</span>
-    <span class="keyword">COLETIVO</span>
+    <span class="keyword">PERTENCIMENTO</span>
+    <span class="keyword">ESCUTA</span>
+    <span class="keyword">EXPRESSÃO</span>
     <span class="keyword">CORPO</span>
+    <span class="keyword">ACOLHIMENTO</span>
+    <span class="keyword">TRANSFORMAÇÃO</span>
   </div>
   <div class="voz-cols reveal">
     <div>
