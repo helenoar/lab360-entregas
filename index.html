@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAB 360° — Sistema de Entregas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #000000;
+      --surface: #0d0d0d;
+      --border: #1a1a1a;
+      --cyan: #00F0FF;
+      --cyan-dim: rgba(0, 240, 255, 0.12);
+      --text: #ffffff;
+      --text-secondary: rgba(255,255,255,0.45);
+      --font: 'Inter', sans-serif;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      padding: 64px 48px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    h1 span {
+      color: var(--text-secondary);
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      padding: 48px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--bg);
+      padding: 32px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: background 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px;
+      height: 100%;
+      background: var(--cyan);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .project-card:hover {
+      background: var(--surface);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .client-name {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .project-name {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--cyan);
+      letter-spacing: 0.02em;
+    }
+
+    .card-action {
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.15s ease;
+    }
+
+    .project-card:hover .card-action {
+      color: var(--cyan);
+    }
+
+    .card-action::after {
+      content: '→';
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 24px 48px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-text {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 40px 24px 32px; }
+      main { padding: 32px 24px; }
+      footer { padding: 20px 24px; }
+      h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="logo">LAB 360°</p>
+    <h1>Sistema de Entregas<br><span>— Identidades Visuais</span></h1>
+  </header>
+
+  <main>
+    <p class="section-label">Projetos</p>
+
+    <div class="projects-grid">
+
+      <a class="project-card" href="./Clientes/Quik Cia de Dança/MOVER CONSCIENTE/identidade-visual/index.html">
+        <span class="client-name">Quik Cia de Dança</span>
+        <span class="project-name">Mover Consciente</span>
+        <span class="card-action">Ver Identidade Visual</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-text">LAB 360° © 2025</p>
+  </footer>
+
+</body>
+</html>
