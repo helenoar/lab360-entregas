@@ -1,13 +1,28 @@
 # LAB 360° — Instruções de Projeto
 
-## Design System
+## 🔴 CRÍTICO: Design System LAB360° ≠ Identidade Visual do Cliente
 
-**SEMPRE ler antes de gerar qualquer HTML:**
+### Design System LAB360° = ESTRUTURA do documento
+- Arquivo: `_template/LAB360-design-system.md`
+- É SEMPRE IGUAL para todos os clientes
+- Define: fonte (Inter/JetBrains Mono), fundo (preto), acentos (cyan), componentes
+- É a MOLDURA/APRESENTAÇÃO do documento
+
+### Identidade Visual do Cliente = CONTEÚDO do documento
+- Fonte: PDF do Canva em `Clientes/[Cliente]/[Projeto]/Design/`
+- MUDA a cada cliente
+- Define: paleta, tipografia, logo DO CLIENTE
+- É o que está DENTRO da moldura
+
+**O HTML mostra a identidade visual do cliente, apresentada na estrutura LAB360°.**
+
+---
+
+**SEMPRE ler Design System antes de gerar HTML:**
 ```
 _template/LAB360-design-system.md
 ```
-
-Este arquivo contém todos os tokens, componentes, animações e estrutura base. **NUNCA ler** `Referência estética_LAB 360°/index.html` — foi substituído pelo design system.
+Mas lembre: você está lendo para entender HOW o documento é estruturado, não para replicar suas cores/tipografia no cliente. O cliente tem suas próprias cores/tipografia.
 
 ## Estrutura de Pastas
 
