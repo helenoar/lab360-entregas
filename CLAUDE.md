@@ -26,13 +26,25 @@ Leitura é para entender a ESTRUTURA, não para replicar cores/tipografia no cli
 
 ## Estrutura de Pastas
 
+O serviço é a subpasta direta do cliente. Cada cliente pode ter um ou mais serviços.
+
 ```
-clientes/[clienteslug]/[projetoslug]/
-  Formulario/           ← brief do cliente (PDF ou .txt)
-  Design/               ← PDF do Canva com a identidade visual
-  Texto/                ← .txt/.md para Notion (opcional)
-  identidade-visual/
+clientes/[clienteslug]/
+  identidade-visual/    ← se contratou Identidade Visual Completa
+    Formulario/         ← brief do cliente (PDF ou .txt)
+    Design/             ← PDF do Canva com o design
+    Texto/              ← .txt/.md para Notion (opcional)
     index.html          ← Claude gera e commita aqui
+  logo/                 ← se contratou Logo
+    Formulario/
+    Design/
+    Texto/
+    index.html
+  redes-sociais/        ← se contratou Design para Redes Sociais
+    Formulario/
+    Design/
+    Texto/
+    index.html
 index.html              ← dashboard na raiz (lista todos os clientes)
 ```
 
@@ -43,39 +55,67 @@ Slugs **sempre** em minúsculas, sem espaços, sem acentos, sem hífens.
 | Nome real | Slug correto |
 |-----------|-------------|
 | Quik Cia de Dança | `quikciadadanca` |
-| MOVER CONSCIENTE | `moverconsciente` |
 | Studio Alma | `studioalma` |
+| Café Raiz | `caferaiz` |
 
-URL resultante: `lab360-entregas.vercel.app/clientes/[clienteslug]/[projetoslug]/identidade-visual/`
+URLs resultantes:
+- `lab360-entregas.vercel.app/clientes/studioalma/identidade-visual/`
+- `lab360-entregas.vercel.app/clientes/studioalma/logo/`
+- `lab360-entregas.vercel.app/clientes/caferaiz/redes-sociais/`
 
-## Criar novo cliente
+## Criar novo cliente / serviço
 
 Usar o comando `/novo-cliente`:
 ```
-/novo-cliente Nome do Cliente — Nome do Projeto
+/novo-cliente Nome do Cliente — tipo-de-servico
 ```
-Cria as 4 pastas, adiciona card no `index.html` raiz e faz commit.
+
+Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais`
+
+Exemplos:
+- `/novo-cliente Studio Alma — identidade-visual`
+- `/novo-cliente Café Raiz — logo`
+- `/novo-cliente Maria Souza — redes-sociais`
+
+O comando cria as subpastas dentro de `clientes/[clienteslug]/[tipo-de-servico]/`, adiciona card no `index.html` raiz e faz commit. Se o cliente já existe, apenas adiciona o novo serviço.
+
+## Fluxo Principal — Novo Pedido (use este)
+
+Quando Heleno traz um novo cliente/pedido, o fluxo é:
+
+1. Heleno nomeia os arquivos com prefixo e joga em `_inbox/`:
+   - `form-[slug].pdf` — formulário exportado do Tally
+   - `design-[slug].pdf` — design exportado do Canva
+   - `texto-[slug].txt` — texto para Notion (opcional)
+2. Heleno abre Claude Code e digita:
+   ```
+   /novo-pedido Nome do Cliente — tipo-de-servico
+   ```
+3. Claude faz tudo: cria pastas, move arquivos, gera HTML, pausa para revisão
+4. Heleno aprova → Claude commita, faz push, cria Notion se tiver texto
+5. Heleno recebe as URLs e repassa ao cliente
+
+**Tipos de serviço:** `identidade-visual` | `logo` | `redes-sociais`
 
 ## Workflow de Geração de HTML
 
 1. Ler `Formulario/` — brief do cliente em voz própria
 2. Ler `Design/` — PDF do design visual
-3. Ler `_template/LAB360-design-system.md` — estrutura LAB 360°
+3. Ler `_template/LAB360-design-system.md` — estrutura LAB 360°, seção 8 para identificar quais seções usar conforme o serviço
 4. **Invocar skill `huashu-design`** para gerar o HTML
-5. Salvar em `identidade-visual/index.html`
+5. Salvar em `clientes/[clienteslug]/[tipo-de-servico]/index.html`
 6. `git add` + `git commit` + `git push`
 7. Vercel auto-deploya em ~30s
 8. Entregar URL ao Heleno
 
-### Seções do HTML (sempre as mesmas)
+### Seções por serviço
 
-1. Hero — nome do projeto + eyebrow + tagline
-2. Conceito — origem, intenção, contexto (do formulário)
-3. Paleta de Cores — swatches com hex, nome, sensação
-4. Tipografia — fontes com exemplos, hierarquia
-5. Logo — variações, área de respiro, usos
-6. Voz & Tom — como a marca fala, palavras-chave (do formulário)
-7. Aplicações — exemplos visuais de aplicação
+As seções de cada tipo de entrega estão definidas em `_template/LAB360-design-system.md` seção 8 (8A, 8B, 8C). Sempre consultar antes de gerar.
+
+Resumo:
+- **8A — Identidade Visual Completa** (12 seções): Hero → Sobre a Marca → Posicionamento → Público → Personalidade → Logo → Paleta → Tipografia → Elementos Visuais → Voz & Tom → Aplicações → Guia Rápido
+- **8B — Logo** (9 seções): Hero → Conceito → Versões do Logo → Paleta → Tipografia → Sobre Fundos → Área de Respiro → Usos Corretos & Incorretos → Aplicações
+- **8C — Design para Redes Sociais** (8 seções): Hero → Estratégia → Galeria das Peças → Detalhamento por Peça → Tipografia → Paleta → Especificações Técnicas → Como Usar
 
 Se falta material em alguma seção, adaptar com o que existe — **nunca omitir a seção**.
 
@@ -95,8 +135,13 @@ Claude gerencia tudo. Heleno não toca em git.
 
 Commits sempre com:
 ```
-git commit -m "Gerar identidade visual: [Cliente] — [Projeto]"
+git commit -m "Gerar [tipo de serviço]: [Cliente] — [Projeto]"
 ```
+
+Exemplos:
+- `Gerar identidade visual: Studio Alma — Branding 2025`
+- `Gerar logo: Café Raiz — Logo 2025`
+- `Gerar redes sociais: Maria Souza — Pack Janeiro`
 
 ## Comunicação
 
