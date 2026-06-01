@@ -1,0 +1,57 @@
+# Inbox — arquivos temporários e não-versionados
+# Coloque brevemente PDFs do Tally, Canva, imagens, TXTs aqui para processamento.
+
+# Documentos e apresentações
+*.pdf
+*.ppt
+*.pptx
+*.doc
+*.docx
+*.xls
+*.xlsx
+
+# Imagens e mídia
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.webp
+*.ico
+
+# Áudio e vídeo
+*.mp3
+*.wav
+*.m4a
+*.mp4
+*.mov
+*.webm
+
+# Compactados
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# Texto bruto
+*.txt
+*.md
+*.csv
+
+# Backups e temporários
+*.bak
+*.tmp
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Node, Python, etc. (caso alguém rode scripts locais)
+node_modules/
+__pycache__/
+*.pyc
+.env
+
+# Manter apenas o .gitkeep
+!.gitkeep
