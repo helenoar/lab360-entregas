@@ -5,11 +5,11 @@
 ### Design System LAB360° = ESTRUTURA do documento
 - Arquivo: `_template/LAB360-design-system.md`
 - É SEMPRE IGUAL para todos os clientes
-- Define: fonte (Inter/JetBrains Mono), fundo (preto), acentos (cyan), componentes
+- Define: moldura (fundo preto, nav dots, status bar, canvas rizoma)
 - É a MOLDURA/APRESENTAÇÃO do documento
 
 ### Identidade Visual do Cliente = CONTEÚDO do documento
-- Fonte: PDF do Canva em `Clientes/[Cliente]/[Projeto]/Design/`
+- Fonte: PDF do Canva em `clientes/[clienteslug]/[projetoslug]/Design/`
 - MUDA a cada cliente
 - Define: paleta, tipografia, logo DO CLIENTE
 - É o que está DENTRO da moldura
@@ -22,28 +22,47 @@
 ```
 _template/LAB360-design-system.md
 ```
-Mas lembre: você está lendo para entender HOW o documento é estruturado, não para replicar suas cores/tipografia no cliente. O cliente tem suas próprias cores/tipografia.
+Leitura é para entender a ESTRUTURA, não para replicar cores/tipografia no cliente.
 
 ## Estrutura de Pastas
 
 ```
-Clientes/[Cliente]/[Projeto]/
-  Formulário/           ← resposta do Tally exportada (PDF ou .txt)
-  Design/               ← PDF do Canva/programa de design
-  Texto/                ← .txt/.md para Notion (conteúdo para revisão)
+clientes/[clienteslug]/[projetoslug]/
+  Formulario/           ← brief do cliente (PDF ou .txt)
+  Design/               ← PDF do Canva com a identidade visual
+  Texto/                ← .txt/.md para Notion (opcional)
   identidade-visual/
     index.html          ← Claude gera e commita aqui
+index.html              ← dashboard na raiz (lista todos os clientes)
 ```
 
-A pasta de saída é **sempre** `identidade-visual/` — mesmo que o projeto seja só logo, só página ou só redes sociais. Todo trabalho é apresentado como documento de identidade visual completo.
+### 🔴 Regra de nomenclatura de pastas (OBRIGATÓRIO)
+
+Slugs **sempre** em minúsculas, sem espaços, sem acentos, sem hífens.
+
+| Nome real | Slug correto |
+|-----------|-------------|
+| Quik Cia de Dança | `quikciadadanca` |
+| MOVER CONSCIENTE | `moverconsciente` |
+| Studio Alma | `studioalma` |
+
+URL resultante: `lab360-entregas.vercel.app/clientes/[clienteslug]/[projetoslug]/identidade-visual/`
+
+## Criar novo cliente
+
+Usar o comando `/novo-cliente`:
+```
+/novo-cliente Nome do Cliente — Nome do Projeto
+```
+Cria as 4 pastas, adiciona card no `index.html` raiz e faz commit.
 
 ## Workflow de Geração de HTML
 
-1. Ler `[Projeto]/Formulário/` — brief do cliente em voz própria
-2. Ler `[Projeto]/Design/` — PDF do design visual
-3. Ler `_template/LAB360-design-system.md` — estética LAB 360°
+1. Ler `Formulario/` — brief do cliente em voz própria
+2. Ler `Design/` — PDF do design visual
+3. Ler `_template/LAB360-design-system.md` — estrutura LAB 360°
 4. **Invocar skill `huashu-design`** para gerar o HTML
-5. Salvar em `[Projeto]/identidade-visual/index.html`
+5. Salvar em `identidade-visual/index.html`
 6. `git add` + `git commit` + `git push`
 7. Vercel auto-deploya em ~30s
 8. Entregar URL ao Heleno
@@ -59,6 +78,12 @@ A pasta de saída é **sempre** `identidade-visual/` — mesmo que o projeto sej
 7. Aplicações — exemplos visuais de aplicação
 
 Se falta material em alguma seção, adaptar com o que existe — **nunca omitir a seção**.
+
+## Hosting
+
+- Projeto Vercel: `lab360-entregas.vercel.app`
+- **Sem `vercel.json`** — Vercel detecta site estático automaticamente
+- Git push → deploy automático em ~30s
 
 ## Notion
 
@@ -82,8 +107,3 @@ git commit -m "Gerar identidade visual: [Cliente] — [Projeto]"
 ## Contato
 
 WhatsApp do Heleno (aprovações): (31) 99686-2968
-
-## Links Importantes
-
-- Plano de implementação: `docs/planos/`
-- Design spec: `docs/superpowers/specs/`
