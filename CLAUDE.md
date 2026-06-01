@@ -9,7 +9,7 @@
 - É a MOLDURA/APRESENTAÇÃO do documento
 
 ### Identidade Visual do Cliente = CONTEÚDO do documento
-- Fonte: PDF do Canva em `clientes/[clienteslug]/[projetoslug]/Design/`
+- Fonte: PDF do Canva em `clientes/[clienteslug]/[tiposervico]/Design/`
 - MUDA a cada cliente
 - Define: paleta, tipografia, logo DO CLIENTE
 - É o que está DENTRO da moldura
@@ -63,21 +63,19 @@ URLs resultantes:
 - `lab360-entregas.vercel.app/clientes/studioalma/logo/`
 - `lab360-entregas.vercel.app/clientes/caferaiz/redes-sociais/`
 
-## Criar novo cliente / serviço
+## Criar estrutura manualmente (sem inbox)
 
-Usar o comando `/novo-cliente`:
+Use `/novo-cliente` quando quiser criar a estrutura de pastas SEM ter os arquivos ainda — por exemplo, para já deixar a pasta pronta antes do cliente enviar os materiais.
+
 ```
 /novo-cliente Nome do Cliente — tipo-de-servico
 ```
 
 Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais`
 
-Exemplos:
-- `/novo-cliente Studio Alma — identidade-visual`
-- `/novo-cliente Café Raiz — logo`
-- `/novo-cliente Maria Souza — redes-sociais`
+Cria as subpastas em `clientes/[clienteslug]/[tipo-de-servico]/`, adiciona card no `index.html` e faz commit. Se o cliente já existe, apenas adiciona o novo serviço.
 
-O comando cria as subpastas dentro de `clientes/[clienteslug]/[tipo-de-servico]/`, adiciona card no `index.html` raiz e faz commit. Se o cliente já existe, apenas adiciona o novo serviço.
+> Para o fluxo completo (com arquivos prontos), use `/novo-pedido` — ver seção abaixo.
 
 ## Fluxo Principal — Novo Pedido (use este)
 
@@ -97,11 +95,13 @@ Quando Heleno traz um novo cliente/pedido, o fluxo é:
 
 **Tipos de serviço:** `identidade-visual` | `logo` | `redes-sociais`
 
-## Workflow de Geração de HTML
+## Workflow de Geração de HTML (fluxo manual/interno)
+
+> Este fluxo é executado automaticamente pelo `/novo-pedido`. Use manualmente só se precisar regerar um HTML sem usar o pipeline completo.
 
 1. Ler `Formulario/` — brief do cliente em voz própria
 2. Ler `Design/` — PDF do design visual
-3. Ler `_template/LAB360-design-system.md` — estrutura LAB 360°, seção 8 para identificar quais seções usar conforme o serviço
+3. Ler `_template/LAB360-design-system.md` — seção 8 para identificar as seções conforme o serviço
 4. **Invocar skill `huashu-design`** para gerar o HTML
 5. Salvar em `clientes/[clienteslug]/[tipo-de-servico]/index.html`
 6. `git add` + `git commit` + `git push`
