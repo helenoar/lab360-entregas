@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    ".superpowers/": true,
+    ".playwright-mcp/": true,
+    "docs/": true,
+    "vault/": true,
+    "README.md": true
+  }
+}

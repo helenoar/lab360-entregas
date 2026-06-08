@@ -110,7 +110,7 @@ rm "_inbox/[arquivoEstrategia]"
 **Para calendario-editorial:**
 - Ler `gestao-de-redes-sociais/[clienteSlug]/[mesAno]/estrategia.md`
 - Ler `_template/LAB360-design-system.md` — seção 8D
-- Ler `_servicos/gestao-de-redes-sociais/calendario-editorial/knowledge-base.md`
+- Ler `gestao-de-redes-sociais/_knowledge-base.md`
 
 ### 6. Adicionar card no index.html
 

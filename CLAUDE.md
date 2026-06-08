@@ -9,7 +9,7 @@
 - É a MOLDURA/APRESENTAÇÃO do documento
 
 ### Identidade Visual do Cliente = CONTEÚDO do documento
-- Fonte: PDF do Canva em `clientes/[clienteslug]/[tiposervico]/Design/`
+- Fonte: PDF do Canva em `[servico]/[clienteslug]/Design/`
 - MUDA a cada cliente
 - Define: paleta, tipografia, logo DO CLIENTE
 - É o que está DENTRO da moldura
@@ -73,7 +73,7 @@ Use `/novo-cliente` quando quiser criar a estrutura de pastas SEM ter os arquivo
 
 Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais`
 
-Cria as subpastas em `clientes/[clienteslug]/[tipo-de-servico]/`, adiciona card no `index.html` e faz commit. Se o cliente já existe, apenas adiciona o novo serviço.
+Cria as subpastas em `[servico]/[clienteSlug]/`, adiciona card no `index.html` e faz commit. Se o cliente já existe em outro serviço, apenas adiciona o novo.
 
 > Para o fluxo completo (com arquivos prontos), use `/novo-pedido` — ver seção abaixo.
 
@@ -109,7 +109,7 @@ Quando Heleno traz um novo cliente/pedido, o fluxo é:
 2. Ler `Design/` — PDF do design visual
 3. Ler `_template/LAB360-design-system.md` — seção 8 para identificar as seções conforme o serviço
 4. **Invocar skill `huashu-design`** para gerar o HTML
-5. Salvar em `clientes/[clienteslug]/[tipo-de-servico]/index.html`
+5. Salvar em `[servico]/[clienteSlug]/index.html`
 6. `git add` + `git commit` + `git push`
 7. Vercel auto-deploya em ~30s
 8. Entregar URL ao Heleno
