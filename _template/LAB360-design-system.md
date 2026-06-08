@@ -275,6 +275,62 @@ Rodapé sempre inclui:
 | 7 | **Especificações Técnicas** | Tamanhos em px por plataforma (feed 1080×1080, Story 1080×1920, etc.) | Formulário Q3 |
 | 8 | **Como Usar** | Instruções de edição no Canva, onde substituir texto/imagem | Formulário Q4 |
 
+### 8D. CALENDÁRIO EDITORIAL
+*Apresentação do planejamento mensal de conteúdo. Entrega recorrente (mensal). 6 seções.*
+
+Fonte dos dados: `_inbox/calendario-[slug]-[mes-ano].md` — arquivo gerado pelo agente de estratégia.
+Antes de gerar, ler `_servicos/gestao-de-redes-sociais/calendario-editorial/knowledge-base.md` para referência estratégica.
+
+| # | Seção | Conteúdo | Fonte no arquivo .md |
+|---|-------|----------|----------------------|
+| 1 | **Hero** | Nome da marca, mês de referência, plataformas cobertas | `META.cliente`, `META.mes`, `META.plataformas` |
+| 2 | **Estratégia do Mês** | Objetivo central, tema do mês, tom de voz, público | `ESTRATÉGIA` completo |
+| 3 | **Pilares de Conteúdo** | Cards com nome, cor hex, percentual e descrição de cada pilar | `PILARES` completo |
+| 4 | **Calendário Visual** | Grade mensal interativa — cada dia com card clicável: pilar (cor do card), formato, tema. Clique expande detalhe. Dias sem post ficam vazios. | `POSTS` — iterar por data |
+| 5 | **Detalhamento dos Posts** | Lista de todos os posts: data formatada, pilar, formato, tema e legenda completa | `POSTS` — todos os campos |
+| 6 | **O que esperar** | Lista de indicadores de foco do mês, sem prometer números | `EXPECTATIVAS` |
+
+**Componente do Calendário Visual (seção 4):**
+- Grade CSS de 7 colunas (dom–sáb) com cabeçalho dos dias da semana
+- Dias sem post: célula vazia com número do dia em `rgba(255,255,255,0.15)`
+- Dias com post: card clicável com cor de fundo do pilar (opacidade 0.15), borda esquerda sólida na cor do pilar, número do dia, ícone do formato e título curto
+- Clique no card: expande modal ou seção âncora com legenda completa
+- Legenda do pilar: lista colorida abaixo do calendário como key
+- Mobile: grade de 3 colunas ou lista por semana
+
+**Formato do arquivo de entrada (`calendario-[slug]-[mes-ano].md`):**
+````
+## META
+cliente: [nome]
+slug: [slug]
+mes: [junho-2025]
+plataformas: [Instagram, TikTok]
+objetivo_do_mes: [frase]
+
+## ESTRATÉGIA
+tom_de_voz: [adjetivos]
+tema_central: [frase]
+publico: [descrição]
+
+## PILARES
+- nome: [nome]
+  cor: [#hex]
+  percentual: [N%]
+  descricao: [texto]
+
+## POSTS
+- data: [YYYY-MM-DD]
+  pilar: [nome do pilar]
+  formato: [Reels|Carrossel|Feed|Stories]
+  tema: [título curto]
+  legenda: |
+    [legenda completa]
+
+## EXPECTATIVAS
+- [indicador 1]
+- [indicador 2]
+````
+
 ---
 
 ## 9. Meta Tags Obrigatórias
