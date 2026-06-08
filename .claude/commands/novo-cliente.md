@@ -1,75 +1,87 @@
 # Comando: novo-cliente
 
-Cria a estrutura de pastas para um novo cliente no LAB 360° e adiciona o card no index.html.
+Cria a estrutura de pastas para um novo cliente/serviço e adiciona o card no index.html.
+Use quando quiser preparar a estrutura ANTES de ter os arquivos prontos.
 
 ## Entrada esperada
 
 `$ARGUMENTS` deve ser no formato: `Nome do Cliente — tipo-de-servico`
 
-Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais`
+Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais` | `calendario-editorial`
 
 Exemplos:
 - `Studio Alma — identidade-visual`
 - `Café Raiz — logo`
-- `Maria Souza — redes-sociais`
+- `Studio Alma — calendario-editorial`
 
-Se o tipo não for informado, perguntar ao Heleno antes de prosseguir.
+Se o tipo não for informado, perguntar antes de prosseguir.
 
 ## O que fazer
 
-### 1. Derivar slug e tipo de serviço
+### 1. Derivar slug e tipo
 
-A partir de `$ARGUMENTS`, extrair:
-- **clienteNome**: parte antes do `—` (ex: `Studio Alma`)
-- **tipoServico**: parte depois do `—` (ex: `identidade-visual`)
-- **clienteSlug**: minúsculas, sem espaços, sem acentos, sem caracteres especiais (ex: `studioalma`)
-
-Regras de slug: remover acentos (á→a, ç→c, etc.), converter para minúsculas, remover espaços e hífens.
+- **clienteNome**: antes do `—`
+- **tipoServico**: depois do `—`
+- **clienteSlug**: minúsculas, sem acentos, sem espaços, sem hífens
 
 Mapa de label por serviço:
-| tipoServico | labelCard |
-|-------------|-----------|
-| `identidade-visual` | `Ver Identidade Visual` |
-| `logo` | `Ver Logo` |
-| `redes-sociais` | `Ver Redes Sociais` |
+| tipoServico | labelCard | nomeLegivelCard |
+|-------------|-----------|-----------------|
+| `identidade-visual` | `Ver Identidade Visual` | `Identidade Visual Completa` |
+| `logo` | `Ver Logo` | `Logo` |
+| `redes-sociais` | `Ver Redes Sociais` | `Design para Redes Sociais` |
+| `calendario-editorial` | `Ver Calendário` | `Calendário Editorial` |
 
 ### 2. Criar estrutura de pastas
 
-Criar as seguintes pastas no repositório (raiz: `/Users/helenocarneiro/CLAUDECODE/SISTEMA DE ENTREGAS_LAB 360°/`):
-
+**Para identidade-visual, logo, redes-sociais:**
+```bash
+mkdir -p "[pastaRaiz][clienteSlug]/Formulario"
+mkdir -p "[pastaRaiz][clienteSlug]/Design"
+mkdir -p "[pastaRaiz][clienteSlug]/Texto"
+touch "[pastaRaiz][clienteSlug]/Formulario/.gitkeep"
+touch "[pastaRaiz][clienteSlug]/Design/.gitkeep"
+touch "[pastaRaiz][clienteSlug]/Texto/.gitkeep"
 ```
-clientes/[clienteSlug]/[tipoServico]/Formulario/
-clientes/[clienteSlug]/[tipoServico]/Design/
-clientes/[clienteSlug]/[tipoServico]/Texto/
+
+Mapa de pastaRaiz:
+- `identidade-visual` → `identidade-visual/`
+- `logo` → `logo/`
+- `redes-sociais` → `redes-sociais/`
+
+**Para calendario-editorial:**
+```bash
+mkdir -p "gestao-de-redes-sociais/[clienteSlug]"
+touch "gestao-de-redes-sociais/[clienteSlug]/.gitkeep"
 ```
+(não cria subpasta de mês — isso é feito no /novo-pedido quando o arquivo chegar)
 
-Criar um arquivo `.gitkeep` em cada subpasta para que o git rastreie os diretórios vazios.
-Não criar `.gitkeep` na pasta `[tipoServico]/` em si — o `index.html` vai existir ali depois.
-
-Se `clientes/[clienteSlug]/` já existir (cliente com outro serviço anterior), apenas adicionar a nova subpasta de serviço.
+Se a pasta raiz do cliente já existir (cliente com outro serviço anterior), apenas adicionar a nova subpasta.
 
 ### 3. Adicionar card no index.html
 
-Abrir `/Users/helenocarneiro/CLAUDECODE/SISTEMA DE ENTREGAS_LAB 360°/index.html` e adicionar um novo `<a class="project-card">` dentro de `.projects-grid`, logo após o último card existente.
-
-Modelo do card:
+**Para identidade-visual, logo, redes-sociais:**
 ```html
-<a class="project-card" href="./clientes/[clienteSlug]/[tipoServico]/">
+<a class="project-card" href="./[pastaRaiz][clienteSlug]/">
   <span class="client-name">[clienteNome]</span>
-  <span class="project-name">[tipoServico em texto legível]</span>
+  <span class="project-name">[nomeLegivelCard]</span>
   <span class="card-action">[labelCard]</span>
 </a>
 ```
 
-Texto legível do serviço:
-- `identidade-visual` → `Identidade Visual Completa`
-- `logo` → `Logo`
-- `redes-sociais` → `Design para Redes Sociais`
+**Para calendario-editorial:**
+```html
+<a class="project-card" href="./gestao-de-redes-sociais/[clienteSlug]/">
+  <span class="client-name">[clienteNome]</span>
+  <span class="project-name">Calendário Editorial</span>
+  <span class="card-action">Ver Calendário</span>
+</a>
+```
 
 ### 4. Git commit
 
-```
-git add clientes/[clienteSlug]/ index.html
+```bash
+git add "[pastaRaiz][clienteSlug]/" index.html
 git commit -m "chore: criar estrutura para [clienteNome] — [tipoServico]"
 ```
 
@@ -77,6 +89,5 @@ git commit -m "chore: criar estrutura para [clienteNome] — [tipoServico]"
 
 Mostrar:
 - Pastas criadas
-- Tipo de serviço: `[tipoServico]`
-- URL futura: `https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[tipoServico]/`
-- Próximo passo: colocar o PDF do formulário em `Formulario/` e o PDF do design em `Design/`, depois pedir para gerar a entrega
+- Próximo passo: colocar os arquivos em `_inbox/` e rodar `/novo-pedido [clienteNome] — [tipoServico]`
+- URL futura: `https://lab360-entregas.vercel.app/[pastaRaiz][clienteSlug]/`
