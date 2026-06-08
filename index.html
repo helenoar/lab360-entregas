@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LAB 360° — Sistema de Entregas</title>
+  <title>Painel de Entregas — LAB 360°</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -73,7 +73,36 @@
       letter-spacing: 0.2em;
       color: var(--text-secondary);
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    /* CLIENT GROUP */
+    .client-group {
+      margin-bottom: 2px;
+    }
+
+    .client-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1px;
+    }
+
+    .client-name {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .client-count {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.2);
     }
 
     .projects-grid {
@@ -82,16 +111,17 @@
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
+      border-top: none;
     }
 
     .project-card {
       background: var(--bg);
-      padding: 32px;
+      padding: 28px 32px;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       transition: background 0.15s ease;
       position: relative;
       overflow: hidden;
@@ -116,21 +146,23 @@
       opacity: 1;
     }
 
-    .client-name {
-      font-size: 18px;
-      font-weight: 400;
-      letter-spacing: -0.01em;
+    .project-service {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
     }
 
     .project-name {
-      font-size: 13px;
+      font-size: 17px;
       font-weight: 400;
-      color: var(--cyan);
-      letter-spacing: 0.02em;
+      letter-spacing: -0.01em;
+      color: var(--text);
     }
 
     .card-action {
-      margin-top: 16px;
+      margin-top: 12px;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.15em;
@@ -149,6 +181,11 @@
     .card-action::after {
       content: '→';
       font-size: 14px;
+    }
+
+    /* CLIENTS SEPARATOR */
+    .clients-sep {
+      height: 24px;
     }
 
     /* FOOTER */
@@ -176,21 +213,35 @@
 
   <header>
     <p class="logo">LAB 360°</p>
-    <h1>Sistema de Entregas<br><span>— Identidades Visuais</span></h1>
+    <h1>Painel de<br><span>Entregas</span></h1>
   </header>
 
   <main>
-    <p class="section-label">Projetos</p>
+    <p class="section-label">Clientes</p>
 
-    <div class="projects-grid">
-
-      <a class="project-card" href="./identidade-visual/quikciadadanca/">
+    <!-- QUIK CIA DE DANÇA -->
+    <div class="client-group" data-cliente="quikciadadanca">
+      <div class="client-header">
         <span class="client-name">Quik Cia de Dança</span>
-        <span class="project-name">Mover Consciente</span>
-        <span class="card-action">Ver Identidade Visual</span>
-      </a>
+        <span class="client-count">2 projetos</span>
+      </div>
+      <div class="projects-grid">
 
+        <a class="project-card" href="https://lab360-entregas.vercel.app/identidade-visual/quikciadadanca/" target="_blank" rel="noopener">
+          <span class="project-service">Identidade Visual</span>
+          <span class="project-name">Mover Consciente</span>
+          <span class="card-action">Ver entrega</span>
+        </a>
+
+        <a class="project-card" href="https://lab360-entregas.vercel.app/gestao-de-redes-sociais/quikciadadanca/junho-2025/" target="_blank" rel="noopener">
+          <span class="project-service">Calendário Editorial · Jun/Jul 2025</span>
+          <span class="project-name">Mover Consciente</span>
+          <span class="card-action">Ver entrega</span>
+        </a>
+
+      </div>
     </div>
+
   </main>
 
   <footer>

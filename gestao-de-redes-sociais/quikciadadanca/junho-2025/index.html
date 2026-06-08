@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mover Consciente — Calendário Editorial · LAB 360°</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --black:#000;--white:#fff;--cyan:#00F0FF;--gray:#111;
+      --muted:rgba(255,255,255,0.4);--ease:cubic-bezier(0.23,1,0.32,1);
+      --e1:#4A90D9;--e2:#E879A0;--e3:#45C78A;--e4:#F5904D;--e5:#9B7FD4;--e6:#A0A0A0;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;cursor:none;overflow-x:hidden}
+    canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+    #cursor{position:fixed;width:56px;height:56px;background:radial-gradient(circle,var(--cyan) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;filter:blur(5px);opacity:.75}
+    *,*:hover,*:focus{cursor:none!important}
+    @media(pointer:coarse){#cursor{display:none}*,*:hover,*:focus{cursor:auto!important}}
+
+    /* Nav */
+    #snav{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px}
+    .nd{display:flex;align-items:center;gap:8px;cursor:pointer}
+    .ndl{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,0);transition:color .2s;white-space:nowrap}
+    .nd:hover .ndl{color:rgba(255,255,255,.5)}
+    .nd.act .ndl{color:var(--cyan)}
+    .ndc{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s;flex-shrink:0}
+    .nd.act .ndc{background:var(--cyan);box-shadow:0 0 8px var(--cyan);transform:scale(1.3)}
+    @media(max-width:768px){#snav{display:none}}
+
+    /* Status */
+    #sb{position:fixed;bottom:1.25rem;left:1.5rem;z-index:100;display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);pointer-events:none}
+    .sdot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:sdp 2.5s ease-in-out infinite;flex-shrink:0}
+    @keyframes sdp{0%,100%{opacity:.4}50%{opacity:1;box-shadow:0 0 6px var(--cyan)}}
+
+    main{position:relative;z-index:1}
+    .sec{padding:12vh 2rem;max-width:1100px;margin:0 auto}
+    .secw{padding:12vh 2rem;max-width:1340px;margin:0 auto}
+
+    /* Type */
+    .ey{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.5em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem}
+    .hh{font-weight:900;font-size:clamp(3rem,12vw,9rem);line-height:.92;letter-spacing:-.03em}
+    .hs{font-weight:900;font-size:clamp(2.2rem,7vw,5.5rem);line-height:.92}
+    .mono{font-family:'JetBrains Mono',monospace}
+    .acc{color:var(--cyan)}
+
+    /* Reveal */
+    .rv{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .rv.vis{opacity:1;transform:translateY(0)}
+
+    /* Lines */
+    .lh{width:100%;height:1px;background:rgba(255,255,255,.07);margin:2.5rem 0}
+
+    @keyframes fup{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pcyan{0%,100%{opacity:.7;text-shadow:0 0 8px var(--cyan)}50%{opacity:1;text-shadow:0 0 20px var(--cyan),0 0 40px var(--cyan)}}
+
+    /* ── HERO ── */
+    #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 2rem 10vh;position:relative;overflow:hidden}
+    .hmeta{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:1.5rem}
+    .hmeta b{color:var(--cyan);font-weight:400}
+
+    /* ── STRATEGY ── */
+    .sfgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);margin-top:2.5rem}
+    .sfstep{background:var(--black);padding:2rem;position:relative}
+    .sfn{font-weight:900;font-size:3rem;color:rgba(255,255,255,.05);line-height:1;margin-bottom:.75rem}
+    .sftype{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.4rem}
+    .sftitle{font-weight:700;font-size:1.2rem;margin-bottom:.65rem}
+    .sfdesc{font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.65;color:rgba(255,255,255,.5)}
+    .sfbar{position:absolute;top:0;left:0;width:100%;height:3px}
+    @media(max-width:640px){.sfgrid{grid-template-columns:1fr}}
+
+    /* ── PILARES ── */
+    .pilgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,.07);margin-top:2rem}
+    .pilcard{background:var(--black);padding:2.5rem;position:relative}
+    .piltop{height:3px;width:100%;position:absolute;top:0;left:0}
+    .pillabel{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);margin-bottom:.65rem;margin-top:.75rem}
+    .piltitle{font-weight:700;font-size:1.25rem;margin-bottom:.5rem}
+    .pildesc{font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.65;color:rgba(255,255,255,.5)}
+    .encband{display:flex;gap:6px;margin-top:1.5rem;flex-wrap:wrap}
+    .encpill{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.06em;padding:5px 12px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:7px}
+    .encdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+    /* ── CALENDAR ── */
+    .calmonths{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.06);margin-top:2.5rem}
+    @media(max-width:880px){.calmonths{grid-template-columns:1fr}}
+    .calmonth{background:var(--black);padding:1.5rem}
+    .calmname{font-weight:900;font-size:1.4rem;letter-spacing:-.02em;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:1rem}
+    .calwds{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px}
+    .calwd{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:center;padding:5px 0}
+    .calg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+    .cd{min-height:54px;background:rgba(255,255,255,.015);padding:4px;position:relative}
+    .cd.emp{background:transparent}
+    .cd.hp{background:rgba(255,255,255,.025)}
+    .dn{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.18);position:absolute;top:3px;right:5px}
+    .cd.hp .dn{color:rgba(255,255,255,.45)}
+    .pc{margin-top:18px;padding:2px 5px;font-family:'JetBrains Mono',monospace;font-size:.46rem;letter-spacing:.04em;text-transform:uppercase;border-left:2px solid;cursor:pointer;line-height:1.4;transition:opacity .15s;user-select:none}
+    .pc:hover{opacity:.7}
+    .pc+.pc{margin-top:2px}
+    .tbdc{margin-top:20px;padding:2px 3px;font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5);border:1px dashed rgba(255,255,255,.28);text-align:center}
+    .calleg{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07)}
+    .cli{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.4)}
+    .cld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+    /* ── DETAIL ── */
+    .encblk{border:1px solid rgba(255,255,255,.07);margin-bottom:2px;overflow:hidden;transition:border-color .2s}
+    .encblk:hover{border-color:rgba(255,255,255,.14)}
+    .enchdr{display:flex;align-items:center;gap:1.25rem;padding:1.5rem 2rem;cursor:pointer;user-select:none;position:relative;overflow:hidden}
+    .enchdrbar{position:absolute;left:0;top:0;width:3px;height:100%}
+    .encn{font-weight:900;font-size:2.5rem;color:rgba(255,255,255,.06);line-height:1;flex-shrink:0;font-variant-numeric:tabular-nums}
+    .encinfo{flex:1}
+    .enctitle{font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .encdate{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.32);margin-top:3px}
+    .enctog{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(255,255,255,.25);transition:transform .3s;flex-shrink:0}
+    .encblk.open .enctog{transform:rotate(180deg)}
+    .encbody{display:none;padding:0 2rem 2rem 5rem}
+    .encblk.open .encbody{display:block}
+    .pdgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,.05);margin-top:1.25rem}
+    .pditem{background:var(--black);padding:1.5rem}
+    .pdtype{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;margin-bottom:.7rem}
+    .pdidea{font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.72;color:rgba(255,255,255,.58)}
+    .tbdtag{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.15em;padding:2px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3)}
+    @media(max-width:640px){.encbody{padding:0 1rem 1.5rem 1rem}}
+
+    /* ── O QUE ESPERAR ── */
+    .oegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:rgba(255,255,255,.06);margin-top:2.5rem}
+    .oeitem{background:var(--black);padding:2.5rem}
+    .oelabel{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem}
+    .oetext{font-weight:300;font-size:1.05rem;line-height:1.6}
+
+    /* ── FOOTER ── */
+    footer{position:relative;z-index:1;padding:3rem 2rem;border-top:1px solid rgba(255,255,255,.05);max-width:1100px;margin:0 auto}
+    .ft{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.18)}
+
+    /* ── MODAL ── */
+    #mo{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2000;display:none;align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(8px)}
+    #mo.open{display:flex}
+    #mb{background:#080808;border:1px solid rgba(255,255,255,.1);max-width:520px;width:100%;padding:2.5rem;position:relative;max-height:90vh;overflow-y:auto}
+    #mclose{position:absolute;top:1rem;right:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:rgba(255,255,255,.3);cursor:pointer;background:none;border:none}
+    #mclose:hover{color:var(--cyan)}
+    #mbar{height:2px;width:36px;margin-bottom:1.5rem}
+    #mtype{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:.35rem}
+    #mtitle{font-weight:700;font-size:1.35rem;margin-bottom:.35rem}
+    #mdate{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.32);margin-bottom:1.25rem}
+    .mdiv{height:1px;background:rgba(255,255,255,.07);margin:1.25rem 0}
+    #midea{font-family:'JetBrains Mono',monospace;font-size:.88rem;line-height:1.78;color:rgba(255,255,255,.7)}
+    #mnotes{font-family:'JetBrains Mono',monospace;font-size:.75rem;line-height:1.65;color:rgba(255,255,255,.35)}
+  </style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+<div id="cursor"></div>
+
+<nav id="snav">
+  <div class="nd act" data-s="hero"><span class="ndl">Início</span><span class="ndc"></span></div>
+  <div class="nd" data-s="estrategia"><span class="ndl">Estratégia</span><span class="ndc"></span></div>
+  <div class="nd" data-s="pilares"><span class="ndl">Pilares</span><span class="ndc"></span></div>
+  <div class="nd" data-s="calendario"><span class="ndl">Calendário</span><span class="ndc"></span></div>
+  <div class="nd" data-s="detalhamento"><span class="ndl">Detalhamento</span><span class="ndc"></span></div>
+  <div class="nd" data-s="esperar"><span class="ndl">O que esperar</span><span class="ndc"></span></div>
+</nav>
+
+<div id="sb"><span class="sdot"></span>LAB 360° · Mover Consciente</div>
+
+<main>
+
+<!-- ══ 1. HERO ══ -->
+<section id="hero">
+  <div style="max-width:1100px;margin:0 auto;width:100%">
+    <p class="ey" style="animation:fup .6s var(--ease) .2s both">Quik Cia de Dança</p>
+    <h1 class="hh" style="animation:fup .6s var(--ease) .35s both">Mover<br><span class="acc">Consciente</span></h1>
+    <p class="hs" style="color:rgba(255,255,255,.28);font-weight:300;margin-top:.5rem;animation:fup .6s var(--ease) .5s both">Encontros para Dançar</p>
+    <p class="hmeta" style="animation:fup .6s var(--ease) .65s both">
+      Calendário Editorial · <b>Junho–Julho 2025</b> · Instagram
+    </p>
+  </div>
+</section>
+
+<!-- ══ 2. ESTRATÉGIA ══ -->
+<section id="estrategia">
+  <div class="sec">
+    <p class="ey rv">Estratégia</p>
+    <h2 class="hs rv">Lógica de<br><span class="acc">Conteúdo</span></h2>
+    <p class="mono rv" style="font-size:.92rem;line-height:1.78;color:rgba(255,255,255,.55);max-width:660px;margin-top:1.5rem">
+      Cada encontro do Mover Consciente gera três publicações. A lógica é simples e repetível: anunciar, registrar e aprofundar. O ciclo se reinicia a cada encontro, criando um ritmo visual consistente ao longo do projeto.
+    </p>
+
+    <div class="sfgrid rv">
+      <div class="sfstep">
+        <div class="sfbar" style="background:rgba(255,255,255,.18)"></div>
+        <div class="sfn">01</div>
+        <p class="sftype">Dia do evento</p>
+        <p class="sftitle">Flyer</p>
+        <p class="sfdesc">Material de divulgação já produzido com a identidade visual do projeto. Publicado no dia do encontro, marcando @quikciadedanca e o Espaço Com.Vida.</p>
+      </div>
+      <div class="sfstep">
+        <div class="sfbar" style="background:rgba(255,255,255,.18)"></div>
+        <div class="sfn">02</div>
+        <p class="sftype">Dia seguinte</p>
+        <p class="sftitle">Carrossel de Fotos</p>
+        <p class="sfdesc">Registro fotográfico da oficina com direção criativa própria para cada encontro — rostos, objetos, duos, detalhes do corpo. Com #ParaTodosVerem.</p>
+      </div>
+      <div class="sfstep">
+        <div class="sfbar" style="background:rgba(255,255,255,.18)"></div>
+        <div class="sfn">03</div>
+        <p class="sftype">Dois dias depois</p>
+        <p class="sftitle">Vídeo</p>
+        <p class="sfdesc">Registro em vídeo com conceito próprio por encontro — slow motion, split screen, mini-documentário. Com legendas para acessibilidade auditiva.</p>
+      </div>
+    </div>
+
+    <div class="lh"></div>
+    <p class="mono rv" style="font-size:.78rem;color:rgba(255,255,255,.3);letter-spacing:.03em;line-height:1.8">
+      Todas as publicações marcam <span style="color:rgba(255,255,255,.52)">@quikciadedanca</span> e o <span style="color:rgba(255,255,255,.52)">Espaço Com.Vida</span><br>
+      <span style="color:rgba(255,255,255,.52)">#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══ 3. PILARES ══ -->
+<section id="pilares">
+  <div class="sec">
+    <p class="ey rv">Pilares</p>
+    <h2 class="hs rv">Pilares de<br><span class="acc">Conteúdo</span></h2>
+
+    <div class="pilgrid rv">
+      <div class="pilcard">
+        <div class="piltop" style="background:rgba(255,255,255,.22)"></div>
+        <p class="pillabel">Tipo 01</p>
+        <p class="piltitle">Flyer</p>
+        <p class="pildesc">Divulgação dos encontros. Material já produzido com a identidade visual do Mover Consciente aplicada consistentemente — cada encontro na sua cor.</p>
+      </div>
+      <div class="pilcard">
+        <div class="piltop" style="background:rgba(255,255,255,.22)"></div>
+        <p class="pillabel">Tipo 02</p>
+        <p class="piltitle">Carrossel de Fotos</p>
+        <p class="pildesc">Registro fotográfico de cada oficina com narrativa visual própria. Do estado de escuta do corpo à perspectiva do espaço e ao gesto coletivo.</p>
+      </div>
+      <div class="pilcard">
+        <div class="piltop" style="background:rgba(255,255,255,.22)"></div>
+        <p class="pillabel">Tipo 03</p>
+        <p class="piltitle">Vídeo</p>
+        <p class="pildesc">Registro em vídeo com conceito definido por encontro. Do compilado em slow motion ao mini-documentário de encerramento do ciclo.</p>
+      </div>
+    </div>
+
+    <div class="lh rv"></div>
+    <p class="ey rv" style="margin-bottom:.75rem">6 Encontros · Paleta do Ciclo</p>
+    <div class="encband rv" id="enc-chips"></div>
+  </div>
+</section>
+
+<!-- ══ 4. CALENDÁRIO ══ -->
+<section id="calendario">
+  <div class="secw">
+    <p class="ey rv">Calendário</p>
+    <h2 class="hs rv">Calendário<br><span class="acc">Visual</span></h2>
+    <p class="mono rv" style="font-size:.82rem;color:rgba(255,255,255,.4);margin-top:1rem;max-width:580px">
+      Clique em qualquer publicação para ver a ideia criativa detalhada.
+      Datas marcadas como TBD aguardam confirmação dos próximos encontros.
+    </p>
+
+    <div class="calmonths rv" id="cal-wrap"></div>
+    <div class="calleg rv" id="cal-leg"></div>
+  </div>
+</section>
+
+<!-- ══ 5. DETALHAMENTO ══ -->
+<section id="detalhamento">
+  <div class="sec">
+    <p class="ey rv">Detalhamento</p>
+    <h2 class="hs rv">Post a<br><span class="acc">Post</span></h2>
+    <p class="mono rv" style="font-size:.82rem;color:rgba(255,255,255,.4);margin-top:1rem;max-width:580px">
+      Ideia criativa para cada publicação de cada encontro. Os encontros 4, 5 e 6 têm as ideias definidas — aguardam confirmação de data.
+    </p>
+    <div id="enc-detail" style="margin-top:2.5rem"></div>
+  </div>
+</section>
+
+<!-- ══ 6. O QUE ESPERAR ══ -->
+<section id="esperar">
+  <div class="sec">
+    <p class="ey rv">Perspectiva</p>
+    <h2 class="hs rv">O que<br><span class="acc">esperar</span></h2>
+
+    <div class="oegrid rv">
+      <div class="oeitem">
+        <p class="oelabel">Acessibilidade</p>
+        <p class="oetext">Todas as publicações com imagem terão <strong>#ParaTodosVerem</strong>. Vídeos e carrosséis com legendas para acessibilidade auditiva.</p>
+      </div>
+      <div class="oeitem">
+        <p class="oelabel">Identidade Visual</p>
+        <p class="oetext">Cada encontro mantém sua cor específica, criando uma paleta visual coesa ao longo dos 6 encontros do ciclo.</p>
+      </div>
+      <div class="oeitem">
+        <p class="oelabel">Documentação do Ciclo</p>
+        <p class="oetext">Ao final do projeto, a conta terá um acervo completo dos 6 encontros — registro artístico e histórico do Mover Consciente.</p>
+      </div>
+      <div class="oeitem">
+        <p class="oelabel">Comunidade</p>
+        <p class="oetext">Construção gradual de engajamento em torno do projeto, fortalecendo a presença digital da Quik Cia com conteúdo autoral e consistente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p class="ft">LAB 360° · Heleno Carneiro · Quik Cia de Dança</p>
+  <!-- LAB 360° · Heleno Carneiro -->
+</footer>
+
+<!-- Modal -->
+<div id="mo">
+  <div id="mb">
+    <button id="mclose">ESC</button>
+    <div id="mbar"></div>
+    <p id="mtype"></p>
+    <h3 id="mtitle"></h3>
+    <p id="mdate"></p>
+    <div class="mdiv"></div>
+    <p id="midea"></p>
+    <div class="mdiv"></div>
+    <p id="mnotes"></p>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+const ENC={
+  1:{name:'1º Encontro',color:'#4A90D9',date:'22 de junho, domingo · 8h–12h'},
+  2:{name:'2º Encontro',color:'#E879A0',date:'24 de junho, terça · 8h30–12h30'},
+  3:{name:'3º Encontro',color:'#45C78A',date:'1 de julho, terça · 13h30–17h30'},
+  4:{name:'4º Encontro',color:'#F5904D',date:'Data a confirmar · mesmo formato do 1º'},
+  5:{name:'5º Encontro',color:'#9B7FD4',date:'Data a confirmar'},
+  6:{name:'6º Encontro (encerramento)',color:'#A8A8A8',date:'Data a confirmar'}
+};
+
+const POSTS={
+  '2025-06-22':[{id:'f1',enc:1,type:'Flyer',label:'Flyer E1'}],
+  '2025-06-23':[{id:'c1',enc:1,type:'Carrossel',label:'Carrossel E1'}],
+  '2025-06-24':[{id:'f2',enc:2,type:'Flyer',label:'Flyer E2'},{id:'v1',enc:1,type:'Vídeo',label:'Vídeo E1'}],
+  '2025-06-25':[{id:'c2',enc:2,type:'Carrossel',label:'Carrossel E2'}],
+  '2025-06-26':[{id:'v2',enc:2,type:'Vídeo',label:'Vídeo E2'}],
+  '2025-07-01':[{id:'f3',enc:3,type:'Flyer',label:'Flyer E3'}],
+  '2025-07-02':[{id:'c3',enc:3,type:'Carrossel',label:'Carrossel E3'}],
+  '2025-07-03':[{id:'v3',enc:3,type:'Vídeo',label:'Vídeo E3'}]
+};
+
+const DETAIL={
+  f1:{title:'1º Encontro — Flyer',idea:'Flyer de divulgação do 1º encontro, já produzido com a identidade visual do Mover Consciente. Publicar no dia do evento, marcando @quikciadedanca e o Espaço Com.Vida.',notes:'Material pronto · Publicar em 22/06 · Identificar local e horário na legenda'},
+  c1:{title:'1º Encontro — Carrossel de Fotos',idea:'Foco em rostos e expressões durante a prática — o estado de atenção e escuta do próprio corpo. Legendas curtas com frases dos participantes sobre a experiência.',notes:'#ParaTodosVerem em todas as fotos · Publicar em 23/06'},
+  v1:{title:'1º Encontro — Vídeo',idea:'Compilado de movimentos em slow motion ao som de uma trilha suave. Começa com o espaço vazio e termina com os corpos em movimento.',notes:'Legendas ativadas · Trilha instrumental suave · Publicar em 24/06'},
+  f2:{title:'2º Encontro — Flyer',idea:'Flyer de divulgação do 2º encontro com a bola de propriocepção em destaque. Identidade visual na cor do 2º encontro.',notes:'Material pronto · Publicar em 24/06 — mesmo dia que o Vídeo E1'},
+  c2:{title:'2º Encontro — Carrossel de Fotos',idea:'Série de fotos com a bola de propriocepção como personagem central. Planos detalhes: mãos, pés, pontos de contato entre participante e objeto.',notes:'#ParaTodosVerem · Publicar em 25/06'},
+  v2:{title:'2º Encontro — Vídeo',idea:'Foco na interação entre os participantes e o objeto (bola de propriocepção). Edição dinâmica mostrando a evolução do movimento ao longo da oficina.',notes:'Legendas ativadas · Publicar em 26/06'},
+  f3:{title:'3º Encontro — Flyer',idea:'Flyer de divulgação do 3º encontro na cor verde do ciclo. Identidade visual consistente com os encontros anteriores.',notes:'Material pronto · Publicar em 01/07'},
+  c3:{title:'3º Encontro — Carrossel de Fotos',idea:'Fotos de duos e trios — a improvisação com o outro. Destaque para os pontos de contato entre os corpos e a cumplicidade no movimento.',notes:'#ParaTodosVerem · Publicar em 02/07'},
+  v3:{title:'3º Encontro — Vídeo',idea:'Formato "antes e depois" — o aquecimento individual e depois a construção coletiva da cena. Edição que evidencia a transformação do grupo.',notes:'Legendas ativadas · Publicar em 03/07'}
+};
+
+const IDEAS={
+  4:{flyer:'Flyer de divulgação do 4º encontro.',carrossel:'Perspectiva do espaço — fotos aéreas ou de ângulos inusitados do Espaço Com.Vida. O ambiente como parte da experiência, quase como personagem.',video:'Depoimentos rápidos dos participantes (30 segundos cada) intercalados com imagens da prática.'},
+  5:{flyer:'Flyer de divulgação do 5º encontro.',carrossel:'Série "detalhes do corpo" — pés no chão, mãos abertas, coluna em movimento. Fotos artísticas, quase abstratas, que isolam o gesto.',video:'Split screen — dois participantes em movimento simultâneo, mostrando como cada corpo interpreta o mesmo estímulo de forma única.'},
+  6:{flyer:'Flyer de divulgação do encontro de encerramento.',carrossel:'Fotos do grupo completo — celebração do ciclo. Uma foto de abertura do 1º encontro lado a lado com uma do 6º (se possível).',video:'Mini-documentário de encerramento: imagens dos 6 encontros costuradas com uma fala de Letícia ou Rodrigo sobre o processo. O vídeo de memória do projeto.'}
+};
+
+// ── MODAL ──────────────────────────────────────────────
+function openModal(postId){
+  const d=DETAIL[postId];if(!d)return;
+  let encN,type,dateStr;
+  for(const[date,posts]of Object.entries(POSTS)){
+    const p=posts.find(p=>p.id===postId);
+    if(p){
+      encN=p.enc;type=p.type;
+      const dt=new Date(date+'T12:00:00');
+      dateStr=dt.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+      break;
+    }
+  }
+  const color=ENC[encN]?ENC[encN].color:'#fff';
+  document.getElementById('mbar').style.background=color;
+  document.getElementById('mtype').textContent=type;
+  document.getElementById('mtitle').textContent=d.title;
+  document.getElementById('mdate').textContent=dateStr;
+  document.getElementById('midea').textContent=d.idea;
+  document.getElementById('mnotes').textContent=d.notes;
+  document.getElementById('mo').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('mo').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.getElementById('mclose').addEventListener('click',closeModal);
+document.getElementById('mo').addEventListener('click',e=>{if(e.target===document.getElementById('mo'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+// ── CANVAS RIZOMA ──────────────────────────────────────
+(function(){
+  const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+  let W,H,parts;const R=130,mouse={x:-1e4,y:-1e4};
+  function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+  function init(){
+    const N=W<768?50:100;
+    parts=Array.from({length:N},()=>({
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+      ph:Math.random()*Math.PI*2,fr:.0004+Math.random()*.0003,
+      am:.3+Math.random()*.4,al:.04+Math.random()*.07
+    }));
+  }
+  let t=0;
+  function draw(){
+    ctx.clearRect(0,0,W,H);t++;
+    for(let i=0;i<parts.length;i++){
+      const p=parts[i];
+      p.vx+=Math.sin(t*p.fr+p.ph)*.02;
+      p.vy+=Math.cos(t*p.fr+p.ph*1.3)*.02;
+      p.vx*=.98;p.vy*=.98;
+      const dx=p.x-mouse.x,dy=p.y-mouse.y,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<R){const f=(R-dist)/R;p.vx+=(dx/dist)*f*.8;p.vy+=(dy/dist)*f*.8}
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      const ma=dist<R?1-dist/R:0;
+      ctx.beginPath();ctx.arc(p.x,p.y,1.5,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${p.al+ma*.3})`;ctx.fill();
+      for(let j=i+1;j<parts.length;j++){
+        const q=parts[j],dx2=p.x-q.x,dy2=p.y-q.y,d2=Math.sqrt(dx2*dx2+dy2*dy2);
+        if(d2<R){
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+          ctx.strokeStyle=`rgba(0,240,255,${(1-d2/R)*.05})`;ctx.lineWidth=.4;ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();init()});
+  window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+  resize();init();draw();
+})();
+
+// ── CURSOR ────────────────────────────────────────────
+(function(){
+  const cur=document.getElementById('cursor');
+  let cx=0,cy=0,tx=0,ty=0;
+  window.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
+  (function loop(){cx+=(tx-cx)*.11;cy+=(ty-cy)*.11;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(loop)})();
+})();
+
+// ── REVEAL ────────────────────────────────────────────
+(function(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const d=+e.target.dataset.d||0;
+        setTimeout(()=>e.target.classList.add('vis'),d);
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.rv').forEach((el,i)=>{
+    // Stagger siblings
+    const siblings=[...el.parentElement.querySelectorAll('.rv')];
+    const idx=siblings.indexOf(el);
+    el.dataset.d=idx*80;
+    io.observe(el);
+  });
+})();
+
+// ── NAV DOTS ──────────────────────────────────────────
+(function(){
+  const dots=document.querySelectorAll('.nd');
+  dots.forEach(d=>{
+    d.addEventListener('click',()=>{
+      const el=document.getElementById(d.dataset.s);
+      if(el)el.scrollIntoView({behavior:'smooth'});
+    });
+  });
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        dots.forEach(d=>d.classList.remove('act'));
+        const a=document.querySelector(`[data-s="${e.target.id}"]`);
+        if(a)a.classList.add('act');
+      }
+    });
+  },{threshold:.4});
+  ['hero','estrategia','pilares','calendario','detalhamento','esperar'].forEach(id=>{
+    const el=document.getElementById(id);if(el)io.observe(el);
+  });
+})();
+
+// ── ENC CHIPS (section 3) ─────────────────────────────
+(function(){
+  const c=document.getElementById('enc-chips');if(!c)return;
+  Object.entries(ENC).forEach(([n,e])=>{
+    const chip=document.createElement('div');
+    chip.className='encpill';
+    chip.innerHTML=`<span class="encdot" style="background:${e.color}"></span>${e.name}`;
+    c.appendChild(chip);
+  });
+})();
+
+// ── CALENDAR ──────────────────────────────────────────
+(function(){
+  const wrap=document.getElementById('cal-wrap');if(!wrap)return;
+
+  // July: TBD hints for encounters 4,5,6 in weeks 2-4
+  // We show possible windows without committing to specific days
+  const julyTbd=[8,9,10,15,16,17,22,23,24];
+
+  function buildMonth(year,month,label,tbdDays){
+    const div=document.createElement('div');
+    div.className='calmonth';
+    const firstDay=new Date(year,month-1,1).getDay();
+    const daysInMonth=new Date(year,month,0).getDate();
+    let h=`<p class="calmname">${label}</p>`;
+    h+='<div class="calwds">';
+    ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].forEach(d=>{h+=`<div class="calwd">${d}</div>`});
+    h+='</div><div class="calg">';
+    for(let i=0;i<firstDay;i++)h+='<div class="cd emp"></div>';
+    for(let day=1;day<=daysInMonth;day++){
+      const key=`${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      const dp=POSTS[key];
+      const isTbd=tbdDays&&tbdDays.includes(day);
+      if(dp&&dp.length){
+        h+=`<div class="cd hp" id="cd-${key}"><span class="dn">${day}</span>`;
+        dp.forEach((p,pi)=>{
+          const col=ENC[p.enc].color;
+          h+=`<div class="pc" data-pid="${p.id}" style="border-color:${col};color:${col};background:${col}1A;margin-top:${pi===0?18:2}px">${p.label}</div>`;
+        });
+        h+='</div>';
+      } else if(isTbd){
+        h+=`<div class="cd"><span class="dn">${day}</span><div class="tbdc">TBD</div></div>`;
+      } else {
+        h+=`<div class="cd"><span class="dn">${day}</span></div>`;
+      }
+    }
+    h+='</div>';
+    div.innerHTML=h;
+    div.querySelectorAll('[data-pid]').forEach(el=>{
+      el.addEventListener('click',e=>{e.stopPropagation();openModal(el.dataset.pid)});
+    });
+    return div;
+  }
+
+  wrap.appendChild(buildMonth(2025,6,'Junho 2025',null));
+  wrap.appendChild(buildMonth(2025,7,'Julho 2025',julyTbd));
+
+  // Legend
+  const leg=document.getElementById('cal-leg');if(!leg)return;
+  Object.entries(ENC).forEach(([n,e])=>{
+    const item=document.createElement('div');
+    item.className='cli';
+    item.innerHTML=`<span class="cld" style="background:${e.color}"></span>${e.name}`;
+    leg.appendChild(item);
+  });
+  const tbdItem=document.createElement('div');
+  tbdItem.className='cli';
+  tbdItem.innerHTML=`<span style="width:7px;height:7px;border:1px dashed rgba(255,255,255,.3);display:inline-block;flex-shrink:0"></span>Datas a confirmar`;
+  leg.appendChild(tbdItem);
+})();
+
+// ── ENC DETAIL BLOCKS ─────────────────────────────────
+(function(){
+  const container=document.getElementById('enc-detail');if(!container)return;
+  const encPosts={1:['f1','c1','v1'],2:['f2','c2','v2'],3:['f3','c3','v3']};
+  const typeMap={f:'Flyer',c:'Carrossel de Fotos',v:'Vídeo'};
+  const ideaKeys={f:'flyer',c:'carrossel',v:'video'};
+
+  Object.entries(ENC).forEach(([num,enc])=>{
+    const n=parseInt(num);
+    const div=document.createElement('div');
+    div.className='encblk';
+    if(n===1)div.classList.add('open');
+
+    const tbd=enc.date.includes('confirmar');
+    const badge=tbd?`<span class="tbdtag">DATA A CONFIRMAR</span>`:'';
+
+    let postsH='';
+    if(encPosts[n]){
+      encPosts[n].forEach(pid=>{
+        const d=DETAIL[pid];
+        const tKey=pid.charAt(0);
+        postsH+=`<div class="pditem"><p class="pdtype" style="color:${enc.color}">${typeMap[tKey]}</p><p class="pdidea">${d.idea}</p></div>`;
+      });
+    } else {
+      const ideas=IDEAS[n];
+      ['flyer','carrossel','video'].forEach(k=>{
+        const label=k==='flyer'?'Flyer':k==='carrossel'?'Carrossel de Fotos':'Vídeo';
+        postsH+=`<div class="pditem"><p class="pdtype" style="color:${enc.color}">${label}</p><p class="pdidea">${ideas[k]}</p></div>`;
+      });
+    }
+
+    div.innerHTML=`
+      <div class="enchdr">
+        <div class="enchdrbar" style="background:${enc.color}"></div>
+        <span class="encn">${String(n).padStart(2,'0')}</span>
+        <div class="encinfo">
+          <div class="enctitle">${enc.name}${badge}</div>
+          <p class="encdate">${enc.date}</p>
+        </div>
+        <span class="enctog">▼</span>
+      </div>
+      <div class="encbody"><div class="pdgrid">${postsH}</div></div>
+    `;
+
+    div.querySelector('.enchdr').addEventListener('click',()=>div.classList.toggle('open'));
+    container.appendChild(div);
+  });
+})();
+</script>
+
+</body>
+</html>

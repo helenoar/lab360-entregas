@@ -114,30 +114,57 @@ rm "_inbox/[arquivoEstrategia]"
 
 ### 6. Adicionar card no index.html
 
-Abrir `index.html` na raiz e adicionar novo `<a class="project-card">` dentro de `.projects-grid`:
+O `index.html` agrupa projetos por cliente. Estrutura:
+- Cada cliente tem um bloco `<div class="client-group" data-cliente="[clienteSlug]">`
+- Dentro: header com nome do cliente + `.projects-grid` com os cards
+- Cards NÃO repetem o nome do cliente — só serviço e nome do projeto
 
-**Para identidade-visual, logo, redes-sociais:**
+**Verificar se o cliente já existe:**
+Buscar `data-cliente="[clienteSlug]"` no `index.html`.
+
+Os cards sempre usam **URL absoluta do Vercel** + `target="_blank"` para abrir direto no browser.
+
+URL base: `https://lab360-entregas.vercel.app/`
+
+**Se o cliente JÁ existe** — adicionar o card dentro do `.projects-grid` daquele cliente e atualizar o contador `client-count`:
 ```html
-<a class="project-card" href="./[pastaRaiz][clienteSlug]/">
-  <span class="client-name">[clienteNome]</span>
-  <span class="project-name">[nomeServicoLegível]</span>
-  <span class="card-action">[labelCard]</span>
+<a class="project-card" href="https://lab360-entregas.vercel.app/[path]/" target="_blank" rel="noopener">
+  <span class="project-service">[labelServiço]</span>
+  <span class="project-name">[nomeProjeto]</span>
+  <span class="card-action">Ver entrega</span>
 </a>
 ```
 
-**Para calendario-editorial:**
+**Se o cliente NÃO existe** — criar novo bloco antes do `</main>`:
 ```html
-<a class="project-card" href="./gestao-de-redes-sociais/[clienteSlug]/[mesAno]/">
-  <span class="client-name">[clienteNome]</span>
-  <span class="project-name">Calendário Editorial — [mesAno legível]</span>
-  <span class="card-action">Ver Calendário</span>
-</a>
+<div class="clients-sep"></div>
+<div class="client-group" data-cliente="[clienteSlug]">
+  <div class="client-header">
+    <span class="client-name">[clienteNome]</span>
+    <span class="client-count">1 projeto</span>
+  </div>
+  <div class="projects-grid">
+
+    <a class="project-card" href="https://lab360-entregas.vercel.app/[path]/" target="_blank" rel="noopener">
+      <span class="project-service">[labelServiço]</span>
+      <span class="project-name">[nomeProjeto]</span>
+      <span class="card-action">Ver entrega</span>
+    </a>
+
+  </div>
+</div>
 ```
 
-Nomes legíveis por tipo:
-- `identidade-visual` → `Identidade Visual Completa`
-- `logo` → `Logo`
-- `redes-sociais` → `Design para Redes Sociais`
+**Valores por tipo de serviço:**
+
+| tipoServico | path | labelServiço | nomeProjeto |
+|-------------|------|--------------|-------------|
+| `identidade-visual` | `identidade-visual/[slug]` | `Identidade Visual` | nome do projeto/marca |
+| `logo` | `logo/[slug]` | `Logo` | nome do projeto/marca |
+| `redes-sociais` | `redes-sociais/[slug]` | `Design para Redes Sociais` | nome do projeto/pack |
+| `calendario-editorial` | `gestao-de-redes-sociais/[slug]/[mesAno]` | `Calendário Editorial · [mês abreviado/ano]` | nome do projeto |
+
+O nomeProjeto vem do brief/formulário. Se não houver nome de projeto específico, usar o nome da marca/cliente.
 
 ### 7. Gerar o HTML
 
