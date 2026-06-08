@@ -26,31 +26,34 @@ Leitura é para entender a ESTRUTURA, não para replicar cores/tipografia no cli
 
 ## Estrutura de Pastas
 
-O serviço é a subpasta direta do cliente. Cada cliente pode ter um ou mais serviços.
+O serviço é a pasta raiz. Dentro do serviço ficam os clientes. Dentro do cliente ficam os arquivos e o `index.html`.
 
 ```
-clientes/[clienteslug]/
-  identidade-visual/    ← se contratou Identidade Visual Completa
-    Formulario/         ← brief do cliente (PDF ou .txt)
-    Design/             ← PDF do Canva com o design
-    Texto/              ← .txt/.md para Notion (opcional)
-    index.html          ← Claude gera e commita aqui
-  logo/                 ← se contratou Logo
-    Formulario/
-    Design/
-    Texto/
-    index.html
-  redes-sociais/        ← se contratou Design para Redes Sociais
-    Formulario/
-    Design/
-    Texto/
-    index.html
-index.html              ← dashboard na raiz (lista todos os clientes)
+[servico]/
+  [clienteSlug]/
+    Formulario/    ← brief do cliente (PDF ou .txt)
+    Design/        ← PDF do Canva com o design
+    Texto/         ← .txt/.md para Notion (opcional)
+    index.html     ← Claude gera e commita aqui
+
+gestao-de-redes-sociais/
+  [clienteSlug]/
+    [mes-ano]/     ← ex: junho-2025
+      index.html
+      estrategia.md  ← cópia do arquivo de inbox após processamento
 ```
 
-### 🔴 Regra de nomenclatura de pastas (OBRIGATÓRIO)
+Serviços disponíveis e suas pastas raiz:
+| Serviço | Pasta raiz | URL base |
+|---------|-----------|----------|
+| Identidade Visual | `identidade-visual/` | `lab360-entregas.vercel.app/identidade-visual/[slug]/` |
+| Logo | `logo/` | `lab360-entregas.vercel.app/logo/[slug]/` |
+| Design Redes Sociais | `redes-sociais/` | `lab360-entregas.vercel.app/redes-sociais/[slug]/` |
+| Calendário Editorial | `gestao-de-redes-sociais/[slug]/[mes-ano]/` | `lab360-entregas.vercel.app/gestao-de-redes-sociais/[slug]/[mes-ano]/` |
 
-Slugs **sempre** em minúsculas, sem espaços, sem acentos, sem hífens.
+### Regra de nomenclatura de pastas (OBRIGATÓRIO)
+
+Slugs de clientes sempre em minúsculas, sem espaços, sem acentos, sem hífens.
 
 | Nome real | Slug correto |
 |-----------|-------------|
@@ -58,10 +61,7 @@ Slugs **sempre** em minúsculas, sem espaços, sem acentos, sem hífens.
 | Studio Alma | `studioalma` |
 | Café Raiz | `caferaiz` |
 
-URLs resultantes:
-- `lab360-entregas.vercel.app/clientes/studioalma/identidade-visual/`
-- `lab360-entregas.vercel.app/clientes/studioalma/logo/`
-- `lab360-entregas.vercel.app/clientes/caferaiz/redes-sociais/`
+Mês/ano: `junho-2025`, `julho-2025`, etc. (por extenso, com hífen).
 
 ## Criar estrutura manualmente (sem inbox)
 
@@ -81,19 +81,25 @@ Cria as subpastas em `clientes/[clienteslug]/[tipo-de-servico]/`, adiciona card 
 
 Quando Heleno traz um novo cliente/pedido, o fluxo é:
 
+**Para identidade visual, logo e redes sociais:**
 1. Heleno nomeia os arquivos com prefixo e joga em `_inbox/`:
    - `form-[slug].pdf` — formulário exportado do Tally
    - `design-[slug].pdf` — design exportado do Canva
    - `texto-[slug].txt` — texto para Notion (opcional)
-2. Heleno abre Claude Code e digita:
-   ```
-   /novo-pedido Nome do Cliente — tipo-de-servico
-   ```
+2. Heleno digita: `/novo-pedido Nome do Cliente — tipo-de-servico`
+
+**Para calendário editorial:**
+1. Heleno gera a estratégia com o agente externo (Claude Project)
+2. Salva o arquivo `.md` em `_inbox/` com o nome: `calendario-[slug]-[mes-ano].md`
+   - Ex: `calendario-studioalma-jun-2025.md`
+3. Heleno digita: `/novo-pedido Studio Alma — calendario-editorial`
+
+**Continuação (todos os tipos):**
 3. Claude faz tudo: cria pastas, move arquivos, gera HTML, pausa para revisão
 4. Heleno aprova → Claude commita, faz push, cria Notion se tiver texto
 5. Heleno recebe as URLs e repassa ao cliente
 
-**Tipos de serviço:** `identidade-visual` | `logo` | `redes-sociais`
+**Tipos aceitos:** `identidade-visual` | `logo` | `redes-sociais` | `calendario-editorial`
 
 ## Workflow de Geração de HTML (fluxo manual/interno)
 
@@ -116,6 +122,7 @@ Resumo:
 - **8A — Identidade Visual Completa** (12 seções): Hero → Sobre a Marca → Posicionamento → Público → Personalidade → Logo → Paleta → Tipografia → Elementos Visuais → Voz & Tom → Aplicações → Guia Rápido
 - **8B — Logo** (9 seções): Hero → Conceito → Versões do Logo → Paleta → Tipografia → Sobre Fundos → Área de Respiro → Usos Corretos & Incorretos → Aplicações
 - **8C — Design para Redes Sociais** (8 seções): Hero → Estratégia → Galeria das Peças → Detalhamento por Peça → Tipografia → Paleta → Especificações Técnicas → Como Usar
+- **8D — Calendário Editorial** (6 seções): Hero → Estratégia do Mês → Pilares de Conteúdo → Calendário Visual → Detalhamento dos Posts → O que esperar
 
 Se falta material em alguma seção, adaptar com o que existe — **nunca omitir a seção**.
 
@@ -142,6 +149,7 @@ Exemplos:
 - `Gerar identidade visual: Studio Alma — Branding 2025`
 - `Gerar logo: Café Raiz — Logo 2025`
 - `Gerar redes sociais: Maria Souza — Pack Janeiro`
+- `Gerar calendário editorial: Studio Alma — Junho 2025`
 
 ## Comunicação
 
