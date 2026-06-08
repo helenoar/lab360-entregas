@@ -5,13 +5,8 @@ node_modules/
 *.log
 .vercel/
 
-# Inbox — arquivos temporários de clientes (não commitar)
-_inbox/*.pdf
-_inbox/*.txt
-_inbox/*.md
-_inbox/*.png
-_inbox/*.jpg
-_inbox/*.jpeg
+# Inbox — pastas de clientes temporárias (não commitar)
+_inbox/*/
 
 # Brainstorming e specs temporários
 .superpowers/

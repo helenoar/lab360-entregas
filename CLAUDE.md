@@ -9,7 +9,7 @@
 - É a MOLDURA/APRESENTAÇÃO do documento
 
 ### Identidade Visual do Cliente = CONTEÚDO do documento
-- Fonte: PDF do Canva em `[servico]/[clienteslug]/Design/`
+- Fonte: PDF do Canva em `clientes/[clienteSlug]/[servico]/Design/`
 - MUDA a cada cliente
 - Define: paleta, tipografia, logo DO CLIENTE
 - É o que está DENTRO da moldura
@@ -26,30 +26,29 @@ Leitura é para entender a ESTRUTURA, não para replicar cores/tipografia no cli
 
 ## Estrutura de Pastas
 
-O serviço é a pasta raiz. Dentro do serviço ficam os clientes. Dentro do cliente ficam os arquivos e o `index.html`.
+O cliente é a pasta raiz. Dentro do cliente ficam os serviços. Dentro de cada serviço ficam os arquivos e o `index.html`.
 
 ```
-[servico]/
+clientes/
   [clienteSlug]/
-    Formulario/    ← brief do cliente (PDF ou .txt)
-    Design/        ← PDF do Canva com o design
-    Texto/         ← .txt/.md para Notion (opcional)
-    index.html     ← Claude gera e commita aqui
-
-gestao-de-redes-sociais/
-  [clienteSlug]/
-    [mes-ano]/     ← ex: junho-2025
-      index.html
-      estrategia.md  ← cópia do arquivo de inbox após processamento
+    [tipo-servico]/      ← identidade-visual | logo | redes-sociais
+      Formulario/        ← brief do cliente (PDF ou .txt)
+      Design/            ← PDF do Canva com o design
+      Texto/             ← .txt/.md para Notion (opcional)
+      index.html         ← Claude gera e commita aqui
+    gestao-de-redes-sociais/
+      [mes-ano]/         ← ex: junho-2025
+        estrategia.md    ← gerado pelo Claude a partir do formulário
+        index.html       ← Claude gera e commita aqui
 ```
 
-Serviços disponíveis e suas pastas raiz:
-| Serviço | Pasta raiz | URL base |
-|---------|-----------|----------|
-| Identidade Visual | `identidade-visual/` | `lab360-entregas.vercel.app/identidade-visual/[slug]/` |
-| Logo | `logo/` | `lab360-entregas.vercel.app/logo/[slug]/` |
-| Design Redes Sociais | `redes-sociais/` | `lab360-entregas.vercel.app/redes-sociais/[slug]/` |
-| Calendário Editorial | `gestao-de-redes-sociais/[slug]/[mes-ano]/` | `lab360-entregas.vercel.app/gestao-de-redes-sociais/[slug]/[mes-ano]/` |
+Serviços disponíveis e suas URLs:
+| Serviço | Pasta | URL base |
+|---------|-------|----------|
+| Identidade Visual | `clientes/[slug]/identidade-visual/` | `lab360-entregas.vercel.app/clientes/[slug]/identidade-visual/` |
+| Logo | `clientes/[slug]/logo/` | `lab360-entregas.vercel.app/clientes/[slug]/logo/` |
+| Design Redes Sociais | `clientes/[slug]/redes-sociais/` | `lab360-entregas.vercel.app/clientes/[slug]/redes-sociais/` |
+| Calendário Editorial | `clientes/[slug]/gestao-de-redes-sociais/[mes-ano]/` | `lab360-entregas.vercel.app/clientes/[slug]/gestao-de-redes-sociais/[mes-ano]/` |
 
 ### Regra de nomenclatura de pastas (OBRIGATÓRIO)
 
@@ -73,7 +72,7 @@ Use `/novo-cliente` quando quiser criar a estrutura de pastas SEM ter os arquivo
 
 Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais`
 
-Cria as subpastas em `[servico]/[clienteSlug]/`, adiciona card no `index.html` e faz commit. Se o cliente já existe em outro serviço, apenas adiciona o novo.
+Cria as subpastas em `clientes/[clienteSlug]/[tipoServico]/`, adiciona card no `index.html` e faz commit. Se o cliente já existe, apenas adiciona o novo serviço dentro da pasta do cliente.
 
 > Para o fluxo completo (com arquivos prontos), use `/novo-pedido` — ver seção abaixo.
 
@@ -81,25 +80,35 @@ Cria as subpastas em `[servico]/[clienteSlug]/`, adiciona card no `index.html` e
 
 Quando Heleno traz um novo cliente/pedido, o fluxo é:
 
-**Para identidade visual, logo e redes sociais:**
-1. Heleno nomeia os arquivos com prefixo e joga em `_inbox/`:
-   - `form-[slug].pdf` — formulário exportado do Tally
-   - `design-[slug].pdf` — design exportado do Canva
-   - `texto-[slug].txt` — texto para Notion (opcional)
-2. Heleno digita: `/novo-pedido Nome do Cliente — tipo-de-servico`
+**Heleno cria no Finder e joga os arquivos:**
+```
+_inbox/
+  [Nome do Cliente]/
+    [tipo-servico]/
+      arquivo1.pdf
+      arquivo2.pdf
+```
 
-**Para calendário editorial:**
-1. Heleno gera a estratégia com o agente externo (Claude Project)
-2. Salva o arquivo `.md` em `_inbox/` com o nome: `calendario-[slug]-[mes-ano].md`
-   - Ex: `calendario-studioalma-jun-2025.md`
-3. Heleno digita: `/novo-pedido Studio Alma — calendario-editorial`
+Tipos de subpasta aceitos: `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
 
-**Continuação (todos os tipos):**
-3. Claude faz tudo: cria pastas, move arquivos, gera HTML, pausa para revisão
-4. Heleno aprova → Claude commita, faz push, cria Notion se tiver texto
-5. Heleno recebe as URLs e repassa ao cliente
+Arquivos esperados por tipo:
+- `identidade-visual`, `logo`, `redes-sociais`: formulário do Tally (PDF) + design do Canva (PDF)
+- `gestao-de-redes-sociais`: apenas o formulário do Tally (PDF)
 
-**Tipos aceitos:** `identidade-visual` | `logo` | `redes-sociais` | `calendario-editorial`
+**Depois Heleno digita:** `/novo-pedido`
+
+**Claude faz tudo:**
+1. Escaneia `_inbox/` automaticamente (detecta cliente e tipo pela estrutura de pastas)
+2. Cria `clientes/[slug]/[tipo]/` — se o cliente já existe, adiciona o serviço
+3. Move os arquivos do inbox para dentro
+4. Lê o especialista do tipo (`_especialistas/[tipo].md`)
+5. Gera HTML de entrega
+6. Commit + push imediato
+7. Vercel deploya em ~30s
+8. Entrega URL ao Heleno
+9. Apaga `_inbox/[Nome do Cliente]/`
+
+**Tipos aceitos:** `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
 
 ## Workflow de Geração de HTML (fluxo manual/interno)
 
@@ -109,7 +118,7 @@ Quando Heleno traz um novo cliente/pedido, o fluxo é:
 2. Ler `Design/` — PDF do design visual
 3. Ler `_template/LAB360-design-system.md` — seção 8 para identificar as seções conforme o serviço
 4. **Invocar skill `huashu-design`** para gerar o HTML
-5. Salvar em `[servico]/[clienteSlug]/index.html`
+5. Salvar em `clientes/[clienteSlug]/[tipoServico]/index.html`
 6. `git add` + `git commit` + `git push`
 7. Vercel auto-deploya em ~30s
 8. Entregar URL ao Heleno
