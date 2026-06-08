@@ -6,7 +6,7 @@
   <title>Painel de Entregas — LAB 360°</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -37,28 +37,31 @@
 
     /* HEADER */
     header {
-      padding: 64px 48px 48px;
+      padding: 80px 48px 64px;
       border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.25em;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       color: var(--cyan);
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
+      font-family: 'Barlow Condensed', sans-serif;
     }
 
     h1 {
-      font-size: 32px;
-      font-weight: 300;
+      font-size: clamp(40px, 8vw, 56px);
+      font-weight: 600;
       letter-spacing: -0.02em;
-      line-height: 1.1;
+      line-height: 1.15;
+      font-family: 'Barlow', sans-serif;
     }
 
     h1 span {
       color: var(--text-secondary);
+      font-weight: 500;
     }
 
     /* MAIN */
@@ -68,12 +71,13 @@
     }
 
     .section-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
       color: var(--text-secondary);
       text-transform: uppercase;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
+      font-family: 'Barlow', sans-serif;
     }
 
     /* CLIENT GROUP */
@@ -116,12 +120,12 @@
 
     .project-card {
       background: var(--bg);
-      padding: 28px 32px;
+      padding: 32px 36px;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       transition: background 0.15s ease;
       position: relative;
       overflow: hidden;
