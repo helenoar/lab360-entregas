@@ -12,3 +12,7 @@ _inbox/*.md
 _inbox/*.png
 _inbox/*.jpg
 _inbox/*.jpeg
+
+# Brainstorming e specs temporários
+.superpowers/
+docs/superpowers/
