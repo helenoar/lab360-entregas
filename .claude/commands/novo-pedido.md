@@ -8,9 +8,10 @@ Heleno cria no Finder:
 ```
 _inbox/
   [Nome do Cliente]/
-    [tipo-servico]/
-      arquivo1.pdf
-      arquivo2.pdf
+    [Nome do Projeto]/
+      [tipo-servico]/
+        arquivo1.pdf
+        arquivo2.pdf
 ```
 
 Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
@@ -29,13 +30,21 @@ Para cada pasta encontrada (= um cliente):
 ls "_inbox/[Nome do Cliente]/"
 ```
 
+Para cada projeto:
+
+```bash
+ls "_inbox/[Nome do Cliente]/[Nome do Projeto]/"
+```
+
 O nome da subpasta é o `tipoServico`. Nenhum arquivo precisa ser lido nesta etapa.
 
 Derivar:
-- **clienteNome**: nome da pasta em `_inbox/` (ex: `Studio Alma`)
+- **clienteNome**: nome da pasta em `_inbox/` (ex: `Quik Cia de Dança`)
+- **nomeProjeto**: nome da subpasta (ex: `Mover Consciente`)
 - **tipoServico**: nome da subpasta (ex: `identidade-visual`)
 - **clienteSlug**: minúsculas, sem espaços, sem acentos, sem hífens
-  - Regras: á→a, ã→a, â→a, é→e, ê→e, í→i, ó→o, ô→o, õ→o, ú→u, ç→c, remover espaços e hífens
+  - Regras: á→a, ã→a, â→a, é→e, ê→e, í→i, ó→o, ô→o, õ→o, ú→u, ç→c, remover espaços
+- **projetoSlug**: minúsculas, hífens separando palavras (ex: `mover-consciente`)
 
 Erros a verificar:
 - Tipo não reconhecido → parar, reportar: "Tipo `[nome]` não reconhecido. Use: identidade-visual | logo | redes-sociais | gestao-de-redes-sociais"
@@ -44,10 +53,10 @@ Erros a verificar:
 Mapa de configurações:
 | tipoServico | pastaEntrega | labelCard | seçãoDS |
 |-------------|-------------|-----------|---------|
-| `identidade-visual` | `clientes/[slug]/identidade-visual/` | `Identidade Visual` | 8A |
-| `logo` | `clientes/[slug]/logo/` | `Logo` | 8B |
-| `redes-sociais` | `clientes/[slug]/redes-sociais/` | `Design para Redes Sociais` | 8C |
-| `gestao-de-redes-sociais` | `clientes/[slug]/gestao-de-redes-sociais/[mes-ano]/` | `Calendário Editorial` | 8D |
+| `identidade-visual` | `clientes/[slug]/[projeto]/identidade-visual/` | `Identidade Visual` | 8A |
+| `logo` | `clientes/[slug]/[projeto]/logo/` | `Logo` | 8B |
+| `redes-sociais` | `clientes/[slug]/[projeto]/redes-sociais/` | `Design para Redes Sociais` | 8C |
+| `gestao-de-redes-sociais` | `clientes/[slug]/[projeto]/gestao-de-redes-sociais/[mes-ano]/` | `Calendário Editorial` | 8D |
 
 ### 2. Criar estrutura de pastas
 
@@ -56,11 +65,16 @@ Verificar se o cliente já existe:
 ls "clientes/[clienteSlug]/" 2>/dev/null
 ```
 
+Verificar se o projeto já existe dentro do cliente:
+```bash
+ls "clientes/[clienteSlug]/[projetoSlug]/" 2>/dev/null
+```
+
 **Para identidade-visual, logo, redes-sociais:**
 ```bash
-mkdir -p "clientes/[clienteSlug]/[tipoServico]/Formulario"
-mkdir -p "clientes/[clienteSlug]/[tipoServico]/Design"
-mkdir -p "clientes/[clienteSlug]/[tipoServico]/Texto"
+mkdir -p "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Formulario"
+mkdir -p "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Design"
+mkdir -p "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Texto"
 ```
 
 **Para gestao-de-redes-sociais:**
@@ -70,14 +84,14 @@ Identificar mês/ano a partir do formulário (ler o PDF para extrair período). 
 Normalização: jan→janeiro, fev→fevereiro, mar→março, abr→abril, mai→maio, jun→junho, jul→julho, ago→agosto, set→setembro, out→outubro, nov→novembro, dez→dezembro
 
 ```bash
-mkdir -p "clientes/[clienteSlug]/gestao-de-redes-sociais/[mes-ano]"
+mkdir -p "clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]"
 ```
 
 ### 3. Mover arquivos da inbox
 
 **Para identidade-visual, logo, redes-sociais:**
 
-Identificar na pasta `_inbox/[Nome do Cliente]/[tipoServico]/`:
+Identificar na pasta `_inbox/[Nome do Cliente]/[Nome do Projeto]/[tipoServico]/`:
 - **arquivoFormulario**: PDF do formulário (geralmente o menor, ou o que contém respostas do Tally)
 - **arquivoDesign**: PDF do design do Canva (geralmente o maior)
 - **arquivoTexto**: .txt ou .md para Notion (opcional)
@@ -85,14 +99,14 @@ Identificar na pasta `_inbox/[Nome do Cliente]/[tipoServico]/`:
 Se houver ambiguidade entre dois PDFs, usar o nome para inferir qual é qual. Se não conseguir, perguntar.
 
 ```bash
-mv "_inbox/[Nome do Cliente]/[tipoServico]/[arquivoFormulario]" "clientes/[clienteSlug]/[tipoServico]/Formulario/"
-mv "_inbox/[Nome do Cliente]/[tipoServico]/[arquivoDesign]" "clientes/[clienteSlug]/[tipoServico]/Design/"
+mv "_inbox/[Nome do Cliente]/[Nome do Projeto]/[tipoServico]/[arquivoFormulario]" "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Formulario/"
+mv "_inbox/[Nome do Cliente]/[Nome do Projeto]/[tipoServico]/[arquivoDesign]" "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Design/"
 ```
 
 **Para gestao-de-redes-sociais:**
 
 ```bash
-mv "_inbox/[Nome do Cliente]/gestao-de-redes-sociais/[arquivoFormulario]" "clientes/[clienteSlug]/gestao-de-redes-sociais/[mes-ano]/formulario.pdf"
+mv "_inbox/[Nome do Cliente]/[Nome do Projeto]/gestao-de-redes-sociais/[arquivoFormulario]" "clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/formulario.pdf"
 ```
 
 ### 4. Carregar especialista do tipo
@@ -120,14 +134,14 @@ URLs sempre absolutas do Vercel + `target="_blank"`.
 
 **Se o cliente JÁ existe** — adicionar card dentro do `.projects-grid` e atualizar o contador:
 ```html
-<a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[tipoServico]/" target="_blank" rel="noopener">
+<a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/" target="_blank" rel="noopener">
   <span class="project-service">[labelCard]</span>
-  <span class="project-name">[nomeProjeto]</span>
+  <span class="project-name">[nomeProjeto] — [tipoServicoLegível]</span>
   <span class="card-action">Ver entrega</span>
 </a>
 ```
 
-Para `gestao-de-redes-sociais`, o path é `clientes/[clienteSlug]/gestao-de-redes-sociais/[mes-ano]/`.
+Para `gestao-de-redes-sociais`, o path é `clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/`.
 
 **Se o cliente NÃO existe** — criar novo bloco antes do `</main>`:
 ```html
@@ -140,17 +154,15 @@ Para `gestao-de-redes-sociais`, o path é `clientes/[clienteSlug]/gestao-de-rede
   </div>
   <div class="projects-grid">
 
-    <a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[tipoServico]/" target="_blank" rel="noopener">
+    <a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/" target="_blank" rel="noopener">
       <span class="project-service">[labelCard]</span>
-      <span class="project-name">[nomeProjeto]</span>
+      <span class="project-name">[nomeProjeto] — [tipoServicoLegível]</span>
       <span class="card-action">Ver entrega</span>
     </a>
 
   </div>
 </div>
 ```
-
-O `nomeProjeto` vem do formulário. Se não houver nome de projeto específico, usar o nome da marca/cliente.
 
 ### 7. Gerar o HTML
 
@@ -167,14 +179,14 @@ Briefing base:
 - Cards clicáveis com detalhe completo
 
 Salvar em:
-- `identidade-visual/logo/redes-sociais`: `clientes/[clienteSlug]/[tipoServico]/index.html`
-- `gestao-de-redes-sociais`: `clientes/[clienteSlug]/gestao-de-redes-sociais/[mes-ano]/index.html`
+- identidade-visual/logo/redes-sociais: `clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/index.html`
+- gestao-de-redes-sociais: `clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/index.html`
 
 ### 8. Commit + push imediato
 
 ```bash
 git add "clientes/[clienteSlug]/" index.html
-git commit -m "Gerar [tipoServico]: [clienteNome]"
+git commit -m "Gerar [tipoServico]: [clienteNome] — [nomeProjeto]"
 git push
 ```
 
@@ -183,7 +195,12 @@ Vercel deploya em ~30 segundos.
 ### 9. Limpar inbox
 
 ```bash
-rm -rf "_inbox/[Nome do Cliente]/"
+rm -rf "_inbox/[Nome do Cliente]/[Nome do Projeto]/"
+```
+
+Se a pasta do cliente ficar vazia, deletar também:
+```bash
+rmdir "_inbox/[Nome do Cliente]/"
 ```
 
 ### 10. Criar página no Notion (somente se Texto/ tiver arquivo)
@@ -193,17 +210,18 @@ Ler o arquivo em Texto/, criar página no Notion via MCP.
 
 ### 11. Entregar URL ao Heleno
 
+**Para identidade-visual, logo, redes-sociais:**
 ```
-✓ [clienteNome] pronto
+✓ [clienteNome] — [nomeProjeto] pronto
 
-URL: https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[tipoServico]/
-```
-
-Para gestao-de-redes-sociais:
-```
-✓ [clienteNome] — Calendário [mes-ano] pronto
-
-URL: https://lab360-entregas.vercel.app/clientes/[clienteSlug]/gestao-de-redes-sociais/[mes-ano]/
+URL: https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/
 ```
 
-Se houver múltiplos clientes no inbox, processar todos em sequência e entregar todas as URLs ao final.
+**Para gestao-de-redes-sociais:**
+```
+✓ [clienteNome] — [nomeProjeto] — Calendário [mes-ano] pronto
+
+URL: https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/
+```
+
+Se houver múltiplos clientes/projetos no inbox, processar todos em sequência e entregar todas as URLs ao final.

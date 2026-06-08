@@ -9,7 +9,7 @@
 - É a MOLDURA/APRESENTAÇÃO do documento
 
 ### Identidade Visual do Cliente = CONTEÚDO do documento
-- Fonte: PDF do Canva em `clientes/[clienteSlug]/[servico]/Design/`
+- Fonte: PDF do Canva em `clientes/[clienteSlug]/[nomeProjeto]/[servico]/Design/`
 - MUDA a cada cliente
 - Define: paleta, tipografia, logo DO CLIENTE
 - É o que está DENTRO da moldura
@@ -26,33 +26,34 @@ Leitura é para entender a ESTRUTURA, não para replicar cores/tipografia no cli
 
 ## Estrutura de Pastas
 
-O cliente é a pasta raiz. Dentro do cliente ficam os serviços. Dentro de cada serviço ficam os arquivos e o `index.html`.
+Cliente → Projeto → Serviço → Arquivos. Um cliente pode ter múltiplos projetos; cada projeto tem vários serviços.
 
 ```
 clientes/
   [clienteSlug]/
-    [tipo-servico]/      ← identidade-visual | logo | redes-sociais
-      Formulario/        ← brief do cliente (PDF ou .txt)
-      Design/            ← PDF do Canva com o design
-      Texto/             ← .txt/.md para Notion (opcional)
-      index.html         ← Claude gera e commita aqui
-    gestao-de-redes-sociais/
-      [mes-ano]/         ← ex: junho-2025
-        estrategia.md    ← gerado pelo Claude a partir do formulário
-        index.html       ← Claude gera e commita aqui
+    [nomeProjeto]/
+      [tipo-servico]/      ← identidade-visual | logo | redes-sociais
+        Formulario/        ← brief do cliente (PDF ou .txt)
+        Design/            ← PDF do Canva com o design
+        Texto/             ← .txt/.md para Notion (opcional)
+        index.html         ← Claude gera e commita aqui
+      gestao-de-redes-sociais/
+        [mes-ano]/         ← ex: junho-2025
+          estrategia.md    ← gerado pelo Claude a partir do formulário
+          index.html       ← Claude gera e commita aqui
 ```
 
 Serviços disponíveis e suas URLs:
 | Serviço | Pasta | URL base |
 |---------|-------|----------|
-| Identidade Visual | `clientes/[slug]/identidade-visual/` | `lab360-entregas.vercel.app/clientes/[slug]/identidade-visual/` |
-| Logo | `clientes/[slug]/logo/` | `lab360-entregas.vercel.app/clientes/[slug]/logo/` |
-| Design Redes Sociais | `clientes/[slug]/redes-sociais/` | `lab360-entregas.vercel.app/clientes/[slug]/redes-sociais/` |
-| Calendário Editorial | `clientes/[slug]/gestao-de-redes-sociais/[mes-ano]/` | `lab360-entregas.vercel.app/clientes/[slug]/gestao-de-redes-sociais/[mes-ano]/` |
+| Identidade Visual | `clientes/[slug]/[projeto]/identidade-visual/` | `lab360-entregas.vercel.app/clientes/[slug]/[projeto]/identidade-visual/` |
+| Logo | `clientes/[slug]/[projeto]/logo/` | `lab360-entregas.vercel.app/clientes/[slug]/[projeto]/logo/` |
+| Design Redes Sociais | `clientes/[slug]/[projeto]/redes-sociais/` | `lab360-entregas.vercel.app/clientes/[slug]/[projeto]/redes-sociais/` |
+| Calendário Editorial | `clientes/[slug]/[projeto]/gestao-de-redes-sociais/[mes-ano]/` | `lab360-entregas.vercel.app/clientes/[slug]/[projeto]/gestao-de-redes-sociais/[mes-ano]/` |
 
 ### Regra de nomenclatura de pastas (OBRIGATÓRIO)
 
-Slugs de clientes sempre em minúsculas, sem espaços, sem acentos, sem hífens.
+**Slugs de clientes:** minúsculas, sem espaços, sem acentos, sem hífens.
 
 | Nome real | Slug correto |
 |-----------|-------------|
@@ -60,19 +61,27 @@ Slugs de clientes sempre em minúsculas, sem espaços, sem acentos, sem hífens.
 | Studio Alma | `studioalma` |
 | Café Raiz | `caferaiz` |
 
-Mês/ano: `junho-2025`, `julho-2025`, etc. (por extenso, com hífen).
+**Nomes de projetos:** minúsculas, hífens separando palavras (sem espaços/acentos).
+
+| Nome real | Slug correto |
+|-----------|-------------|
+| Mover Consciente | `mover-consciente` |
+| Branding 2025 | `branding-2025` |
+| Pack Janeiro | `pack-janeiro` |
+
+**Mês/ano:** `junho-2025`, `julho-2025`, etc. (por extenso, com hífen).
 
 ## Criar estrutura manualmente (sem inbox)
 
 Use `/novo-cliente` quando quiser criar a estrutura de pastas SEM ter os arquivos ainda — por exemplo, para já deixar a pasta pronta antes do cliente enviar os materiais.
 
 ```
-/novo-cliente Nome do Cliente — tipo-de-servico
+/novo-cliente Nome do Cliente — Nome do Projeto — tipo-de-servico
 ```
 
 Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais`
 
-Cria as subpastas em `clientes/[clienteSlug]/[tipoServico]/`, adiciona card no `index.html` e faz commit. Se o cliente já existe, apenas adiciona o novo serviço dentro da pasta do cliente.
+Cria as subpastas em `clientes/[clienteSlug]/[nomeProjeto]/[tipoServico]/`, adiciona card no `index.html` e faz commit. Se o cliente ou projeto já existe, apenas adiciona o novo serviço dentro da pasta apropriada.
 
 > Para o fluxo completo (com arquivos prontos), use `/novo-pedido` — ver seção abaixo.
 
@@ -84,9 +93,10 @@ Quando Heleno traz um novo cliente/pedido, o fluxo é:
 ```
 _inbox/
   [Nome do Cliente]/
-    [tipo-servico]/
-      arquivo1.pdf
-      arquivo2.pdf
+    [Nome do Projeto]/
+      [tipo-servico]/
+        arquivo1.pdf
+        arquivo2.pdf
 ```
 
 Tipos de subpasta aceitos: `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
@@ -98,15 +108,15 @@ Arquivos esperados por tipo:
 **Depois Heleno digita:** `/novo-pedido`
 
 **Claude faz tudo:**
-1. Escaneia `_inbox/` automaticamente (detecta cliente e tipo pela estrutura de pastas)
-2. Cria `clientes/[slug]/[tipo]/` — se o cliente já existe, adiciona o serviço
+1. Escaneia `_inbox/` automaticamente (detecta cliente, projeto e tipo pela estrutura de pastas)
+2. Cria `clientes/[slug]/[projeto]/[tipo]/` — se o cliente/projeto já existe, apenas adiciona o serviço
 3. Move os arquivos do inbox para dentro
 4. Lê o especialista do tipo (`_especialistas/[tipo].md`)
 5. Gera HTML de entrega
 6. Commit + push imediato
 7. Vercel deploya em ~30s
 8. Entrega URL ao Heleno
-9. Apaga `_inbox/[Nome do Cliente]/`
+9. Apaga `_inbox/[Nome do Cliente]/[Nome do Projeto]/`
 
 **Tipos aceitos:** `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
 
@@ -118,7 +128,7 @@ Arquivos esperados por tipo:
 2. Ler `Design/` — PDF do design visual
 3. Ler `_template/LAB360-design-system.md` — seção 8 para identificar as seções conforme o serviço
 4. **Invocar skill `huashu-design`** para gerar o HTML
-5. Salvar em `clientes/[clienteSlug]/[tipoServico]/index.html`
+5. Salvar em `clientes/[clienteSlug]/[nomeProjeto]/[tipoServico]/index.html`
 6. `git add` + `git commit` + `git push`
 7. Vercel auto-deploya em ~30s
 8. Entregar URL ao Heleno
