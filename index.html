@@ -188,6 +188,32 @@
       height: 24px;
     }
 
+    /* COPY LINK BUTTON */
+    .copy-link {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      background: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      font-family: var(--font);
+    }
+
+    .copy-link:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    .copy-link.copied {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
     /* FOOTER */
     footer {
       padding: 24px 48px;
@@ -224,6 +250,7 @@
       <div class="client-header">
         <span class="client-name">Quik Cia de Dança</span>
         <span class="client-count">2 projetos</span>
+        <button class="copy-link" onclick="copyClientLink('quikciadadanca', this)">Copiar link</button>
       </div>
       <div class="projects-grid">
 
@@ -248,5 +275,34 @@
     <p class="footer-text">LAB 360° © 2025</p>
   </footer>
 
+  <script>
+    // Filtro por cliente via ?cliente=slug
+    (function() {
+      const params = new URLSearchParams(location.search);
+      const slug = params.get('cliente');
+      if (!slug) return;
+      document.querySelectorAll('.client-group').forEach(function(g) {
+        if (g.dataset.cliente !== slug) g.style.display = 'none';
+      });
+      document.querySelectorAll('.clients-sep').forEach(function(s) { s.style.display = 'none'; });
+      document.querySelector('.section-label').style.display = 'none';
+      document.querySelector('h1').innerHTML = 'Suas<br><span>Entregas</span>';
+      document.querySelector('.copy-link') && (document.querySelector('.copy-link').style.display = 'none');
+    })();
+
+    // Copiar link do cliente
+    function copyClientLink(slug, btn) {
+      var url = 'https://lab360-entregas.vercel.app/?cliente=' + slug;
+      navigator.clipboard.writeText(url).then(function() {
+        var original = btn.textContent;
+        btn.textContent = 'Copiado';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>

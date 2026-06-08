@@ -142,6 +142,7 @@ URL base: `https://lab360-entregas.vercel.app/`
   <div class="client-header">
     <span class="client-name">[clienteNome]</span>
     <span class="client-count">1 projeto</span>
+    <button class="copy-link" onclick="copyClientLink('[clienteSlug]', this)">Copiar link</button>
   </div>
   <div class="projects-grid">
 
