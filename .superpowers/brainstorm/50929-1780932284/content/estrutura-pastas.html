@@ -1,0 +1,82 @@
+<h2>Como organizar as pastas e URLs?</h2>
+<p class="subtitle">Você quer organizar por tipo de trabalho. Três formas de fazer isso no mesmo projeto Vercel.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Adicionar como novo serviço do cliente (mais simples)</h3>
+      <p>Mantém a estrutura atual. <code>calendario-editorial</code> entra junto com <code>identidade-visual</code> e <code>logo</code>.</p>
+      <div class="mockup" style="margin-top:1rem">
+        <div class="mockup-header">Estrutura de pastas</div>
+        <div class="mockup-body" style="font-family:monospace; font-size:0.85rem; line-height:1.8">
+          <div>clientes/</div>
+          <div>&nbsp;&nbsp;quikciadadanca/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;moverconsciente/ <span style="opacity:0.4">← identidade visual</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">calendario-editorial/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+          <div>&nbsp;&nbsp;studioalma/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;identidade-visual/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">calendario-editorial/</strong></div>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem; font-size:0.85rem; opacity:0.7">URL: <code>lab360-entregas.vercel.app/clientes/studioalma/calendario-editorial/</code></p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Prós</h4><ul><li>Zero refatoração no existente</li><li>URL simples</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Não separa visualmente os tipos de trabalho</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Subpasta por categoria de serviço</h3>
+      <p>Cada cliente tem duas grandes categorias: <code>identidade-visual</code> e <code>gestao-de-redes-sociais</code>. Dentro de cada uma, os serviços específicos.</p>
+      <div class="mockup" style="margin-top:1rem">
+        <div class="mockup-header">Estrutura de pastas</div>
+        <div class="mockup-body" style="font-family:monospace; font-size:0.85rem; line-height:1.8">
+          <div>clientes/</div>
+          <div>&nbsp;&nbsp;studioalma/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;identidade-visual/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">gestao-de-redes-sociais/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">calendario-editorial/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem; font-size:0.85rem; opacity:0.7">URL: <code>lab360-entregas.vercel.app/clientes/studioalma/gestao-de-redes-sociais/calendario-editorial/</code></p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Prós</h4><ul><li>Separa claramente as áreas de trabalho</li><li>Fácil adicionar futuros serviços (relatório, estratégia…)</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>URL mais longa</li><li>Pequena refatoração nos existentes</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Mês como pasta independente</h3>
+      <p>Cada entrega mensal vira uma pasta separada com o mês no nome. Histórico completo de entregas por cliente.</p>
+      <div class="mockup" style="margin-top:1rem">
+        <div class="mockup-header">Estrutura de pastas</div>
+        <div class="mockup-body" style="font-family:monospace; font-size:0.85rem; line-height:1.8">
+          <div>clientes/</div>
+          <div>&nbsp;&nbsp;studioalma/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;identidade-visual/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">calendario-jun-2025/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">calendario-jul-2025/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem; font-size:0.85rem; opacity:0.7">URL: <code>lab360-entregas.vercel.app/clientes/studioalma/calendario-jun-2025/</code></p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Prós</h4><ul><li>Histórico completo e acessível</li><li>URL curta e direta</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Mistura tipos de trabalho diferentes no mesmo nível</li><li>Pode ficar bagunçado com muitos meses</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>

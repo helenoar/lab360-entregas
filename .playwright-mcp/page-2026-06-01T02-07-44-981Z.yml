@@ -1,0 +1,164 @@
+- generic [active] [ref=e1]:
+  - main [ref=e4]:
+    - generic [ref=e6]:
+      - progressbar [ref=e7]: Page 1 of 1
+      - generic [ref=e8]:
+        - heading [level=1] [ref=e10]
+        - paragraph [ref=e15]: Agora começa a parte boa. Design para redes sociais é mais do que bonito — precisa comunicar rápido, chamar atenção e fazer as pessoas quererem se engajar. Responda com calma. Quanto mais você contar, melhores serão as peças.
+        - generic [ref=e18]:
+          - paragraph [ref=e20]: "Criação de peças de design: posts, stories, reels, carrosséis e tudo que você precisar para destacar no Instagram, Facebook e outras plataformas."
+          - generic [ref=e22] [cursor=pointer]: "*"
+        - heading "Seu e-mail" [level=3] [ref=e26]
+        - 'textbox "Criação de peças de design: posts, stories, reels, carrosséis e tudo que você precisar para destacar no Instagram, Facebook e outras plataformas." [ref=e30]':
+          - /placeholder: ""
+        - heading "1. Quantas peças você quer? Que tipos?" [level=3] [ref=e34]
+        - generic [ref=e37]:
+          - textbox "Untitled short answer field" [ref=e38]:
+            - /placeholder: ""
+          - generic [ref=e40] [cursor=pointer]: "*"
+        - heading "2. Qual é o objetivo principal?" [level=3] [ref=e44]
+        - generic [ref=e45]:
+          - generic [ref=e46]: Untitled multiple choice field
+          - generic [ref=e49] [cursor=pointer]:
+            - generic [ref=e50]: A
+            - radio "Vender" [ref=e51]
+            - generic [ref=e52]: Vender
+        - generic [ref=e56] [cursor=pointer]:
+          - generic [ref=e57]: B
+          - radio "Informar" [ref=e58]
+          - generic [ref=e59]: Informar
+        - generic [ref=e63] [cursor=pointer]:
+          - generic [ref=e64]: C
+          - radio "Engajar" [ref=e65]
+          - generic [ref=e66]: Engajar
+        - generic [ref=e70] [cursor=pointer]:
+          - generic [ref=e71]: D
+          - radio "Seguidores" [ref=e72]
+          - generic [ref=e73]: Seguidores
+        - generic [ref=e77] [cursor=pointer]:
+          - generic [ref=e78]: E
+          - radio "Educar" [ref=e79]
+          - generic [ref=e80]: Educar
+        - generic [ref=e84] [cursor=pointer]:
+          - generic [ref=e85]: F
+          - radio "Humanizar" [ref=e86]
+          - generic [ref=e87]: Humanizar
+        - heading "3. Onde vão aparecer com mais frequência?" [level=3] [ref=e91]
+        - generic [ref=e92]:
+          - generic [ref=e93]: Untitled multiple choice field
+          - generic [ref=e96] [cursor=pointer]:
+            - generic [ref=e97]: A
+            - radio "Instagram feed" [ref=e98]
+            - generic [ref=e99]: Instagram feed
+        - generic [ref=e103] [cursor=pointer]:
+          - generic [ref=e104]: B
+          - radio "Stories" [ref=e105]
+          - generic [ref=e106]: Stories
+        - generic [ref=e110] [cursor=pointer]:
+          - generic [ref=e111]: C
+          - radio "Reels" [ref=e112]
+          - generic [ref=e113]: Reels
+        - generic [ref=e117] [cursor=pointer]:
+          - generic [ref=e118]: D
+          - radio "Facebook" [ref=e119]
+          - generic [ref=e120]: Facebook
+        - generic [ref=e124] [cursor=pointer]:
+          - generic [ref=e125]: E
+          - radio "LinkedIn" [ref=e126]
+          - generic [ref=e127]: LinkedIn
+        - generic [ref=e131] [cursor=pointer]:
+          - generic [ref=e132]: F
+          - radio "Pinterest" [ref=e133]
+          - generic [ref=e134]: Pinterest
+        - heading "4. Tem textos prontos ou preciso criar?" [level=3] [ref=e138]
+        - generic [ref=e139]:
+          - generic [ref=e140]: Untitled multiple choice field
+          - generic [ref=e143] [cursor=pointer]:
+            - generic [ref=e144]: A
+            - radio "Tenho textos" [ref=e145]
+            - generic [ref=e146]: Tenho textos
+        - generic [ref=e150] [cursor=pointer]:
+          - generic [ref=e151]: B
+          - radio "Preciso help" [ref=e152]
+          - generic [ref=e153]: Preciso help
+        - generic [ref=e157] [cursor=pointer]:
+          - generic [ref=e158]: C
+          - radio "Tem alguns" [ref=e159]
+          - generic [ref=e160]: Tem alguns
+        - heading "5. Qual é o tom das peças?" [level=3] [ref=e164]
+        - generic [ref=e165]:
+          - generic [ref=e166]: Untitled multiple choice field
+          - generic [ref=e169] [cursor=pointer]:
+            - generic [ref=e170]: A
+            - radio "Profissional" [ref=e171]
+            - generic [ref=e172]: Profissional
+        - generic [ref=e176] [cursor=pointer]:
+          - generic [ref=e177]: B
+          - radio "Descontraído" [ref=e178]
+          - generic [ref=e179]: Descontraído
+        - generic [ref=e183] [cursor=pointer]:
+          - generic [ref=e184]: C
+          - radio "Inspirador" [ref=e185]
+          - generic [ref=e186]: Inspirador
+        - generic [ref=e190] [cursor=pointer]:
+          - generic [ref=e191]: D
+          - radio "Educativo" [ref=e192]
+          - generic [ref=e193]: Educativo
+        - generic [ref=e197] [cursor=pointer]:
+          - generic [ref=e198]: E
+          - radio "Humanizado" [ref=e199]
+          - generic [ref=e200]: Humanizado
+        - generic [ref=e204] [cursor=pointer]:
+          - generic [ref=e205]: F
+          - radio "Criativo" [ref=e206]
+          - generic [ref=e207]: Criativo
+        - heading "6. Tem identidade visual definida?" [level=3] [ref=e211]
+        - generic [ref=e212]:
+          - generic [ref=e213]: Untitled multiple choice field
+          - generic [ref=e216] [cursor=pointer]:
+            - generic [ref=e217]: A
+            - radio "Sim" [ref=e218]
+            - generic [ref=e219]: Sim
+        - generic [ref=e223] [cursor=pointer]:
+          - generic [ref=e224]: B
+          - radio "Não" [ref=e225]
+          - generic [ref=e226]: Não
+        - generic [ref=e230] [cursor=pointer]:
+          - generic [ref=e231]: C
+          - radio "Parcial" [ref=e232]
+          - generic [ref=e233]: Parcial
+        - heading "7. Marcas/perfis que você admira esteticamente?" [level=3] [ref=e237]
+        - textbox "Untitled short answer field" [ref=e241]:
+          - /placeholder: ""
+        - heading "8. O que cada peça precisa comunicar?" [level=3] [ref=e245]
+        - generic [ref=e248]:
+          - textbox "Untitled short answer field" [ref=e249]:
+            - /placeholder: ""
+          - generic [ref=e251] [cursor=pointer]: "*"
+        - heading "9. Fotos/imagens para usar" [level=3] [ref=e255]
+        - generic [ref=e257]:
+          - button "Untitled file upload field" [ref=e258]
+          - button "Click to choose a file or drag here" [ref=e259] [cursor=pointer]:
+            - img [ref=e261]
+            - generic [ref=e264]: Click to choose a file or drag here
+            - generic:
+              - img
+          - generic [ref=e265] [cursor=pointer]: "Size limit: 10 MB"
+        - heading "10. O que você definitivamente NÃO quer?" [level=3] [ref=e269]
+        - textbox "Untitled short answer field" [ref=e273]:
+          - /placeholder: ""
+        - heading "11. Data que precisa das primeiras peças" [level=3] [ref=e277]
+        - textbox "Untitled date field" [ref=e282]:
+          - /placeholder: ""
+        - heading "12. Algo que não perguntei?" [level=3] [ref=e286]
+        - textbox "Untitled short answer field" [ref=e290]:
+          - /placeholder: ""
+        - heading "13. Alinhados com 2 revisões" [level=3] [ref=e294]
+        - textbox "Untitled short answer field" [ref=e298]:
+          - /placeholder: ""
+      - button "Submit" [ref=e301] [cursor=pointer]:
+        - generic [ref=e302]: Submit
+        - img [ref=e304]
+        - generic:
+          - img
+  - alert [ref=e306]

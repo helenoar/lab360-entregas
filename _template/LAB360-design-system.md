@@ -5,13 +5,25 @@ Este documento substitui a leitura do arquivo `Referência estética_LAB 360°/i
 
 ## Estrutura de Pastas de Cada Projeto
 
+O serviço é a subpasta direta do cliente. Cada cliente pode ter múltiplos serviços.
+
 ```
-Clientes/[Cliente]/[Projeto]/
-  Formulário/       ← Resposta do Tally exportada (PDF ou .txt) — brief do cliente
-  Design/           ← PDF do Canva/programa com o design feito por Heleno
-  Texto/            ← .txt/.md para criação de página no Notion (revisão de conteúdo)
-  identidade-visual/
-    index.html      ← gerado por Claude, deployado no Vercel
+clientes/[clienteSlug]/
+  identidade-visual/    ← Identidade Visual Completa
+    Formulario/         ← Resposta do Tally (PDF ou .txt) — brief do cliente
+    Design/             ← PDF do Canva com o design feito por Heleno
+    Texto/              ← .txt/.md para Notion (opcional)
+    index.html          ← gerado por Claude, deployado no Vercel
+  logo/                 ← Logo
+    Formulario/
+    Design/
+    Texto/
+    index.html
+  redes-sociais/        ← Design para Redes Sociais
+    Formulario/
+    Design/
+    Texto/
+    index.html
 ```
 
 ## Workflow de Geração do HTML
@@ -201,21 +213,67 @@ Quando exibir paleta de um cliente, usar este componente:
 
 ---
 
-## 8. Estrutura HTML Base para Documento de Identidade Visual
+## 8. Estrutura HTML por Tipo de Serviço
 
-Seções sempre presentes (na ordem):
-1. **Hero** — eyebrow com tipo do documento + nome do projeto, headline com tagline do cliente
-2. **Conceito** — origem do nome, intenção, contexto emocional
-3. **Paleta de Cores** — swatches com hex, nome, sensação (ver seção 7)
-4. **Tipografia** — fontes com exemplos de uso, hierarquia
-5. **Logo** — variações, área de respiro, usos corretos
-6. **Voz & Tom** — como a marca fala, palavras-chave, exemplos
-7. **Aplicações** — exemplos visuais de como a identidade se aplica
+O tipo de serviço determina quais seções gerar e em que ordem. Ler o formulário do cliente para identificar o serviço antes de gerar.
 
 Rodapé sempre inclui:
 ```html
 <!-- LAB 360° · Heleno Carneiro -->
 ```
+
+---
+
+### 8A. IDENTIDADE VISUAL COMPLETA
+*Brand book interativo. O mais longo. 12 seções.*
+
+| # | Seção | Conteúdo | Fonte |
+|---|-------|----------|-------|
+| 1 | **Hero** | Nome da marca + logo principal + tagline | Formulário Q1, Q2 |
+| 2 | **Sobre a Marca** | O que é, há quanto tempo existe, por que buscou identidade agora | Formulário Q2, Q3, Q4 |
+| 3 | **Posicionamento** | Diferencial competitivo, concorrentes, o que a distingue | Formulário Q6, Q7 |
+| 4 | **Público** | Para quem a marca fala, perfil de quem ela quer alcançar | Formulário Q8 |
+| 5 | **Personalidade da Marca** | Como a marca seria se fosse uma pessoa — atributos, comportamento | Formulário Q9, Q10 |
+| 6 | **Logo** | Versões: principal, horizontal, vertical, símbolo solo, negativo | Design PDF |
+| 7 | **Paleta de Cores** | Swatches com hex, nome da cor, sensação/emoção associada | Design PDF + Q11 |
+| 8 | **Tipografia** | Fontes primária e secundária, hierarquia, exemplos de uso | Design PDF + Q12 |
+| 9 | **Elementos Visuais** | Padrões gráficos, ícones, texturas, grafismos | Design PDF + Q13 |
+| 10 | **Voz & Tom** | Como a marca escreve, palavras que usa, o que evita | Formulário Q9, Q12 |
+| 11 | **Aplicações** | Mockups nos canais principais onde a marca aparece | Design PDF + Q14 |
+| 12 | **Guia Rápido** | Regras resumidas: o que pode, o que não pode, como aplicar | Síntese |
+
+---
+
+### 8B. LOGO
+*Logo kit focado. Entrega cirúrgica sobre o símbolo. 9 seções.*
+
+| # | Seção | Conteúdo | Fonte |
+|---|-------|----------|-------|
+| 1 | **Hero** | Logo principal em grande destaque, limpo, com o nome | Design PDF + Q2 |
+| 2 | **Conceito** | Por que as escolhas foram feitas assim — raciocínio criativo por trás do design | Formulário Q5, Q6, Q7, Q10 |
+| 3 | **Versões do Logo** | Principal, horizontal, vertical, símbolo solo, com tagline se houver | Design PDF + Q4, Q13 |
+| 4 | **Paleta do Logo** | Cores usadas com hex, nome, aplicação | Design PDF + Q9 |
+| 5 | **Tipografia** | Fonte(s) usadas no logo, nome e uso | Design PDF |
+| 6 | **Sobre Fundos** | Logo em fundo claro, escuro, monocromático, negativo | Design PDF + Q12 |
+| 7 | **Área de Respiro & Tamanho Mínimo** | Regra visual de espaçamento e escala mínima aceitável | Design PDF |
+| 8 | **Usos Corretos & Incorretos** | O que não fazer com o logo (distorcer, trocar cor, fundo conflitante) | Design PDF |
+| 9 | **Aplicações** | Onde aparece: social, site, impresso, produto | Design PDF + Q11 |
+
+---
+
+### 8C. DESIGN PARA REDES SOCIAIS
+*Content kit. Não é sobre quem é a marca — é sobre o que foi criado. 8 seções.*
+
+| # | Seção | Conteúdo | Fonte |
+|---|-------|----------|-------|
+| 1 | **Hero** | Nome da marca + objetivo visual das peças | Formulário Q1, Q2 |
+| 2 | **Estratégia** | Objetivo das peças, tom visual, plataformas-alvo | Formulário Q2, Q3, Q5 |
+| 3 | **Galeria das Peças** | Preview de cada peça entregue, organizada por tipo/formato | Design PDF + Q1, Q8 |
+| 4 | **Detalhamento por Peça** | Para cada tipo: o que comunica, quando usar, onde publicar | Formulário Q8, Q3 |
+| 5 | **Tipografia das Peças** | Fontes usadas, hierarquia de texto nas peças | Design PDF |
+| 6 | **Paleta** | Cores usadas nas peças com hex | Design PDF + Q6 |
+| 7 | **Especificações Técnicas** | Tamanhos em px por plataforma (feed 1080×1080, Story 1080×1920, etc.) | Formulário Q3 |
+| 8 | **Como Usar** | Instruções de edição no Canva, onde substituir texto/imagem | Formulário Q4 |
 
 ---
 

@@ -1,0 +1,15 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - paragraph [ref=e3]: LAB 360°
+    - heading "Sistema de Entregas — Identidades Visuais" [level=1] [ref=e4]:
+      - text: Sistema de Entregas
+      - text: — Identidades Visuais
+  - main [ref=e5]:
+    - paragraph [ref=e6]: Projetos
+    - link "Quik Cia de Dança Mover Consciente Ver Identidade Visual →" [ref=e8] [cursor=pointer]:
+      - /url: ./clientes/quikciadadanca/moverconsciente/identidade-visual/
+      - generic [ref=e9]: Quik Cia de Dança
+      - generic [ref=e10]: Mover Consciente
+      - generic [ref=e11]: Ver Identidade Visual →
+  - contentinfo [ref=e12]:
+    - paragraph [ref=e13]: LAB 360° © 2025

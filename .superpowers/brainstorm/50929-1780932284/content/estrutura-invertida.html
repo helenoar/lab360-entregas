@@ -1,0 +1,74 @@
+<h2>Serviço → Cliente → Subpastas</h2>
+<p class="subtitle">A lógica invertida. Dois caminhos para implementar isso — selecione o que faz mais sentido.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Raiz por serviço, mês dentro do cliente</h3>
+      <p>Cada tipo de trabalho é uma pasta raiz. Dentro dela, os clientes. Dentro de cada cliente, o mês (para gestão de redes) ou direto o index (para identidade visual).</p>
+      <div class="mockup" style="margin-top:1rem">
+        <div class="mockup-header">Estrutura de pastas</div>
+        <div class="mockup-body" style="font-family:monospace; font-size:0.82rem; line-height:1.9">
+          <div style="opacity:0.5">identidade-visual/</div>
+          <div style="opacity:0.5">&nbsp;&nbsp;quikciadadanca/</div>
+          <div style="opacity:0.5">&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+          <div style="opacity:0.5">&nbsp;&nbsp;studioalma/</div>
+          <div style="opacity:0.5">&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+          <div>&nbsp;</div>
+          <div><strong style="color:#00F0FF">gestao-de-redes-sociais/</strong></div>
+          <div>&nbsp;&nbsp;<strong style="color:#00F0FF">studioalma/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">junho-2025/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">julho-2025/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem; font-size:0.82rem; opacity:0.7">
+        <strong>Identidade:</strong> <code>lab360-entregas.vercel.app/identidade-visual/studioalma/</code><br>
+        <strong>Calendário:</strong> <code>lab360-entregas.vercel.app/gestao-de-redes-sociais/studioalma/junho-2025/</code>
+      </p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Prós</h4><ul><li>URL curta e direta</li><li>Histórico mensal por cliente</li><li>Fácil de expandir para novos serviços</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Quebra a estrutura atual de <code>clientes/</code> — precisa migrar</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Híbrido — mantém clientes/ mas organiza por serviço dentro</h3>
+      <p>Preserva <code>clientes/</code> como raiz, mas dentro de cada cliente os serviços viram categorias com subpastas. Migração zero.</p>
+      <div class="mockup" style="margin-top:1rem">
+        <div class="mockup-header">Estrutura de pastas</div>
+        <div class="mockup-body" style="font-family:monospace; font-size:0.82rem; line-height:1.9">
+          <div>clientes/</div>
+          <div>&nbsp;&nbsp;studioalma/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="opacity:0.5">identidade-visual/</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="opacity:0.5">index.html</span></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">gestao-de-redes-sociais/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">junho-2025/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:#00F0FF">julho-2025/</strong></div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.html</div>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem; font-size:0.82rem; opacity:0.7">
+        <strong>Identidade:</strong> <code>lab360-entregas.vercel.app/clientes/studioalma/identidade-visual/</code><br>
+        <strong>Calendário:</strong> <code>lab360-entregas.vercel.app/clientes/studioalma/gestao-de-redes-sociais/junho-2025/</code>
+      </p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Prós</h4><ul><li>Zero migração — existente continua igual</li><li>Lógica clara de serviço dentro do cliente</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>URL mais longa</li><li>Serviço ainda vem depois do cliente, não antes</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:1.5rem; padding:1.25rem; background:rgba(0,240,255,0.04); border-radius:8px; border-left:2px solid rgba(0,240,255,0.3)">
+  <p class="label" style="color:rgba(0,240,255,0.7)">Nota sobre migração</p>
+  <p style="margin-top:0.5rem; font-size:0.85rem">A opção A quebra a estrutura atual — o único cliente existente (<code>quikciadadanca/moverconsciente</code>) precisaria ser movido para <code>identidade-visual/quikciadadanca/</code>. São poucos arquivos, dá pra fazer sem dor.</p>
+</div>

@@ -1,0 +1,161 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3] [cursor=pointer]:
+      - generic: Hero
+    - generic [ref=e4] [cursor=pointer]:
+      - generic: Conceito
+    - generic [ref=e5] [cursor=pointer]:
+      - generic: Paleta
+    - generic [ref=e6] [cursor=pointer]:
+      - generic: Tipografia
+    - generic [ref=e7] [cursor=pointer]:
+      - generic: Logo
+    - generic [ref=e8] [cursor=pointer]:
+      - generic: Voz & Tom
+    - generic [ref=e9] [cursor=pointer]:
+      - generic: Aplicações
+  - generic [ref=e12]: LAB 360° · Mover Consciente
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]: Identidade Visual · Mover Consciente
+      - heading "Mover Consciente" [level=1] [ref=e16]:
+        - text: Mover
+        - text: Consciente
+      - paragraph [ref=e17]: Vivência artística imersiva de dança contemporânea e movimento consciente
+    - generic [ref=e18]:
+      - generic [ref=e19]: Conceito
+      - heading "O Movimento como Respiração" [level=2] [ref=e20]:
+        - text: O Movimento como
+        - text: Respiração
+      - paragraph [ref=e22]: Mover Consciente nasce da intenção de criar um espaço acessível, gratuito e inclusivo onde o corpo, a mente e a dança contemporânea se encontram. É um convite à transformação através do movimento fluido, autêntico e consciente — um espaço de respiração coletiva.
+      - heading "Valores Fundamentais" [level=3] [ref=e23]
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - generic [ref=e26]: Acessibilidade
+          - paragraph [ref=e27]: Espaço aberto para todos, sem barreiras econômicas ou de gênero
+        - generic [ref=e28]:
+          - generic [ref=e29]: Movimento Consciente
+          - paragraph [ref=e30]: Presença corpo-mente integrada, conexão com a respiração
+        - generic [ref=e31]:
+          - generic [ref=e32]: Inclusão
+          - paragraph [ref=e33]: Comunidade diversa onde todas as corpos e expressões cabem
+        - generic [ref=e34]:
+          - generic [ref=e35]: Fluidez
+          - paragraph [ref=e36]: Movimento natural, sem rigidez, seguindo o próprio ritmo
+        - generic [ref=e37]:
+          - generic [ref=e38]: Autenticidade
+          - paragraph [ref=e39]: Expressão verdadeira, sem máscaras, vulnerabilidade criativa
+    - generic [ref=e40]:
+      - generic [ref=e41]: Paleta de Cores
+      - heading "Sensações em Cor" [level=2] [ref=e42]:
+        - text: Sensações
+        - text: em Cor
+      - generic [ref=e44]:
+        - generic [ref=e47]:
+          - generic [ref=e48]: Turquesa Primário
+          - generic [ref=e49]: "#00D9D9"
+          - generic [ref=e50]: Fluidez, movimento, contemporaneidade, energia renovável
+        - generic [ref=e53]:
+          - generic [ref=e54]: Dourado Destaque
+          - generic [ref=e55]: "#D4A574"
+          - generic [ref=e56]: Calor, poder humano, transformação, transcendência
+        - generic [ref=e59]:
+          - generic [ref=e60]: Branco
+          - generic [ref=e61]: "#FFFFFF"
+          - generic [ref=e62]: Leveza, espaço respirável, transparência, neutro
+        - generic [ref=e65]:
+          - generic [ref=e66]: Preto
+          - generic [ref=e67]: "#000000"
+          - generic [ref=e68]: Profundidade, contemplação, força interior, espaço
+    - generic [ref=e69]:
+      - generic [ref=e70]: Tipografia
+      - heading "Linguagem Visual" [level=2] [ref=e71]:
+        - text: Linguagem
+        - text: Visual
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]: Inter 900 · Display
+          - generic [ref=e76]: Comando, presença, impacto
+          - paragraph [ref=e77]: Uso em títulos principais, headlines de seções, chamadas de ação
+        - generic [ref=e78]:
+          - generic [ref=e79]: Inter 700 · Heading
+          - generic [ref=e80]: Estrutura, hierarquia, destaque
+          - paragraph [ref=e81]: Uso em subtítulos, destaques, estruturas secundárias
+        - generic [ref=e82]:
+          - generic [ref=e83]: JetBrains Mono 400 · Body
+          - generic [ref=e84]: Poesia na precisão, texto corpo fluido
+          - paragraph [ref=e85]: Uso em corpo de texto, manifestos, instruções, descrições. Respiração e clareza.
+      - heading "Escala de Texto" [level=3] [ref=e86]
+      - paragraph [ref=e87]: "Tipografia responsiva: escalas fluem entre mobile e desktop, mantendo hierarquia legível e proporcional em qualquer dispositivo. Inter para presença, JetBrains Mono para respiração."
+    - generic [ref=e88]:
+      - generic [ref=e89]: Logo
+      - heading "Marca do Movimento" [level=2] [ref=e90]:
+        - text: Marca do
+        - text: Movimento
+      - paragraph [ref=e92]: O logo de Mover Consciente reflete fluidez e movimento contínuo. A marca trabalha em múltiplas variações, preservando sua essência em qualquer contexto — completo, símbolo isolado, monocromático ou em inversão.
+      - heading "Variações" [level=3] [ref=e93]
+      - generic [ref=e94]:
+        - generic [ref=e96]:
+          - generic [ref=e97]: ⤺
+          - generic [ref=e98]: Símbolo Primário
+        - generic [ref=e100]:
+          - generic [ref=e101]: ⤺
+          - generic [ref=e102]: Monocromático
+        - generic [ref=e104]:
+          - generic [ref=e105]: ⤺
+          - generic [ref=e106]: Inversão Turquesa
+        - generic [ref=e108]:
+          - generic [ref=e109]: ⤺
+          - generic [ref=e110]: Dourado
+      - generic [ref=e111]:
+        - heading "Área de Respiro" [level=4] [ref=e112]
+        - paragraph [ref=e113]: Mínimo 1.5x da altura do símbolo. Não reduzir abaixo de 80px em qualquer contexto. A marca respira — preserve seu espaço.
+    - generic [ref=e114]:
+      - generic [ref=e115]: Voz & Tom
+      - heading "Como a Marca Fala" [level=2] [ref=e116]:
+        - text: Como a Marca
+        - text: Fala
+      - generic [ref=e118]:
+        - heading "Identidade Verbal" [level=3] [ref=e119]
+        - paragraph [ref=e120]: Acolhedora, inspiradora, inclusiva, poética. A voz de Mover Consciente convida sem impor, encoraja sem exigir. Fala ao corpo como quem entende que movimento é política e terapia.
+      - heading "Palavras-Chave" [level=3] [ref=e121]
+      - generic [ref=e122]:
+        - generic [ref=e123]: Movimento
+        - generic [ref=e124]: Consciência
+        - generic [ref=e125]: Transformação
+        - generic [ref=e126]: Fluidez
+        - generic [ref=e127]: Comunidade
+        - generic [ref=e128]: Autenticidade
+      - heading "Exemplos de Tom" [level=3] [ref=e129]
+      - generic [ref=e130]:
+        - heading "Manifesto" [level=4] [ref=e131]
+        - paragraph [ref=e132]: "\"Mover é respirar. Respirar é estar vivo.\""
+      - generic [ref=e133]:
+        - heading "Convite" [level=4] [ref=e134]
+        - paragraph [ref=e135]: "\"Seu corpo é seu primeiro e mais honesto instrumento.\""
+      - generic [ref=e136]:
+        - heading "Filosofia" [level=4] [ref=e137]
+        - paragraph [ref=e138]: "\"Aqui não há espectadores, apenas praticantes de vida.\""
+    - generic [ref=e139]:
+      - generic [ref=e140]: Aplicações
+      - heading "Identidade em Contexto" [level=2] [ref=e141]:
+        - text: Identidade em
+        - text: Contexto
+      - paragraph [ref=e143]: "Mover Consciente vive em múltiplos contextos: cartazes, redes sociais, indumentária, espacialização de eventos, material impresso. A identidade é versátil mas coerente — a marca respira em tudo que toca."
+      - heading "Contextos de Aplicação" [level=3] [ref=e144]
+      - generic [ref=e145]:
+        - generic [ref=e146]: Cartazes & Divulgação
+        - paragraph [ref=e147]: Headlines em Inter 900 com turquesa, corpo em JetBrains Mono, espaço respirável. Foco na imagem do movimento e na sensação de inclusão.
+      - generic [ref=e148]:
+        - generic [ref=e149]: Redes Sociais
+        - paragraph [ref=e150]: "Instagram, TikTok, LinkedIn: quadrados verticais com paleta turquesa + dourado. Poesia visual + legibilidade. Stories com símbolos e transições fluidas."
+      - generic [ref=e151]:
+        - generic [ref=e152]: Indumentária
+        - paragraph [ref=e153]: Logo pequeno no peito ou costas, símbolo isolado aceitável. Turquesa ou dourado em algodão orgânico, respeita a identidade eco-consciente da marca.
+      - generic [ref=e154]:
+        - generic [ref=e155]: Espacialização
+        - paragraph [ref=e156]: "Eventos: sinalização com Inter 900 em preto com turquesa. Projeções de movimento no espaço, fluidez visual, convite corporal."
+      - generic [ref=e157]:
+        - generic [ref=e158]: Material Impresso
+        - paragraph [ref=e159]: Cartões, convites, flyers respeitam a hierarquia Inter 900 / JetBrains Mono. Turquesa + dourado como accents. Respiro visual em primeiro lugar.
+    - generic [ref=e160]: LAB 360° · Heleno Carneiro
