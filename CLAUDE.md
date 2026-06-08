@@ -71,54 +71,64 @@ Serviços disponíveis e suas URLs:
 
 **Mês/ano:** `junho-2025`, `julho-2025`, etc. (por extenso, com hífen).
 
-## Criar estrutura manualmente (sem inbox)
+## Preparar estrutura manualmente (opcional)
 
-Use `/novo-cliente` quando quiser criar a estrutura de pastas SEM ter os arquivos ainda — por exemplo, para já deixar a pasta pronta antes do cliente enviar os materiais.
+Se quiser preparar as pastas antes de ter os arquivos, basta criar manualmente no Finder:
 
 ```
-/novo-cliente Nome do Cliente — Nome do Projeto — tipo-de-servico
+clientes/[clienteSlug]/[projetoSlug]/[tipo-servico]/
+├── Formulario/
+├── Design/
+└── Texto/
 ```
 
-Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais`
+Ou para gestão de redes sociais:
 
-Cria as subpastas em `clientes/[clienteSlug]/[nomeProjeto]/[tipoServico]/`, adiciona card no `index.html` e faz commit. Se o cliente ou projeto já existe, apenas adiciona o novo serviço dentro da pasta apropriada.
+```
+clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/
+```
 
-> Para o fluxo completo (com arquivos prontos), use `/novo-pedido` — ver seção abaixo.
+Depois coloca os arquivos lá e executa `/novo-pedido [slug] [projeto] [tipo]`.
 
 ## Fluxo Principal — Novo Pedido (use este)
 
 Quando Heleno traz um novo cliente/pedido, o fluxo é:
 
-**Heleno cria no Finder e joga os arquivos:**
+**Heleno coloca os arquivos diretamente na estrutura:**
 ```
-_inbox/
-  [Nome do Cliente]/
-    [Nome do Projeto]/
+clientes/
+  [clienteSlug]/
+    [projetoSlug]/
       [tipo-servico]/
-        arquivo1.pdf
-        arquivo2.pdf
+        Formulario/formulario.pdf
+        Design/design.pdf
+        Texto/arquivo.txt (opcional)
 ```
 
-Tipos de subpasta aceitos: `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
+Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
 
 Arquivos esperados por tipo:
 - `identidade-visual`, `logo`, `redes-sociais`: formulário do Tally (PDF) + design do Canva (PDF)
-- `gestao-de-redes-sociais`: apenas o formulário do Tally (PDF)
+- `gestao-de-redes-sociais`: formulário em `gestao-de-redes-sociais/[mes-ano]/formulario.pdf`
 
-**Depois Heleno digita:** `/novo-pedido`
+**Depois Heleno digita:**
+```
+/novo-pedido [clienteSlug] [projetoSlug] [tipo-servico]
+```
+
+Exemplo:
+```
+/novo-pedido quikciadadanca mover-consciente identidade-visual
+```
 
 **Claude faz tudo:**
-1. Escaneia `_inbox/` automaticamente (detecta cliente, projeto e tipo pela estrutura de pastas)
-2. Cria `clientes/[slug]/[projeto]/[tipo]/` — se o cliente/projeto já existe, apenas adiciona o serviço
-3. Move os arquivos do inbox para dentro
-4. Lê o especialista do tipo (`_especialistas/[tipo].md`)
-5. Gera HTML de entrega
-6. Commit + push imediato
-7. Vercel deploya em ~30s
-8. Entrega URL ao Heleno
-9. Apaga `_inbox/[Nome do Cliente]/[Nome do Projeto]/`
-
-**Tipos aceitos:** `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
+1. Valida que os arquivos existem nas pastas corretas
+2. Lê o especialista do tipo (`_especialistas/[tipo].md`)
+3. Gera HTML de entrega
+4. Atualiza ou cria card no `index.html`
+5. Commit + push imediato
+6. Vercel deploya em ~30s
+7. Entrega URL ao Heleno
 
 ## Workflow de Geração de HTML (fluxo manual/interno)
 

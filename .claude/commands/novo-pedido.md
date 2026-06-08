@@ -1,177 +1,117 @@
 # Comando: novo-pedido
 
-Processa todos os clientes em `_inbox/` de ponta a ponta.
+Gera HTML de entrega a partir de arquivos já colocados na estrutura de pastas.
 
-## Como funciona
+## Como usar
 
-Heleno cria no Finder:
+Heleno coloca os arquivos diretamente na estrutura:
+
 ```
-_inbox/
-  [Nome do Cliente]/
-    [Nome do Projeto]/
+clientes/
+  [clienteSlug]/
+    [projetoSlug]/
       [tipo-servico]/
-        arquivo1.pdf
-        arquivo2.pdf
+        Formulario/[formulario].pdf
+        Design/[design].pdf
+        Texto/[arquivo].txt (opcional)
+      gestao-de-redes-sociais/
+        [mes-ano]/
+          formulario.pdf
+```
+
+Depois digita:
+
+```
+/novo-pedido [clienteSlug] [projetoSlug] [tipo-servico]
+```
+
+Exemplos:
+```
+/novo-pedido quikciadadanca mover-consciente identidade-visual
+/novo-pedido studioalma branding-2025 logo
+/novo-pedido caferaiz pack-janeiro gestao-de-redes-sociais
 ```
 
 Tipos aceitos: `identidade-visual` | `logo` | `redes-sociais` | `gestao-de-redes-sociais`
 
 ## O que fazer — passo a passo
 
-### 1. Escanear o inbox
+### 1. Validar argumentos
 
-```bash
-ls "_inbox/"
-```
-
-Para cada pasta encontrada (= um cliente):
-
-```bash
-ls "_inbox/[Nome do Cliente]/"
-```
-
-Para cada projeto:
-
-```bash
-ls "_inbox/[Nome do Cliente]/[Nome do Projeto]/"
-```
-
-O nome da subpasta é o `tipoServico`. Nenhum arquivo precisa ser lido nesta etapa.
-
-Derivar:
-- **clienteNome**: nome da pasta em `_inbox/` (ex: `Quik Cia de Dança`)
-- **nomeProjeto**: nome da subpasta (ex: `Mover Consciente`)
-- **tipoServico**: nome da subpasta (ex: `identidade-visual`)
-- **clienteSlug**: minúsculas, sem espaços, sem acentos, sem hífens
-  - Regras: á→a, ã→a, â→a, é→e, ê→e, í→i, ó→o, ô→o, õ→o, ú→u, ç→c, remover espaços
-- **projetoSlug**: minúsculas, hífens separando palavras (ex: `mover-consciente`)
+Extrair:
+- **clienteSlug**: primeiro argumento (ex: `quikciadadanca`)
+- **projetoSlug**: segundo argumento (ex: `mover-consciente`)
+- **tipoServico**: terceiro argumento (ex: `identidade-visual`)
 
 Erros a verificar:
 - Tipo não reconhecido → parar, reportar: "Tipo `[nome]` não reconhecido. Use: identidade-visual | logo | redes-sociais | gestao-de-redes-sociais"
-- Inbox vazio → parar, reportar: "Nenhum cliente encontrado em `_inbox/`."
+- Pasta do cliente não existe → parar, reportar: "Cliente `[slug]` não encontrado em `clientes/`"
+- Pasta do projeto não existe → parar, reportar: "Projeto `[slug]` não encontrado em `clientes/[clienteSlug]/`"
 
-Mapa de configurações:
-| tipoServico | pastaEntrega | labelCard | seçãoDS |
-|-------------|-------------|-----------|---------|
-| `identidade-visual` | `clientes/[slug]/[projeto]/identidade-visual/` | `Identidade Visual` | 8A |
-| `logo` | `clientes/[slug]/[projeto]/logo/` | `Logo` | 8B |
-| `redes-sociais` | `clientes/[slug]/[projeto]/redes-sociais/` | `Design para Redes Sociais` | 8C |
-| `gestao-de-redes-sociais` | `clientes/[slug]/[projeto]/gestao-de-redes-sociais/[mes-ano]/` | `Calendário Editorial` | 8D |
-
-### 2. Criar estrutura de pastas
-
-Verificar se o cliente já existe:
-```bash
-ls "clientes/[clienteSlug]/" 2>/dev/null
-```
-
-Verificar se o projeto já existe dentro do cliente:
-```bash
-ls "clientes/[clienteSlug]/[projetoSlug]/" 2>/dev/null
-```
-
-**Para identidade-visual, logo, redes-sociais:**
-```bash
-mkdir -p "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Formulario"
-mkdir -p "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Design"
-mkdir -p "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Texto"
-```
-
-**Para gestao-de-redes-sociais:**
-
-Identificar mês/ano a partir do formulário (ler o PDF para extrair período). Se não encontrar, perguntar ao Heleno.
-
-Normalização: jan→janeiro, fev→fevereiro, mar→março, abr→abril, mai→maio, jun→junho, jul→julho, ago→agosto, set→setembro, out→outubro, nov→novembro, dez→dezembro
-
-```bash
-mkdir -p "clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]"
-```
-
-### 3. Mover arquivos da inbox
+### 2. Validar estrutura de arquivos
 
 **Para identidade-visual, logo, redes-sociais:**
 
-Identificar na pasta `_inbox/[Nome do Cliente]/[Nome do Projeto]/[tipoServico]/`:
-- **arquivoFormulario**: PDF do formulário (geralmente o menor, ou o que contém respostas do Tally)
-- **arquivoDesign**: PDF do design do Canva (geralmente o maior)
-- **arquivoTexto**: .txt ou .md para Notion (opcional)
-
-Se houver ambiguidade entre dois PDFs, usar o nome para inferir qual é qual. Se não conseguir, perguntar.
-
+Verificar se existem:
 ```bash
-mv "_inbox/[Nome do Cliente]/[Nome do Projeto]/[tipoServico]/[arquivoFormulario]" "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Formulario/"
-mv "_inbox/[Nome do Cliente]/[Nome do Projeto]/[tipoServico]/[arquivoDesign]" "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Design/"
+ls "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Formulario/"*.pdf
+ls "clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/Design/"*.pdf
 ```
+
+Se faltar formulário ou design → parar, reportar qual arquivo falta.
 
 **Para gestao-de-redes-sociais:**
 
+Identificar [mes-ano] dentro de `gestao-de-redes-sociais/`:
 ```bash
-mv "_inbox/[Nome do Cliente]/[Nome do Projeto]/gestao-de-redes-sociais/[arquivoFormulario]" "clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/formulario.pdf"
+ls "clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/"
 ```
 
-### 4. Carregar especialista do tipo
+Se houver múltiplos meses, perguntar qual processar. Se nenhum, parar com "Nenhum calendário encontrado em gestao-de-redes-sociais/".
+
+Verificar se existe:
+```bash
+ls "clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/formulario.pdf"
+```
+
+Se faltar → parar, reportar: "Formulário não encontrado em [mes-ano]/".
+
+### 3. Carregar especialista do tipo
 
 Ler `_especialistas/[tipoServico].md` — conhecimento específico do domínio.
 
-### 5. Ler os arquivos de conteúdo
+### 4. Ler os arquivos de conteúdo
 
 **Para identidade-visual, logo, redes-sociais:**
-- Ler PDF em `Formulario/`
-- Ler PDF em `Design/`
+- Ler PDF em `Formulario/` (extrair brief em voz própria do cliente)
+- Ler PDF em `Design/` (extrair visual, cores, elementos)
 - Ler `_template/LAB360-design-system.md` — seção conforme tipoServico (8A, 8B ou 8C)
 
 **Para gestao-de-redes-sociais:**
 - Ler `formulario.pdf`
 - Ler `_especialistas/gestao-de-redes-sociais.md`
 - Ler `_template/LAB360-design-system.md` — seção 8D
-- Gerar estratégia editorial internamente (sem precisar de Claude Desktop)
+- Gerar estratégia editorial internamente
 
-### 6. Adicionar card no index.html
+### 5. Obter nome real do cliente e projeto (para HTML e URLs)
 
-O `index.html` agrupa projetos por cliente. Verificar se o cliente já existe buscando `data-cliente="[clienteSlug]"`.
-
-URLs sempre absolutas do Vercel + `target="_blank"`.
-
-**Se o cliente JÁ existe** — adicionar card dentro do `.projects-grid` e atualizar o contador:
-```html
-<a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/" target="_blank" rel="noopener">
-  <span class="project-service">[labelCard]</span>
-  <span class="project-name">[nomeProjeto] — [tipoServicoLegível]</span>
-  <span class="card-action">Ver entrega</span>
-</a>
+Procurar em `index.html` se o cliente já existe:
+```bash
+grep "data-cliente=\"[clienteSlug]\"" index.html
 ```
 
-Para `gestao-de-redes-sociais`, o path é `clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/`.
+Se encontrar, extrair o `clienteNome` do HTML. Se não encontrar, pedir ao Heleno.
 
-**Se o cliente NÃO existe** — criar novo bloco antes do `</main>`:
-```html
-<div class="clients-sep"></div>
-<div class="client-group" data-cliente="[clienteSlug]">
-  <div class="client-header">
-    <span class="client-name">[clienteNome]</span>
-    <span class="client-count">1 projeto</span>
-    <button class="copy-link" onclick="copyClientLink('[clienteSlug]', this)">Copiar link</button>
-  </div>
-  <div class="projects-grid">
+Mesmo para projeto (se houver padrão no index.html).
 
-    <a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/" target="_blank" rel="noopener">
-      <span class="project-service">[labelCard]</span>
-      <span class="project-name">[nomeProjeto] — [tipoServicoLegível]</span>
-      <span class="card-action">Ver entrega</span>
-    </a>
+### 6. Gerar o HTML
 
-  </div>
-</div>
-```
-
-### 7. Gerar o HTML
-
-Invocar o skill `huashu-design` para gerar o HTML de entrega.
+Invocar skill `huashu-design` para gerar o HTML de entrega.
 
 Briefing base:
 - Estrutura LAB360°: fundo preto, canvas rizoma, nav dots, status bar, cursor cyan
 - Seção do design system: conforme tipoServico (8A, 8B, 8C ou 8D)
-- Usar conhecimento do especialista carregado no passo 4
+- Usar conhecimento do especialista carregado no passo 3
 
 **Para gestao-de-redes-sociais:**
 - Implementar grade mensal interativa (seção 8D)
@@ -182,33 +122,56 @@ Salvar em:
 - identidade-visual/logo/redes-sociais: `clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/index.html`
 - gestao-de-redes-sociais: `clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/index.html`
 
+### 7. Adicionar ou atualizar card no index.html
+
+O `index.html` agrupa projetos por cliente. URLs sempre absolutas do Vercel + `target="_blank"`.
+
+**Se o cliente JÁ existe:**
+```html
+<a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/" target="_blank" rel="noopener">
+  <span class="project-service">[labelCard]</span>
+  <span class="project-name">[nomeProjeto] — [tipoServicoLegível]</span>
+  <span class="card-action">Ver entrega</span>
+</a>
+```
+
+Para `gestao-de-redes-sociais`, o path é `clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/`.
+
+**Se o cliente NÃO existe:**
+```html
+<div class="clients-sep"></div>
+<div class="client-group" data-cliente="[clienteSlug]">
+  <div class="client-header">
+    <span class="client-name">[clienteNome]</span>
+    <span class="client-count">1 projeto</span>
+    <button class="copy-link" onclick="copyClientLink('[clienteSlug]', this)">Copiar link</button>
+  </div>
+  <div class="projects-grid">
+    <a class="project-card" href="https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[tipoServico]/" target="_blank" rel="noopener">
+      <span class="project-service">[labelCard]</span>
+      <span class="project-name">[nomeProjeto] — [tipoServicoLegível]</span>
+      <span class="card-action">Ver entrega</span>
+    </a>
+  </div>
+</div>
+```
+
 ### 8. Commit + push imediato
 
 ```bash
-git add "clientes/[clienteSlug]/" index.html
+git add "clientes/[clienteSlug]/[projetoSlug]/" index.html
 git commit -m "Gerar [tipoServico]: [clienteNome] — [nomeProjeto]"
 git push
 ```
 
 Vercel deploya em ~30 segundos.
 
-### 9. Limpar inbox
-
-```bash
-rm -rf "_inbox/[Nome do Cliente]/[Nome do Projeto]/"
-```
-
-Se a pasta do cliente ficar vazia, deletar também:
-```bash
-rmdir "_inbox/[Nome do Cliente]/"
-```
-
-### 10. Criar página no Notion (somente se Texto/ tiver arquivo)
+### 9. Criar página no Notion (somente se Texto/ tiver arquivo)
 
 Aplicável apenas para identidade-visual, logo, redes-sociais.
 Ler o arquivo em Texto/, criar página no Notion via MCP.
 
-### 11. Entregar URL ao Heleno
+### 10. Entregar URL ao Heleno
 
 **Para identidade-visual, logo, redes-sociais:**
 ```
@@ -224,4 +187,11 @@ URL: https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/[ti
 URL: https://lab360-entregas.vercel.app/clientes/[clienteSlug]/[projetoSlug]/gestao-de-redes-sociais/[mes-ano]/
 ```
 
-Se houver múltiplos clientes/projetos no inbox, processar todos em sequência e entregar todas as URLs ao final.
+## Mapa de configurações
+
+| tipoServico | labelCard | seçãoDS |
+|-------------|-----------|---------|
+| `identidade-visual` | `Identidade Visual` | 8A |
+| `logo` | `Logo` | 8B |
+| `redes-sociais` | `Design para Redes Sociais` | 8C |
+| `gestao-de-redes-sociais` | `Calendário Editorial` | 8D |
