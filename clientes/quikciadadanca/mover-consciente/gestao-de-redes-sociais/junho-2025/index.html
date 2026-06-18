@@ -100,6 +100,9 @@
     .pc:hover{opacity:.7}
     .pc+.pc{margin-top:2px}
     .tbdc{margin-top:20px;padding:2px 3px;font-family:'JetBrains Mono',monospace;font-size:.42rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5);border:1px dashed rgba(255,255,255,.28);text-align:center}
+    .cd.ev{background:rgba(255,255,255,.04)}
+    .cd.ev .dn{color:#fff;font-weight:700}
+    .evc{margin-top:18px;padding:2px 5px;font-family:'JetBrains Mono',monospace;font-size:.46rem;letter-spacing:.05em;text-transform:uppercase;color:#fff;line-height:1.4;font-weight:700;border-radius:2px}
     .calleg{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.07)}
     .cli{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.4)}
     .cld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
@@ -147,6 +150,10 @@
     .mdiv{height:1px;background:rgba(255,255,255,.07);margin:1.25rem 0}
     #midea{font-family:'JetBrains Mono',monospace;font-size:.88rem;line-height:1.78;color:rgba(255,255,255,.7)}
     #mnotes{font-family:'JetBrains Mono',monospace;font-size:.75rem;line-height:1.65;color:rgba(255,255,255,.35)}
+    #mleglabel{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--cyan)}
+    #mcopy{font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:1px solid rgba(255,255,255,.15);padding:4px 10px;cursor:pointer;transition:all .2s;flex-shrink:0}
+    #mcopy:hover{color:var(--cyan);border-color:var(--cyan)}
+    #mleg{font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7;color:rgba(255,255,255,.62);white-space:pre-wrap;background:rgba(255,255,255,.02);border-left:2px solid rgba(0,240,255,.4);padding:1rem 1.1rem}
   </style>
 </head>
 <body>
@@ -192,30 +199,31 @@
       <div class="sfstep">
         <div class="sfbar" style="background:rgba(255,255,255,.18)"></div>
         <div class="sfn">01</div>
-        <p class="sftype">Dia do evento</p>
+        <p class="sftype">Dois dias antes</p>
         <p class="sftitle">Flyer</p>
-        <p class="sfdesc">Material de divulgação já produzido com a identidade visual do projeto. Publicado no dia do encontro, marcando @quikciadedanca e o Espaço Com.Vida.</p>
+        <p class="sfdesc">Material de divulgação já produzido com a identidade visual do projeto. Publicado <strong>dois dias antes do encontro</strong> para dar tempo de circular, marcando @quikciadedanca e o Espaço Com.Vida. Descrição com #PraCegoVer descrevendo também as logomarcas.</p>
       </div>
       <div class="sfstep">
         <div class="sfbar" style="background:rgba(255,255,255,.18)"></div>
         <div class="sfn">02</div>
-        <p class="sftype">Dia seguinte</p>
+        <p class="sftype">Três dias depois</p>
         <p class="sftitle">Carrossel de Fotos</p>
-        <p class="sfdesc">Registro fotográfico da oficina com direção criativa própria para cada encontro — rostos, objetos, duos, detalhes do corpo. Com #ParaTodosVerem.</p>
+        <p class="sfdesc">Registro fotográfico da oficina com direção criativa própria para cada encontro — rostos, objetos, duos, detalhes do corpo. Publicado ~3 dias após o encontro, dando tempo de baixar e tratar o material. Com #ParaTodosVerem.</p>
       </div>
       <div class="sfstep">
         <div class="sfbar" style="background:rgba(255,255,255,.18)"></div>
         <div class="sfn">03</div>
-        <p class="sftype">Dois dias depois</p>
+        <p class="sftype">Em sequência</p>
         <p class="sftitle">Vídeo</p>
-        <p class="sfdesc">Registro em vídeo com conceito próprio por encontro — slow motion, split screen, mini-documentário. Com legendas para acessibilidade auditiva.</p>
+        <p class="sfdesc">Registro em vídeo com conceito próprio por encontro — slow motion, split screen, mini-documentário. Publicado logo após o carrossel, com tempo para edição. Com legendas para acessibilidade auditiva.</p>
       </div>
     </div>
 
     <div class="lh"></div>
     <p class="mono rv" style="font-size:.78rem;color:rgba(255,255,255,.3);letter-spacing:.03em;line-height:1.8">
       Todas as publicações marcam <span style="color:rgba(255,255,255,.52)">@quikciadedanca</span> e o <span style="color:rgba(255,255,255,.52)">Espaço Com.Vida</span><br>
-      <span style="color:rgba(255,255,255,.52)">#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida</span>
+      <span style="color:rgba(255,255,255,.52)">#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida</span><br>
+      <span style="color:rgba(255,255,255,.4)">Projeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.</span>
     </p>
   </div>
 </section>
@@ -258,8 +266,9 @@
   <div class="secw">
     <p class="ey rv">Calendário</p>
     <h2 class="hs rv">Calendário<br><span class="acc">Visual</span></h2>
-    <p class="mono rv" style="font-size:.82rem;color:rgba(255,255,255,.4);margin-top:1rem;max-width:580px">
-      Clique em qualquer publicação para ver a ideia criativa detalhada.
+    <p class="mono rv" style="font-size:.82rem;color:rgba(255,255,255,.4);margin-top:1rem;max-width:620px">
+      Clique em qualquer publicação para ver a ideia criativa e a legenda sugerida.
+      As células brancas (●) marcam o dia do encontro presencial: o flyer sai 2 dias antes, o carrossel e o vídeo a partir de 3 dias depois.
       Datas marcadas como TBD aguardam confirmação dos próximos encontros.
     </p>
 
@@ -274,7 +283,7 @@
     <p class="ey rv">Detalhamento</p>
     <h2 class="hs rv">Post a<br><span class="acc">Post</span></h2>
     <p class="mono rv" style="font-size:.82rem;color:rgba(255,255,255,.4);margin-top:1rem;max-width:580px">
-      Ideia criativa para cada publicação de cada encontro. Os encontros 4, 5 e 6 têm as ideias definidas — aguardam confirmação de data.
+      Ideia criativa e legenda sugerida para cada publicação. Clique numa peça no calendário acima para ver a legenda completa e copiar. Os encontros 4, 5 e 6 têm as ideias definidas — aguardam confirmação de data.
     </p>
     <div id="enc-detail" style="margin-top:2.5rem"></div>
   </div>
@@ -289,7 +298,7 @@
     <div class="oegrid rv">
       <div class="oeitem">
         <p class="oelabel">Acessibilidade</p>
-        <p class="oetext">Todas as publicações com imagem terão <strong>#ParaTodosVerem</strong>. Vídeos e carrosséis com legendas para acessibilidade auditiva.</p>
+        <p class="oetext">Todas as publicações com imagem terão <strong>#PraCegoVer / #ParaTodosVerem</strong> — nos flyers, descrevendo também as logomarcas. Vídeos com legendas para acessibilidade auditiva.</p>
       </div>
       <div class="oeitem">
         <p class="oelabel">Identidade Visual</p>
@@ -326,6 +335,14 @@
     <p id="midea"></p>
     <div class="mdiv"></div>
     <p id="mnotes"></p>
+    <div id="mlegwrap" style="display:none">
+      <div class="mdiv"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.6rem">
+        <p id="mleglabel">Legenda sugerida</p>
+        <button id="mcopy">Copiar</button>
+      </div>
+      <p id="mleg"></p>
+    </div>
   </div>
 </div>
 
@@ -341,26 +358,43 @@ const ENC={
 };
 
 const POSTS={
-  '2025-06-22':[{id:'f1',enc:1,type:'Flyer',label:'Flyer E1'}],
-  '2025-06-23':[{id:'c1',enc:1,type:'Carrossel',label:'Carrossel E1'}],
-  '2025-06-24':[{id:'f2',enc:2,type:'Flyer',label:'Flyer E2'},{id:'v1',enc:1,type:'Vídeo',label:'Vídeo E1'}],
-  '2025-06-25':[{id:'c2',enc:2,type:'Carrossel',label:'Carrossel E2'}],
-  '2025-06-26':[{id:'v2',enc:2,type:'Vídeo',label:'Vídeo E2'}],
-  '2025-07-01':[{id:'f3',enc:3,type:'Flyer',label:'Flyer E3'}],
-  '2025-07-02':[{id:'c3',enc:3,type:'Carrossel',label:'Carrossel E3'}],
-  '2025-07-03':[{id:'v3',enc:3,type:'Vídeo',label:'Vídeo E3'}]
+  '2025-06-20':[{id:'f1',enc:1,type:'Flyer',label:'Flyer E1'}],
+  '2025-06-22':[{id:'f2',enc:2,type:'Flyer',label:'Flyer E2'}],
+  '2025-06-25':[{id:'c1',enc:1,type:'Carrossel',label:'Carrossel E1'}],
+  '2025-06-26':[{id:'v1',enc:1,type:'Vídeo',label:'Vídeo E1'}],
+  '2025-06-27':[{id:'c2',enc:2,type:'Carrossel',label:'Carrossel E2'}],
+  '2025-06-28':[{id:'v2',enc:2,type:'Vídeo',label:'Vídeo E2'}],
+  '2025-06-29':[{id:'f3',enc:3,type:'Flyer',label:'Flyer E3'}],
+  '2025-07-04':[{id:'c3',enc:3,type:'Carrossel',label:'Carrossel E3'}],
+  '2025-07-05':[{id:'v3',enc:3,type:'Vídeo',label:'Vídeo E3'}]
+};
+
+// Dias dos encontros (eventos presenciais) — marcados no calendário
+const EVENTS={
+  '2025-06-22':{enc:1,label:'1º Encontro · 8h–12h'},
+  '2025-06-24':{enc:2,label:'2º Encontro · 8h30–12h30'},
+  '2025-07-01':{enc:3,label:'3º Encontro · 13h30–17h30'}
 };
 
 const DETAIL={
-  f1:{title:'1º Encontro — Flyer',idea:'Flyer de divulgação do 1º encontro, já produzido com a identidade visual do Mover Consciente. Publicar no dia do evento, marcando @quikciadedanca e o Espaço Com.Vida.',notes:'Material pronto · Publicar em 22/06 · Identificar local e horário na legenda'},
-  c1:{title:'1º Encontro — Carrossel de Fotos',idea:'Foco em rostos e expressões durante a prática — o estado de atenção e escuta do próprio corpo. Legendas curtas com frases dos participantes sobre a experiência.',notes:'#ParaTodosVerem em todas as fotos · Publicar em 23/06'},
-  v1:{title:'1º Encontro — Vídeo',idea:'Compilado de movimentos em slow motion ao som de uma trilha suave. Começa com o espaço vazio e termina com os corpos em movimento.',notes:'Legendas ativadas · Trilha instrumental suave · Publicar em 24/06'},
-  f2:{title:'2º Encontro — Flyer',idea:'Flyer de divulgação do 2º encontro com a bola de propriocepção em destaque. Identidade visual na cor do 2º encontro.',notes:'Material pronto · Publicar em 24/06 — mesmo dia que o Vídeo E1'},
-  c2:{title:'2º Encontro — Carrossel de Fotos',idea:'Série de fotos com a bola de propriocepção como personagem central. Planos detalhes: mãos, pés, pontos de contato entre participante e objeto.',notes:'#ParaTodosVerem · Publicar em 25/06'},
-  v2:{title:'2º Encontro — Vídeo',idea:'Foco na interação entre os participantes e o objeto (bola de propriocepção). Edição dinâmica mostrando a evolução do movimento ao longo da oficina.',notes:'Legendas ativadas · Publicar em 26/06'},
-  f3:{title:'3º Encontro — Flyer',idea:'Flyer de divulgação do 3º encontro na cor verde do ciclo. Identidade visual consistente com os encontros anteriores.',notes:'Material pronto · Publicar em 01/07'},
-  c3:{title:'3º Encontro — Carrossel de Fotos',idea:'Fotos de duos e trios — a improvisação com o outro. Destaque para os pontos de contato entre os corpos e a cumplicidade no movimento.',notes:'#ParaTodosVerem · Publicar em 02/07'},
-  v3:{title:'3º Encontro — Vídeo',idea:'Formato "antes e depois" — o aquecimento individual e depois a construção coletiva da cena. Edição que evidencia a transformação do grupo.',notes:'Legendas ativadas · Publicar em 03/07'}
+  f1:{title:'1º Encontro — Flyer',idea:'Flyer de divulgação do 1º encontro, já produzido com a identidade visual do Mover Consciente. Publicar dois dias antes do evento, marcando @quikciadedanca e o Espaço Com.Vida.',notes:'Material pronto · Publicar em 20/06 (sexta), 2 dias antes do encontro · #PraCegoVer descrevendo as logomarcas',
+    legenda:'🌀 Vem aí o 1º encontro do Mover Consciente!\n\nNo domingo, 22/06, das 8h às 12h, dançamos com as mulheres do Grupo de Lian Gong do Espaço Social Transformar — Jardim Canadá, Nova Lima.\n\nMover Consciente é um ciclo de encontros para dançar, escutar e habitar o corpo no presente. Porque dançar é um direito de todo mundo. 🤍\n\n📍 Espaço Com.Vida · Nova Lima\n🗓 22/06 · 8h às 12h\n\n@quikciadedanca\n\n#PraCegoVer #ParaTodosVerem: filipeta de divulgação do 1º encontro do Mover Consciente, com fundo na cor azul do ciclo, o nome do projeto em letras grandes, data e horário do encontro e, no rodapé, as logomarcas da Quik Cia de Dança, do Espaço Com.Vida e dos apoiadores do projeto (PNAB / Ministério da Cultura / Prefeitura de Nova Lima).\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  c1:{title:'1º Encontro — Carrossel de Fotos',idea:'Foco em rostos e expressões durante a prática — o estado de atenção e escuta do próprio corpo. Legendas curtas com frases dos participantes sobre a experiência.',notes:'#ParaTodosVerem em todas as fotos · Publicar em 25/06',
+    legenda:'Os corpos lembram. 💛\n\nRegistros do 1º encontro do Mover Consciente, com as mulheres do Grupo de Lian Gong do Espaço Social Transformar — Jardim Canadá, Nova Lima. Uma manhã de escuta, presença e dança.\n\nArrasta pro lado e sente o movimento. 🤍\n\n@quikciadedanca · Espaço Com.Vida\n\n#PraCegoVer #ParaTodosVerem: sequência de fotos das participantes durante a oficina de dança — rostos atentos, mãos em movimento e o grupo reunido no espaço.\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  v1:{title:'1º Encontro — Vídeo',idea:'Compilado de movimentos em slow motion ao som de uma trilha suave. Começa com o espaço vazio e termina com os corpos em movimento.',notes:'Legendas ativadas · Trilha instrumental suave · Publicar em 26/06',
+    legenda:'O corpo em movimento, no seu tempo. 🌀\n\nUm pouco do que viveram as mulheres do Grupo de Lian Gong do Espaço Social Transformar no 1º encontro do Mover Consciente.\n\nSobe o som e vem dançar com a gente. 🤍\n\n@quikciadedanca · Espaço Com.Vida\n\n#PraCegoVer #ParaTodosVerem: vídeo com cenas em câmera lenta das participantes dançando no espaço, legendado para acessibilidade.\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  f2:{title:'2º Encontro — Flyer',idea:'Flyer de divulgação do 2º encontro. Identidade visual na cor do 2º encontro, consistente com o 1º.',notes:'Material pronto · Publicar em 22/06 (domingo), 2 dias antes do encontro · #PraCegoVer descrevendo as logomarcas',
+    legenda:'🌀 2º encontro do Mover Consciente chegando!\n\nNa terça, 24/06, das 8h30 às 12h30, o encontro é com as mulheres do Grupo da Pessoa Idosa do CRAS e do SCFV Noroeste — Nova Lima.\n\nUm espaço para mover o corpo com consciência, no seu tempo e do seu jeito. Dançar é um direito. 🤍\n\n📍 Espaço Com.Vida · Nova Lima\n🗓 24/06 · 8h30 às 12h30\n\n@quikciadedanca\n\n#PraCegoVer #ParaTodosVerem: filipeta de divulgação do 2º encontro do Mover Consciente, com fundo na cor rosa do ciclo, nome do projeto em destaque, data e horário do encontro e, no rodapé, as logomarcas da Quik Cia de Dança, do Espaço Com.Vida e dos apoiadores do projeto (PNAB / Ministério da Cultura / Prefeitura de Nova Lima).\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  c2:{title:'2º Encontro — Carrossel de Fotos',idea:'Série de fotos com foco nos gestos e expressões das participantes. Planos detalhe: mãos, sorrisos, pontos de contato e o grupo em movimento.',notes:'#ParaTodosVerem · Publicar em 27/06',
+    legenda:'Mover com consciência também é mover com afeto. 💗\n\nRegistros do 2º encontro do Mover Consciente, com as mulheres do Grupo da Pessoa Idosa do CRAS e do SCFV Noroeste — Nova Lima.\n\nCada gesto, um jeito único de habitar o corpo. Arrasta pro lado. 🤍\n\n@quikciadedanca · Espaço Com.Vida\n\n#PraCegoVer #ParaTodosVerem: sequência de fotos das participantes idosas durante a oficina — sorrisos, mãos dadas e movimentos no espaço.\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  v2:{title:'2º Encontro — Vídeo',idea:'Edição dinâmica mostrando a evolução do movimento ao longo da oficina, valorizando a presença e a alegria do grupo.',notes:'Legendas ativadas · Publicar em 28/06',
+    legenda:'A dança não tem idade. 💗\n\nMomentos do 2º encontro do Mover Consciente, com as mulheres do Grupo da Pessoa Idosa do CRAS e do SCFV Noroeste — Nova Lima.\n\n@quikciadedanca · Espaço Com.Vida\n\n#PraCegoVer #ParaTodosVerem: vídeo com cenas das participantes idosas dançando juntas no espaço, legendado para acessibilidade.\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  f3:{title:'3º Encontro — Flyer',idea:'Flyer de divulgação do 3º encontro na cor verde do ciclo. Identidade visual consistente com os encontros anteriores.',notes:'Material pronto · Publicar em 29/06 (domingo), 2 dias antes do encontro · #PraCegoVer descrevendo as logomarcas',
+    legenda:'🌀 3º encontro do Mover Consciente chegando!\n\nNa terça, 01/07, das 13h30 às 17h30, dançamos com os jovens do projeto Lidera, alunos da Escola Estadual Maria Josefina Sales Wardi — Jardim Canadá, Nova Lima.\n\nA juventude ocupando o espaço com movimento, presença e criação coletiva. Dançar é um direito. 🤍\n\n📍 Espaço Com.Vida · Nova Lima\n🗓 01/07 · 13h30 às 17h30\n\n@quikciadedanca\n\n#PraCegoVer #ParaTodosVerem: filipeta de divulgação do 3º encontro do Mover Consciente, com fundo na cor verde do ciclo, nome do projeto em destaque, data e horário do encontro e, no rodapé, as logomarcas da Quik Cia de Dança, do Espaço Com.Vida e dos apoiadores do projeto (PNAB / Ministério da Cultura / Prefeitura de Nova Lima).\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  c3:{title:'3º Encontro — Carrossel de Fotos',idea:'Fotos de duos e trios — a improvisação com o outro. Destaque para os pontos de contato entre os corpos e a cumplicidade no movimento.',notes:'#ParaTodosVerem · Publicar em 04/07',
+    legenda:'A juventude que move. 💚\n\nRegistros do 3º encontro do Mover Consciente, com os jovens do projeto Lidera, alunos da Escola Estadual Maria Josefina Sales Wardi — Jardim Canadá, Nova Lima.\n\nCorpo, presença e criação coletiva. Arrasta pro lado. 🤍\n\n@quikciadedanca · Espaço Com.Vida\n\n#PraCegoVer #ParaTodosVerem: sequência de fotos dos jovens durante a oficina — duos, movimentos no espaço e o grupo reunido.\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'},
+  v3:{title:'3º Encontro — Vídeo',idea:'Formato "antes e depois" — o aquecimento individual e depois a construção coletiva da cena. Edição que evidencia a transformação do grupo.',notes:'Legendas ativadas · Publicar em 05/07',
+    legenda:'Quando o corpo encontra o coletivo. 💚\n\nCenas do 3º encontro do Mover Consciente, com os jovens do projeto Lidera — Escola Estadual Maria Josefina Sales Wardi, Jardim Canadá, Nova Lima.\n\n@quikciadedanca · Espaço Com.Vida\n\n#PraCegoVer #ParaTodosVerem: vídeo com cenas dos jovens dançando individualmente e em grupo no espaço, legendado para acessibilidade.\n\nProjeto realizado com recursos da PNAB – Edital 05/2024 – Capacitações – ID 9707.\n\n#MoverConsciente #QuikCiadeDança #DançaContemporânea #DançaÉUmDireito #NovaLima #ComVida'}
 };
 
 const IDEAS={
@@ -389,9 +423,21 @@ function openModal(postId){
   document.getElementById('mdate').textContent=dateStr;
   document.getElementById('midea').textContent=d.idea;
   document.getElementById('mnotes').textContent=d.notes;
+  const legWrap=document.getElementById('mlegwrap');
+  const legEl=document.getElementById('mleg');
+  if(d.legenda){legEl.textContent=d.legenda;legWrap.style.display='block';}
+  else{legWrap.style.display='none';}
   document.getElementById('mo').classList.add('open');
   document.body.style.overflow='hidden';
 }
+
+document.getElementById('mcopy').addEventListener('click',()=>{
+  const txt=document.getElementById('mleg').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const b=document.getElementById('mcopy');const o=b.textContent;
+    b.textContent='Copiado!';setTimeout(()=>b.textContent=o,1500);
+  });
+});
 
 function closeModal(){
   document.getElementById('mo').classList.remove('open');
@@ -529,13 +575,24 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
     for(let day=1;day<=daysInMonth;day++){
       const key=`${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
       const dp=POSTS[key];
+      const ev=EVENTS[key];
       const isTbd=tbdDays&&tbdDays.includes(day);
-      if(dp&&dp.length){
-        h+=`<div class="cd hp" id="cd-${key}"><span class="dn">${day}</span>`;
-        dp.forEach((p,pi)=>{
-          const col=ENC[p.enc].color;
-          h+=`<div class="pc" data-pid="${p.id}" style="border-color:${col};color:${col};background:${col}1A;margin-top:${pi===0?18:2}px">${p.label}</div>`;
-        });
+      if(ev||(dp&&dp.length)){
+        const cls=ev?'cd hp ev':'cd hp';
+        h+=`<div class="${cls}" id="cd-${key}"><span class="dn">${day}</span>`;
+        let slot=0;
+        if(ev){
+          const col=ENC[ev.enc].color;
+          h+=`<div class="evc" style="background:${col};margin-top:18px">● ${ev.label}</div>`;
+          slot++;
+        }
+        if(dp&&dp.length){
+          dp.forEach(p=>{
+            const col=ENC[p.enc].color;
+            h+=`<div class="pc" data-pid="${p.id}" style="border-color:${col};color:${col};background:${col}1A;margin-top:${slot===0?18:2}px">${p.label}</div>`;
+            slot++;
+          });
+        }
         h+='</div>';
       } else if(isTbd){
         h+=`<div class="cd"><span class="dn">${day}</span><div class="tbdc">TBD</div></div>`;
@@ -562,6 +619,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
     item.innerHTML=`<span class="cld" style="background:${e.color}"></span>${e.name}`;
     leg.appendChild(item);
   });
+  const evItem=document.createElement('div');
+  evItem.className='cli';
+  evItem.innerHTML=`<span style="width:9px;height:9px;background:#fff;display:inline-block;flex-shrink:0"></span>● Dia do encontro (presencial)`;
+  leg.appendChild(evItem);
   const tbdItem=document.createElement('div');
   tbdItem.className='cli';
   tbdItem.innerHTML=`<span style="width:7px;height:7px;border:1px dashed rgba(255,255,255,.3);display:inline-block;flex-shrink:0"></span>Datas a confirmar`;
