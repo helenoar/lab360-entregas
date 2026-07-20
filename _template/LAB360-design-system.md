@@ -47,18 +47,18 @@ Formulários disponíveis (Tally):
 
 ```css
 :root {
-  --black: #242427;
+  --black: #161615;
   --white: #ffffff;
   --cyan: #4c97a8;
-  --gray: #323236;
+  --gray: #211f1e;
   --muted: rgba(255, 255, 255, 0.45);
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 ```
 
-- Fundo: sempre `--black` — **nunca preto puro (`#000`) nem quase-preto**. Usar um cinza-chumbo (ex: `#242427`) que se leia claramente como cinza, não como preto.
+- Fundo: sempre `--black` — **nunca preto puro (`#000`)**, mas também nunca um cinza claro/frio de tela de sistema. O alvo é um preto quase-preto de tom quente/neutro (ex: `#161615`) — a referência é o preto profundo de uma editorial de moda/revista impressa, não o cinza de UI de software. Se parecer "cinza estranho" ao vivo, está claro demais ou com tinta fria demais (evitar tons puxando pro azulado).
 - Texto principal: `--white`
-- **Blocos de conteúdo (cards, steps, células de calendário, itens de grid) usam `--gray` (#323236), nunca `--black`.** Se um bloco de conteúdo usa a mesma cor do fundo da página, o documento lê como "chapado" — só linhas de 1px separando tudo. `--gray` existe exatamente para dar profundidade real; usá-lo é obrigatório em qualquer `.card`/`.item`/`.step`/célula que precise se diferenciar do fundo.
+- **Blocos de conteúdo (cards, steps, células de calendário, itens de grid) usam `--gray` (#211f1e), nunca `--black`.** Se um bloco de conteúdo usa a mesma cor do fundo da página, o documento lê como "chapado" — só linhas de 1px separando tudo. `--gray` existe exatamente para dar profundidade real (um degrau acima do `--black`, não um cinza médio); usá-lo é obrigatório em qualquer `.card`/`.item`/`.step`/célula que precise se diferenciar do fundo.
 - Texto secundário: `rgba(255,255,255,0.5)` a `rgba(255,255,255,0.75)`
 - **Destaque / acento (`--cyan` #4C97A8 — ciano dessaturado, não neon):** usar com moderação em pontos de hierarquia — palavra de destaque em headline (`.acc`), barras de topo de card, eyebrows de destaque, hover de botão/modal, dots ativos do side nav (3.4), glow do cursor (3.3). **Não é mais "uso restrito só a nav+cursor"** (isso deixou o documento cinza demais/sem vida) **nem "em tudo"** (isso competia com a paleta por pilar/encontro do cliente e cansava). Regra prática: se o elemento já tem uma cor própria vinda do cliente (paleta de pilares/encontros), não sobrepor cyan nele; se é um elemento neutro de estrutura/chrome do LAB 360° (títulos, labels, bordas de callout, hovers), pode receber o acento.
 
