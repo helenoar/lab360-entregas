@@ -47,20 +47,20 @@ Formulários disponíveis (Tally):
 
 ```css
 :root {
-  --black: #151517;
+  --black: #242427;
   --white: #ffffff;
   --cyan: #00f0ff;
-  --gray: #212124;
+  --gray: #323236;
   --muted: rgba(255, 255, 255, 0.45);
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 ```
 
-- Fundo: sempre `--black` — **nunca preto puro (`#000`)**. Usar um cinza bem escuro (ex: `#151517`) para dar profundidade e evitar o efeito "buraco negro" que esconde textos/blocos de baixo contraste.
+- Fundo: sempre `--black` — **nunca preto puro (`#000`) nem quase-preto**. Usar um cinza-chumbo (ex: `#242427`) que se leia claramente como cinza, não como preto.
 - Texto principal: `--white`
-- Destaque / acento: `--cyan` (#00F0FF)
-- Blocos de apoio: `--gray` (#212124) — sempre um tom perceptivelmente mais claro que `--black`, nunca mais escuro
+- Blocos de apoio: `--gray` (#323236) — sempre um tom perceptivelmente mais claro que `--black`, nunca mais escuro
 - Texto secundário: `rgba(255,255,255,0.5)` a `rgba(255,255,255,0.75)`
+- **Destaque / acento cyan (`--cyan` #00F0FF): USO RESTRITO.** Só em dois lugares — (1) os dots/labels ativos do side nav (seção 3.4) e (2) o glow do cursor customizado (seção 3.3). **Não usar cyan** em títulos, palavras de destaque em headline, labels de seção, bordas, hover de botão/modal ou qualquer outro elemento de conteúdo — o documento já usa uma paleta de cores por pilar/encontro do cliente, cyan a mais em cima disso pesa. Para "destacar" uma palavra no meio de um headline (padrão `.acc`), usar simplesmente `--white` (a tipografia em peso 900 já carrega o destaque) — não introduzir uma cor nova.
 
 **Referências de direção visual** (tipografia forte, grid disciplinado, área vazia generosa, cortes de foto inesperados, paleta consistente entre peças): MIT Museum (Pentagram) e a campanha InDance (Alphabet Studio). Usar como norte para identidade visual completa e calendários editoriais — não anular a "moldura" LAB 360° (rizoma/cyan/mono), mas informar hierarquia tipográfica e disciplina de grid.
 
