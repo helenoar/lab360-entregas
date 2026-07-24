@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Encontro de Improvisadores — Identidade Visual · LAB 360°</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161615;
+      --surface: #211f1e;
+      --border: #322f2d;
+      --white: #ffffff;
+      --white-dim: rgba(255,255,255,0.55);
+      --bordo:     #941D41;
+      --azul-lanc: #6080D1;
+      --azul-1:    #204FC6;
+      --ouro:      #CFAD24;
+      --laranja:   #FDA437;
+      --terracota: #A83B30;
+      --verde:     #50C878;
+      --magenta:   #FF00FF;
+      --accent:    #C084FC;
+      --font: 'DM Sans', sans-serif;
+      --hand: 'Caveat', cursive;
+      --stamp: 'Bebas Neue', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    #rizoma { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03; }
+
+    #nav { position: fixed; right: 28px; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 8px; }
+    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+    .nav-dot.active { background: var(--accent); transform: scale(1.4); }
+    .nav-dot:hover { background: rgba(255,255,255,0.5); }
+
+    #status { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; padding: 10px 32px; display: flex; align-items: center; gap: 20px; border-top: 1px solid var(--border); background: rgba(22,22,21,0.9); backdrop-filter: blur(8px); }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .status-text { font-size: 10px; letter-spacing: 0.18em; color: rgba(255,255,255,0.3); text-transform: uppercase; }
+    .status-brand { margin-left: auto; font-size: 10px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; }
+
+    section { position: relative; z-index: 1; min-height: 100vh; padding: 80px 80px 100px; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; }
+    .section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-bottom: 48px; }
+
+    /* 1. HERO */
+    #hero { overflow: hidden; }
+    .hero-curve { position: absolute; top: -60px; right: -80px; width: 520px; pointer-events: none; opacity: 0.5; }
+    .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 24px; }
+    .hero-title { font-family: var(--hand); font-weight: 700; font-size: clamp(60px, 10vw, 128px); letter-spacing: -0.01em; line-height: 0.88; text-transform: uppercase; color: var(--white); margin-bottom: 28px; }
+    .hero-title span { color: var(--accent); }
+    .hero-sub { font-family: var(--hand); font-weight: 600; font-size: clamp(26px, 3.5vw, 40px); color: var(--white-dim); margin-bottom: 20px; }
+    .hero-tag { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.4); max-width: 560px; line-height: 1.6; }
+    .hero-tag mark { background: rgba(192,132,252,0.28); color: var(--white); padding: 0 5px; border-radius: 3px; }
+    .hero-meta { margin-top: 52px; display: flex; gap: 40px; flex-wrap: wrap; }
+    .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .hero-meta-item .label { font-size: 9px; letter-spacing: 0.2em; color: rgba(255,255,255,0.22); text-transform: uppercase; }
+    .hero-meta-item .value { font-size: 14px; font-weight: 500; color: var(--white-dim); }
+
+    /* TEXTO / INTRO comum a várias seções */
+    .intro-text { font-size: clamp(18px, 2.2vw, 26px); font-weight: 300; line-height: 1.7; color: var(--white-dim); max-width: 760px; margin-bottom: 16px; }
+    .intro-text strong { font-weight: 700; color: var(--white); }
+    .pullquote { border-left: 3px solid var(--accent); padding: 20px 28px; margin: 32px 0 0; font-family: var(--hand); font-weight: 600; font-size: clamp(22px, 3vw, 32px); color: var(--white-dim); line-height: 1.4; max-width: 680px; }
+    .pullquote cite { display: block; margin-top: 12px; font-family: var(--font); font-size: 10px; font-style: normal; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.22); }
+
+    /* PILARES / TRAÇOS (reutilizado em Sobre e Personalidade) */
+    .pilares { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); margin-top: 48px; }
+    .pilar { background: var(--bg); padding: 36px 32px; position: relative; }
+    .pilar::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+    .pilar:hover::before { opacity: 1; }
+    .pilar-num { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+    .pilar-title { font-size: 22px; font-weight: 800; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+    .pilar-desc { font-size: 14px; font-weight: 300; color: var(--white-dim); line-height: 1.6; }
+    .parceria { margin-top: 40px; padding: 24px 28px; border: 1px solid var(--border); font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.32); line-height: 1.7; max-width: 660px; }
+    .parceria strong { color: rgba(255,255,255,0.6); }
+
+    /* POSICIONAMENTO */
+    .pos-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 44px; }
+    .pos-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .pos-col p { font-size: 15px; font-weight: 300; color: var(--white-dim); line-height: 1.75; }
+
+    /* PÚBLICO */
+    .publico-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); margin-top: 44px; }
+    .publico-card { background: var(--bg); padding: 28px 24px; }
+    .publico-venue { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .publico-desc { font-size: 13.5px; font-weight: 300; color: var(--white-dim); line-height: 1.6; }
+
+    /* SELO / LOGO */
+    .selo-wrap { display: flex; align-items: center; gap: 56px; margin-top: 48px; flex-wrap: wrap; }
+    .selo { display: inline-flex; align-items: center; gap: 12px; background: var(--bordo); color: var(--white); padding: 22px 30px; border: 2px dashed rgba(255,255,255,0.35); }
+    .selo-num { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--stamp); font-size: 20px; }
+    .selo-text { font-family: var(--stamp); font-size: 15px; letter-spacing: 0.08em; line-height: 1.5; }
+    .selo-text .div { opacity: 0.5; margin: 0 4px; }
+    .selo-notes { max-width: 420px; }
+    .selo-notes p { font-size: 13.5px; font-weight: 300; color: var(--white-dim); line-height: 1.7; margin-bottom: 10px; }
+
+    /* PALETA */
+    .swatches { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 8px; }
+    .swatch { aspect-ratio: 1; border-radius: 4px; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; position: relative; overflow: hidden; transition: transform 0.2s; }
+    .swatch:hover { transform: scale(1.03); }
+    .swatch.featured { grid-column: span 2; aspect-ratio: 2/1; }
+    .swatch-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0,0,0,0.55); margin-bottom: 4px; }
+    .swatch-name { font-size: 15px; font-weight: 800; color: rgba(0,0,0,0.75); text-transform: uppercase; }
+    .swatch-hex { font-size: 11px; font-weight: 400; color: rgba(0,0,0,0.45); margin-top: 2px; }
+    .swatch-encontro { position: absolute; top: 14px; right: 16px; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.4); }
+    .swatch.light .swatch-label, .swatch.light .swatch-name, .swatch.light .swatch-hex, .swatch.light .swatch-encontro { color: rgba(255,255,255,0.85); }
+    .swatch.light .swatch-encontro { color: rgba(255,255,255,0.6); }
+    .paleta-note { margin-top: 24px; font-size: 12.5px; color: rgba(255,255,255,0.32); max-width: 640px; line-height: 1.7; }
+
+    /* TIPOGRAFIA */
+    .type-hero { font-family: var(--hand); font-weight: 700; font-size: clamp(54px, 8vw, 108px); text-transform: uppercase; line-height: 0.9; color: var(--white); margin-bottom: 8px; }
+    .type-lbl { font-size: 10px; letter-spacing: 0.2em; color: rgba(255,255,255,0.22); text-transform: uppercase; margin-bottom: 36px; }
+    .type-body { font-family: var(--hand); font-weight: 600; font-size: clamp(22px, 2.6vw, 30px); color: var(--white-dim); line-height: 1.5; max-width: 640px; margin-bottom: 8px; }
+    .type-scale { margin-top: 48px; display: flex; flex-direction: column; gap: 16px; }
+    .type-row { display: flex; align-items: baseline; gap: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .type-row .meta { font-size: 10px; letter-spacing: 0.15em; color: rgba(255,255,255,0.18); text-transform: uppercase; min-width: 150px; flex-shrink: 0; }
+
+    /* ELEMENTOS VISUAIS */
+    .elem-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--border); margin-top: 44px; }
+    .elem-card { background: var(--bg); padding: 30px 32px; }
+    .elem-title { font-size: 15px; font-weight: 700; color: var(--white); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.04em; }
+    .elem-desc { font-size: 13.5px; font-weight: 300; color: var(--white-dim); line-height: 1.7; }
+
+    /* ENCONTROS / APLICAÇÕES */
+    .enc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .enc-card { position: relative; padding: 26px 24px 22px; border-radius: 4px; overflow: hidden; min-height: 210px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+    .enc-card:hover { transform: translateY(-4px); }
+    .enc-curve { position: absolute; bottom: -40px; right: -40px; width: 180px; opacity: 0.18; pointer-events: none; }
+    .enc-num { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.5); }
+    .enc-title { font-family: var(--hand); font-weight: 700; font-size: 24px; text-transform: uppercase; color: rgba(0,0,0,0.85); line-height: 1; margin-top: 10px; }
+    .enc-venue { font-size: 11.5px; font-weight: 600; color: rgba(0,0,0,0.55); margin-top: 14px; }
+    .enc-date { font-size: 11px; font-weight: 500; color: rgba(0,0,0,0.4); margin-top: 3px; }
+    .enc-brand { position: absolute; top: 20px; right: 22px; font-family: var(--stamp); font-size: 12px; letter-spacing: 0.05em; color: rgba(0,0,0,0.2); }
+
+    .app-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 20px; }
+    .app-card { position: relative; border-radius: 4px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
+    .app-lbl { position: relative; z-index: 1; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 4px; }
+    .app-title { position: relative; z-index: 1; font-family: var(--hand); font-weight: 700; font-size: 20px; text-transform: uppercase; color: rgba(0,0,0,0.8); line-height: 1.1; }
+
+    /* VOZ & TOM */
+    .keywords { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 52px; }
+    .keyword { font-family: var(--hand); font-weight: 700; font-size: clamp(28px, 4vw, 50px); text-transform: uppercase; letter-spacing: -0.01em; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.22); transition: -webkit-text-stroke 0.2s, color 0.2s; cursor: default; }
+    .keyword:hover { color: var(--accent); -webkit-text-stroke: 0px transparent; }
+    .voz-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .voz-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    .voz-item { font-size: 15px; font-weight: 400; color: var(--white-dim); line-height: 1.5; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .voz-item:last-child { border-bottom: none; }
+    .voz-item.nao { color: rgba(255,255,255,0.2); text-decoration: line-through; }
+
+    /* GUIA RÁPIDO */
+    .cheat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1px; background: var(--border); margin-top: 44px; }
+    .cheat-card { background: var(--bg); padding: 28px 30px; }
+    .cheat-title { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .cheat-list { font-size: 13.5px; font-weight: 300; color: var(--white-dim); line-height: 1.9; }
+    .cheat-list strong { color: var(--white); font-weight: 600; }
+
+    .redes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
+    .rede-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); text-transform: uppercase; padding: 7px 14px; border: 1px solid var(--border); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      section { padding: 60px 28px 90px; }
+      .pilares { grid-template-columns: 1fr; }
+      .pos-cols { grid-template-columns: 1fr; gap: 28px; }
+      .publico-grid { grid-template-columns: repeat(2,1fr); }
+      .swatches { grid-template-columns: repeat(2,1fr); }
+      .swatch.featured { grid-column: span 2; aspect-ratio: 2/1; }
+      .elem-grid { grid-template-columns: 1fr; }
+      .enc-grid { grid-template-columns: repeat(2,1fr); }
+      .app-grid { grid-template-columns: repeat(2,1fr); }
+      .voz-cols { grid-template-columns: 1fr; }
+      .cheat-grid { grid-template-columns: 1fr; }
+      .selo-wrap { gap: 28px; }
+      #nav { display: none; }
+    }
+    @media (max-width: 600px) {
+      .publico-grid, .enc-grid, .app-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="rizoma"></canvas>
+
+<nav id="nav">
+  <div class="nav-dot active" title="Hero"></div>
+  <div class="nav-dot" title="Sobre"></div>
+  <div class="nav-dot" title="Posicionamento"></div>
+  <div class="nav-dot" title="Público"></div>
+  <div class="nav-dot" title="Personalidade"></div>
+  <div class="nav-dot" title="Selo"></div>
+  <div class="nav-dot" title="Paleta"></div>
+  <div class="nav-dot" title="Tipografia"></div>
+  <div class="nav-dot" title="Elementos"></div>
+  <div class="nav-dot" title="Voz &amp; Tom"></div>
+  <div class="nav-dot" title="Aplicações"></div>
+  <div class="nav-dot" title="Guia Rápido"></div>
+</nav>
+
+<div id="status">
+  <div class="status-dot"></div>
+  <span class="status-text">Identidade Visual · Encontro de Improvisadores</span>
+  <span class="status-brand">LAB 360°</span>
+</div>
+
+<!-- 1. HERO -->
+<section id="hero">
+  <svg class="hero-curve" viewBox="0 0 500 900" fill="none" aria-hidden="true">
+    <path d="M 480 20 Q 300 200 200 450 Q 100 700 180 880" stroke="#C084FC" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </svg>
+  <p class="hero-eyebrow reveal">QUIK CIA DE DANÇA — 26 ANOS</p>
+  <h1 class="hero-title reveal">ENCONTRO<br>DE <span>IMPROVISADORES</span></h1>
+  <p class="hero-sub reveal">Uma nova criação se faz no agora</p>
+  <p class="hero-tag reveal"><mark>Quatro espaços. Quatro experiências. Quatro obras diferentes.</mark></p>
+  <div class="hero-meta reveal">
+    <div class="hero-meta-item"><span class="label">Formato</span><span class="value">4 Encontros Presenciais</span></div>
+    <div class="hero-meta-item"><span class="label">Acesso</span><span class="value">Entrada Gratuita</span></div>
+    <div class="hero-meta-item"><span class="label">Realização</span><span class="value">Quik Cia de Dança</span></div>
+    <div class="hero-meta-item"><span class="label">Marco</span><span class="value">26 Anos de Trajetória</span></div>
+  </div>
+</section>
+
+<!-- 2. SOBRE O PROJETO -->
+<section id="sobre">
+  <p class="section-label">02 — Sobre o Projeto</p>
+  <p class="intro-text reveal">Celebrando <strong>26 anos de trajetória</strong>, a Quik Cia de Dança revisita sua própria história para transformá-la em ponto de partida para novas experimentações — um encontro onde a memória inspira o presente e a criação acontece no agora.</p>
+  <p class="intro-text reveal" style="font-size:clamp(15px,1.6vw,18px); margin-top:8px;">Quatro encontros para investigar a dança a partir da improvisação — cada um em um espaço diferente da Região Metropolitana de Belo Horizonte, com concepção e direção artística da Quik Cia de Dança e a artista provocadora e dançarina Marise Dinis.</p>
+  <blockquote class="pullquote reveal">"Um processo em que o passado encontra o presente e a obra nasce no agora."<cite>Quik Cia de Dança</cite></blockquote>
+  <div class="pilares reveal">
+    <div class="pilar"><p class="pilar-num">01</p><h3 class="pilar-title">Memória</h3><p class="pilar-desc">26 anos de pesquisa e criação revisitados como ponto de partida.</p></div>
+    <div class="pilar"><p class="pilar-num">02</p><h3 class="pilar-title">Improvisação</h3><p class="pilar-desc">A dança investigada em tempo real, sem roteiro fechado.</p></div>
+    <div class="pilar"><p class="pilar-num">03</p><h3 class="pilar-title">Encontro</h3><p class="pilar-desc">Quatro espaços, quatro públicos, quatro obras que não se repetem.</p></div>
+  </div>
+  <div class="parceria reveal"><strong>Direção geral:</strong> Letícia Carneiro · <strong>Artista provocadora:</strong> Marise Dinis · <strong>Produção executiva:</strong> Rodrigo Quik — Realização Quik Cia de Dança, com apoio da Política Nacional Aldir Blanc, Ministério da Cultura e Governo do Estado de Minas Gerais.</div>
+</section>
+
+<!-- 3. POSICIONAMENTO -->
+<section id="posicionamento">
+  <p class="section-label">03 — Posicionamento</p>
+  <div class="pos-cols reveal">
+    <div>
+      <p class="pos-col-title">Onde se situa</p>
+      <p>Dentro do calendário de comemoração dos 26 anos da Quik Cia de Dança, o Encontro de Improvisadores não é a turnê de um espetáculo pronto — é um processo de criação que acontece quatro vezes, em quatro versões distintas, nunca a mesma peça duas vezes.</p>
+    </div>
+    <div>
+      <p class="pos-col-title">O que diferencia</p>
+      <p>Cada obra nasce da escuta do espaço, do público e da própria história da companhia naquele momento. A identidade visual reflete isso: uma estrutura única (tipografia, selo, composição) que se repinta a cada encontro, sem nunca ser a mesma cor duas vezes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PÚBLICO -->
+<section id="publico">
+  <p class="section-label">04 — Público</p>
+  <p class="intro-text reveal" style="font-size:clamp(16px,1.8vw,20px); max-width:680px;">Um público que muda de rosto a cada encontro — porque o espaço muda.</p>
+  <div class="publico-grid reveal">
+    <div class="publico-card"><p class="publico-venue">C.A.S.A. — Festival Quatro Estações</p><p class="publico-desc">Público de festival, já disposto a experimentações artísticas fora do convencional.</p></div>
+    <div class="publico-card"><p class="publico-venue">Teatro Marília</p><p class="publico-desc">Frequentador de artes cênicas de Belo Horizonte, habituado ao espaço de palco italiano.</p></div>
+    <div class="publico-card"><p class="publico-venue">Praça Floriano Peixoto</p><p class="publico-desc">Público espontâneo — transeuntes e moradores do entorno, arte que acontece a céu aberto.</p></div>
+    <div class="publico-card"><p class="publico-venue">COM.VIDA Casa das Artes</p><p class="publico-desc">Comunidade cultural de Nova Lima, público fiel que já acompanha a trajetória da companhia.</p></div>
+  </div>
+</section>
+
+<!-- 5. PERSONALIDADE -->
+<section id="personalidade">
+  <p class="section-label">05 — Personalidade da Marca</p>
+  <p class="intro-text reveal">Se o Encontro de Improvisadores fosse uma pessoa, seria alguém que <strong>nunca conta a mesma história duas vezes</strong>.</p>
+  <div class="pilares reveal">
+    <div class="pilar"><p class="pilar-num">01</p><h3 class="pilar-title">Provocadora</h3><p class="pilar-desc">Investiga o corpo em tempo real, sem roteiro fechado.</p></div>
+    <div class="pilar"><p class="pilar-num">02</p><h3 class="pilar-title">Coletiva</h3><p class="pilar-desc">Nasce do encontro entre bailarinos, músicos ao vivo e público.</p></div>
+    <div class="pilar"><p class="pilar-num">03</p><h3 class="pilar-title">Presente</h3><p class="pilar-desc">A criação acontece no agora — cada encontro é irrepetível.</p></div>
+  </div>
+</section>
+
+<!-- 6. SELO -->
+<section id="selo">
+  <p class="section-label">06 — Selo · 26 Anos</p>
+  <div class="selo-wrap reveal">
+    <div class="selo">
+      <div class="selo-num">26</div>
+      <div class="selo-text">ANOS<span class="div">|</span>QUIK CIA<span class="div">|</span>DE DANÇA</div>
+    </div>
+    <div class="selo-notes">
+      <p>O selo circular "26 Anos" é o carimbo fixo que atravessa toda a campanha — aparece em todas as peças, em qualquer uma das cores do sistema, sempre no mesmo lugar: canto superior das artes.</p>
+      <p>Moldura pontilhada e tipografia condensada em caixa alta reforçam o caráter de selo comemorativo, distinto do restante da peça (que usa a tipografia manuscrita do sistema).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PALETA -->
+<section id="paleta">
+  <p class="section-label">07 — Paleta de Cores</p>
+  <div class="swatches reveal">
+    <div class="swatch featured" style="background:#941D41;"><span class="swatch-label">Cor-Mãe</span><span class="swatch-name">Bordô</span><span class="swatch-hex">#941D41</span></div>
+    <div class="swatch light" style="background:#6080D1;"><span class="swatch-encontro">Lançamento</span><span class="swatch-label">Acento</span><span class="swatch-name">Azul</span><span class="swatch-hex">#6080D1</span></div>
+    <div class="swatch light" style="background:#204FC6;"><span class="swatch-encontro">1º</span><span class="swatch-name">Azul Royal</span><span class="swatch-hex">#204FC6</span></div>
+    <div class="swatch" style="background:#CFAD24;"><span class="swatch-encontro">1º</span><span class="swatch-name">Ouro</span><span class="swatch-hex">#CFAD24</span></div>
+    <div class="swatch" style="background:#FDA437;"><span class="swatch-encontro">2º</span><span class="swatch-name">Laranja</span><span class="swatch-hex">#FDA437</span></div>
+    <div class="swatch light" style="background:#A83B30;"><span class="swatch-encontro">2º</span><span class="swatch-name">Terracota</span><span class="swatch-hex">#A83B30</span></div>
+    <div class="swatch" style="background:#50C878;"><span class="swatch-encontro">3º / 4º</span><span class="swatch-name">Verde</span><span class="swatch-hex">#50C878</span></div>
+    <div class="swatch light" style="background:#FF00FF;"><span class="swatch-encontro">4º</span><span class="swatch-name">Magenta</span><span class="swatch-hex">#FF00FF</span></div>
+  </div>
+  <p class="paleta-note reveal">Sistema rotativo: cada peça usa um par fundo + acento. Peça de lançamento: Bordô + Azul. 1º Encontro (C.A.S.A.): Azul Royal + Ouro. 2º Encontro (Teatro Marília): Laranja + Terracota. 3º Encontro (Praça Floriano Peixoto): Verde + Azul (variação tonal #3E44C3). 4º Encontro (COM.VIDA): Magenta + Verde. Texto e selo sempre em branco, para contraste em qualquer cor do sistema.</p>
+</section>
+
+<!-- 8. TIPOGRAFIA -->
+<section id="tipografia">
+  <p class="section-label">08 — Tipografia</p>
+  <div class="reveal">
+    <p class="type-hero">Comely</p>
+    <p class="type-lbl">Display &amp; corpo · manuscrita/marcador · uma família, várias escalas</p>
+  </div>
+  <div class="reveal" style="margin-top:16px;">
+    <p class="type-body">Uma nova criação se faz no agora.</p>
+    <p class="type-lbl">Mesma fonte usada em títulos (caixa alta, traço grosso) e em subtítulos/corpo (cursiva, traço fino) — hierarquia por peso e tamanho, não por troca de família.</p>
+  </div>
+  <div class="type-scale reveal">
+    <div class="type-row"><span class="meta">Display · ~90px</span><span style="font-family:'Caveat',cursive; font-weight:700; font-size:56px; line-height:1; text-transform:uppercase;">ENCONTRO</span></div>
+    <div class="type-row"><span class="meta">Subtítulo · ~34px</span><span style="font-family:'Caveat',cursive; font-weight:600; font-size:30px;">Uma nova criação se faz no agora</span></div>
+    <div class="type-row"><span class="meta">Selo · condensada</span><span style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.05em;">26 | ANOS | QUIK CIA DE DANÇA</span></div>
+    <div class="type-row"><span class="meta">Corpo · sans</span><span style="font-family:'DM Sans',sans-serif; font-size:15px; font-weight:400;">Datas, endereços e informações de serviço — sempre em sans-serif, para legibilidade.</span></div>
+  </div>
+  <p class="paleta-note reveal">A fonte original do design (Comely) é uma fonte de marcador licenciada, sem distribuição via Google Fonts. Para uso web, o sistema usa <strong style="color:var(--white)">Caveat</strong> como substituta mais próxima disponível livremente, e <strong style="color:var(--white)">Bebas Neue</strong> para o selo condensado.</p>
+</section>
+
+<!-- 9. ELEMENTOS VISUAIS -->
+<section id="elementos">
+  <p class="section-label">09 — Elementos Visuais</p>
+  <div class="elem-grid reveal">
+    <div class="elem-card"><p class="elem-title">Colagem fotográfica P&amp;B</p><p class="elem-desc">Recortes de fotos em preto e branco de bailarinos em movimento, sobrepostos ao fundo colorido — o corpo em ação como imagem central de cada peça.</p></div>
+    <div class="elem-card"><p class="elem-title">Fita de destaque</p><p class="elem-desc">Faixa colorida (na cor de acento de cada peça) atrás das palavras-chave do título — "ENCONTRO", "DE", "IMPROVISADORES" — cria hierarquia sem precisar mudar de fonte.</p></div>
+    <div class="elem-card"><p class="elem-title">Linha diagonal fina</p><p class="elem-desc">Traço diagonal na cor de acento cruzando a peça de lançamento, dando dinamismo ao fundo estático.</p></div>
+    <div class="elem-card"><p class="elem-title">Círculo e sublinhado à mão</p><p class="elem-desc">Grifos manuscritos (círculo em "Sympla", sublinhado em "bilheteria") reforçam informação de serviço com o mesmo traço espontâneo da tipografia.</p></div>
+  </div>
+</section>
+
+<!-- 10. VOZ & TOM -->
+<section id="voz">
+  <p class="section-label">10 — Voz &amp; Tom</p>
+  <div class="keywords reveal">
+    <span class="keyword">IMPROVISO</span>
+    <span class="keyword">MEMÓRIA</span>
+    <span class="keyword">PRESENÇA</span>
+    <span class="keyword">ENCONTRO</span>
+    <span class="keyword">CRIAÇÃO</span>
+    <span class="keyword">CORPO</span>
+    <span class="keyword">AGORA</span>
+  </div>
+  <div class="voz-cols reveal">
+    <div>
+      <p class="voz-col-title">Como a marca fala</p>
+      <div class="voz-item">Direta e convidativa — "Anote na agenda!", "Entrada gratuita!"</div>
+      <div class="voz-item">Celebra a trajetória sem ser nostálgica</div>
+      <div class="voz-item">Fala de processo, não de produto pronto</div>
+      <div class="voz-item">Sempre no presente — "a obra nasce no agora"</div>
+    </div>
+    <div>
+      <p class="voz-col-title">O que não é</p>
+      <div class="voz-item nao">Formal ou institucional</div>
+      <div class="voz-item nao">Espetáculo fechado e repetível</div>
+      <div class="voz-item nao">Elitista ou de acesso restrito</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. APLICAÇÕES -->
+<section id="aplicacoes">
+  <p class="section-label">11 — Aplicações</p>
+  <p class="intro-text reveal" style="font-size:clamp(16px,1.8vw,20px); max-width:680px; margin-bottom:8px;">Peça de lançamento + convite de cada um dos 4 encontros.</p>
+  <div class="enc-grid reveal">
+    <div class="enc-card" style="background:#204FC6;">
+      <svg class="enc-curve" viewBox="0 0 200 200" fill="none" aria-hidden="true"><path d="M200 0 Q80 80 0 200" stroke="rgba(207,173,36,0.6)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span class="enc-brand">QUIK</span>
+      <div><p class="enc-num">( 1º ENCONTRO )</p><p class="enc-title">Encontro de<br>Improvisadores</p></div>
+      <div><p class="enc-venue">C.A.S.A. — Festival Quatro Estações</p><p class="enc-date">24/08 — 20h</p></div>
+    </div>
+    <div class="enc-card" style="background:#FDA437;">
+      <svg class="enc-curve" viewBox="0 0 200 200" fill="none" aria-hidden="true"><path d="M200 0 Q80 80 0 200" stroke="rgba(168,59,48,0.6)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span class="enc-brand">QUIK</span>
+      <div><p class="enc-num">( 2º ENCONTRO )</p><p class="enc-title">Encontro de<br>Improvisadores</p></div>
+      <div><p class="enc-venue">Teatro Marília</p><p class="enc-date">22/09 — 19h</p></div>
+    </div>
+    <div class="enc-card" style="background:#50C878;">
+      <svg class="enc-curve" viewBox="0 0 200 200" fill="none" aria-hidden="true"><path d="M200 0 Q80 80 0 200" stroke="rgba(62,68,195,0.6)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span class="enc-brand">QUIK</span>
+      <div><p class="enc-num">{ 3º ENCONTRO }</p><p class="enc-title">Encontro de<br>Improvisadores</p></div>
+      <div><p class="enc-venue">Praça Floriano Peixoto</p><p class="enc-date">26/09 — 16h</p></div>
+    </div>
+    <div class="enc-card" style="background:#FF00FF;">
+      <svg class="enc-curve" viewBox="0 0 200 200" fill="none" aria-hidden="true"><path d="M200 0 Q80 80 0 200" stroke="rgba(80,200,120,0.6)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span class="enc-brand">QUIK</span>
+      <div><p class="enc-num">( 4º ENCONTRO )</p><p class="enc-title">Encontro de<br>Improvisadores</p></div>
+      <div><p class="enc-venue">COM.VIDA Casa das Artes</p><p class="enc-date">03/10 — 17h</p></div>
+    </div>
+  </div>
+  <div class="app-grid reveal">
+    <div class="app-card" style="background:#941D41;"><p class="app-lbl">Peça de Lançamento</p><p class="app-title">Agenda dos<br>4 Encontros</p></div>
+    <div class="app-card" style="background:#204FC6;"><p class="app-lbl">Story · Serviço</p><p class="app-title">Entrada<br>Gratuita</p></div>
+    <div class="app-card" style="background:#A83B30;"><p class="app-lbl">Story · Créditos</p><p class="app-title">Ficha<br>Técnica</p></div>
+  </div>
+  <div class="redes reveal">
+    <span class="rede-tag">Instagram · @quikciadedanca</span>
+    <span class="rede-tag">Feed 1080×1080</span>
+    <span class="rede-tag">Stories 1080×1920</span>
+  </div>
+</section>
+
+<!-- 12. GUIA RÁPIDO -->
+<section id="guia">
+  <p class="section-label">12 — Guia Rápido</p>
+  <div class="cheat-grid reveal">
+    <div class="cheat-card">
+      <p class="cheat-title">Cores por peça</p>
+      <p class="cheat-list"><strong>Lançamento:</strong> Bordô #941D41 + Azul #6080D1<br><strong>1º Encontro:</strong> Azul Royal #204FC6 + Ouro #CFAD24<br><strong>2º Encontro:</strong> Laranja #FDA437 + Terracota #A83B30<br><strong>3º Encontro:</strong> Verde #50C878 + Azul #3E44C3<br><strong>4º Encontro:</strong> Magenta #FF00FF + Verde #50C878</p>
+    </div>
+    <div class="cheat-card">
+      <p class="cheat-title">Tipografia</p>
+      <p class="cheat-list"><strong>Títulos e corpo:</strong> Comely (web: Caveat)<br><strong>Selo 26 anos:</strong> condensada caixa alta (web: Bebas Neue)<br><strong>Serviço (data/local):</strong> sans-serif limpa</p>
+    </div>
+    <div class="cheat-card">
+      <p class="cheat-title">O que sempre entra</p>
+      <p class="cheat-list">Selo "26 Anos" no canto superior · título "ENCONTRO DE IMPROVISADORES" com fita de destaque · subtítulo "Uma nova criação se faz no agora" · texto sempre branco</p>
+    </div>
+    <div class="cheat-card">
+      <p class="cheat-title">O que nunca fazer</p>
+      <p class="cheat-list">Repetir a mesma cor em duas peças diferentes · trocar a fonte manuscrita por uma fonte de sistema · remover o selo comemorativo</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const c = document.getElementById('rizoma');
+  const ctx = c.getContext('2d');
+  let W, H, pts;
+  function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; init(); }
+  function init(){ pts = Array.from({length:55},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25})); }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1; });
+    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.hypot(dx,dy);
+      if(d<140){ ctx.strokeStyle=`rgba(192,132,252,${(1-d/140)*.7})`; ctx.lineWidth=.5; ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); }
+    }
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize',resize); resize(); draw();
+})();
+
+(function(){
+  const secs = document.querySelectorAll('section');
+  const dots = document.querySelectorAll('.nav-dot');
+  dots.forEach((d,i)=>d.addEventListener('click',()=>secs[i].scrollIntoView({behavior:'smooth'})));
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ const i=Array.from(secs).indexOf(e.target); dots.forEach(d=>d.classList.remove('active')); if(dots[i])dots[i].classList.add('active'); } });
+  },{threshold:.5});
+  secs.forEach(s=>obs.observe(s));
+})();
+
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } }); },{threshold:.12});
+  els.forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>
