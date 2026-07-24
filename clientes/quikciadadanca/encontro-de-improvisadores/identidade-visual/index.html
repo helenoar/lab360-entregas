@@ -69,6 +69,15 @@
     .hero-meta-item .label { font-size: 9px; letter-spacing: 0.2em; color: rgba(255,255,255,0.22); text-transform: uppercase; }
     .hero-meta-item .value { font-size: 14px; font-weight: 500; color: var(--white-dim); }
 
+    .download-bar { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .dl-btn { display: inline-flex; align-items: center; gap: 14px; padding: 14px 22px; border: 1px solid rgba(255,255,255,0.25); border-radius: 4px; text-decoration: none; transition: border-color 0.2s, background 0.2s, transform 0.2s; }
+    .dl-btn:hover { border-color: var(--accent); background: rgba(192,132,252,0.08); transform: translateY(-2px); }
+    .dl-icon { width: 30px; height: 30px; flex-shrink: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--white); transition: border-color 0.2s, color 0.2s; }
+    .dl-btn:hover .dl-icon { border-color: var(--accent); color: var(--accent); }
+    .dl-text { display: flex; flex-direction: column; gap: 2px; }
+    .dl-title { font-size: 13.5px; font-weight: 600; color: var(--white); }
+    .dl-meta { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
     /* TEXTO / INTRO comum a várias seções */
     .intro-text { font-size: clamp(18px, 2.2vw, 26px); font-weight: 300; line-height: 1.7; color: var(--white-dim); max-width: 760px; margin-bottom: 16px; }
     .intro-text strong { font-weight: 700; color: var(--white); }
@@ -231,6 +240,16 @@
     <div class="hero-meta-item"><span class="label">Acesso</span><span class="value">Entrada Gratuita</span></div>
     <div class="hero-meta-item"><span class="label">Realização</span><span class="value">Quik Cia de Dança</span></div>
     <div class="hero-meta-item"><span class="label">Marco</span><span class="value">26 Anos de Trajetória</span></div>
+  </div>
+  <div class="download-bar reveal">
+    <a class="dl-btn" href="Design/FILIPETA%20DE%20LAN%C3%87AMENTO.pdf" download target="_blank" rel="noopener">
+      <span class="dl-icon">↓</span>
+      <span class="dl-text"><span class="dl-title">Baixar peça de lançamento</span><span class="dl-meta">PDF · 5,6 MB</span></span>
+    </a>
+    <a class="dl-btn" href="Design/FILIPETAS%20DOS%20ENCONTROS.pdf" download target="_blank" rel="noopener">
+      <span class="dl-icon">↓</span>
+      <span class="dl-text"><span class="dl-title">Baixar peças dos 4 encontros</span><span class="dl-meta">PDF · 13 MB</span></span>
+    </a>
   </div>
 </section>
 
@@ -416,6 +435,16 @@
     <span class="rede-tag">Instagram · @quikciadedanca</span>
     <span class="rede-tag">Feed 1080×1080</span>
     <span class="rede-tag">Stories 1080×1920</span>
+  </div>
+  <div class="download-bar reveal">
+    <a class="dl-btn" href="Design/FILIPETA%20DE%20LAN%C3%87AMENTO.pdf" download target="_blank" rel="noopener">
+      <span class="dl-icon">↓</span>
+      <span class="dl-text"><span class="dl-title">Baixar peça de lançamento</span><span class="dl-meta">PDF · 5,6 MB</span></span>
+    </a>
+    <a class="dl-btn" href="Design/FILIPETAS%20DOS%20ENCONTROS.pdf" download target="_blank" rel="noopener">
+      <span class="dl-icon">↓</span>
+      <span class="dl-text"><span class="dl-title">Baixar peças dos 4 encontros</span><span class="dl-meta">PDF · 13 MB</span></span>
+    </a>
   </div>
 </section>
 
